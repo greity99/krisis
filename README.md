@@ -1,2 +1,2 @@
 KrisKlar - 
-Ni hittar koden på denna länken: https://github.com/greity99/krisis
+To see our static website download the entire folder and run the main file in your program of choice.
