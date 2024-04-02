@@ -1,0 +1,18 @@
+#icon-post {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+#aside_index {
+    background-color: rgb(217, 213, 207);
+}
+
+.widht-select {
+    width: 15vw;
+}
+
+#map {
+    height: 50vh;
+    width: 25vw;
+    background-color: rgb(68, 55, 46);
+}
