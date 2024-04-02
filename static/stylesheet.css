@@ -15,7 +15,7 @@
 #map {
     height: 50vh;
     width: 25vw;
-    background-color: rgb(68, 55, 46);
+    background-color: rgb(162, 161, 160);
 }
 
 @media screen and (max-width: 576px) {
