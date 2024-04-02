@@ -13,14 +13,29 @@
 }
 
 #map {
-    height: 50vh;
-    width: 25vw;
+    height: 30vh;
+    width: 15vw;
     background-color: rgb(162, 161, 160);
 }
 
-@media screen and (max-width: 576px) {
+.bg-img {
+    background-image: url(copcar.jpg);
+    height: 80vh;
+    background-position: center;
+    background-size: cover;
+
+}
+
+@media screen and (max-width: 576px){
     .widht-select {
         width: 50vw;
     }
 
+}
+
+@media screen and (max-width: 768px) and (min-width: 576px){
+    .widht-select {
+        width: 30vw;
+    }
+    
 }
