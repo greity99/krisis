@@ -36,6 +36,13 @@
     border-left: 10px solid #000000;
 }
 
+.form_publish_post {
+    background-color: rgb(234, 216, 188);
+    padding: 10px;
+    margin-left: 20px;
+    width: 43vw;
+}
+
 @media screen and (max-width: 576px){
     .widht-select {
         width: 50vw;
