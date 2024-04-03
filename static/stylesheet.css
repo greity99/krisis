@@ -22,8 +22,18 @@
     background-image: url(copcar.jpg);
     height: 80vh;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
 
+}
+
+.card-img-sizing {
+    height:20vh;
+    object-fit: cover;
+}
+
+.chrisis_tips_card {
+    box-shadow: 6px 6px 0 0 rgba(33,54,90,.11)!important;
+    border-left: 10px solid #000000;
 }
 
 @media screen and (max-width: 576px){
