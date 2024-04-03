@@ -5,13 +5,14 @@ import route, run, template, static_file, request, redirect
 def index():
     return template("index")
 
-@route("/views/chrisis_tips.html")
+@route("/views/krisklar_tips.html")
 def chrisis_tips():
-    return template("chrisis_tips")
+    return template("krisklar_tips")
 
-@route("/view/publish_post.html")
+#Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
+@route("/view/publicera_inlägg.html")
 def publish_post():
-    return template("publish_post")
+    return template("publicera_inlägg")
 
 @route("/views/login.html")
 def login():
