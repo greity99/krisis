@@ -1,4 +1,4 @@
-from bottle
+from bottle import run, template, route
 import route, run, template, static_file, request, redirect
 
 @route("/")
