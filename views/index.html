@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hem</title>
+    <!--BootstrapCSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/stylesheet.css">
+</head>
+
+<body>
+    <div class="container-fluid bg-dark p-4 ">
+        <div class="mx-5 row">
+            <div class="col-12 col-md-8 d-flex flex-column align-items-center align-items-md-start">
+                <h2 class="h1" style="color: beige;">KrisKlar.se</h2>
+                <p style="color: beige;">Information för en säkrare vardag</p>
+            </div>
+            <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-md-end">
+                <ul class="list-unstyled">
+                    <li class="">
+                        <a class="nav-link" href="login.html" style="color: beige;">Logga in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--BootStrap NavBar-->
+    <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container d-md-flex justify-content-end">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" aria-current="page" href="index.html">Hem</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="chrisis_tips.html">Krishantering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="publish_post.html">Publicera inlägg</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-md mb-5">
+        <div class="row">
+            <!--Filters, form-->
+            <aside class="col-12 col-md-3" id="aside_index">
+                <h3 class="mt-4 text-center">Filtrering</h3>
+                <hr>
+                <form action="" class="mb-3">
+                    <label class="d-flex justify-content-center text-center" for="city">
+                        <h6>Plats</h6>
+                    </label>
+                    <select name="city" id="city" class="form-select widht-select mx-auto mt-0 mb-3">
+                        <option value="none" selected>Välj...</option>
+                        <option value="Malmö">Malmö</option>
+                        <option value="Lund">Lund</option>
+                        <option value="Karlshamn">Karlshamn</option>
+                        <!--
+                                Python:
+                                for i in cities print <option value="i">i</option>?
+                            -->
+                    </select>
+                    <label class="d-flex justify-content-center text-center" for="category">
+                        <h6>Riskkategori</h6>
+                    </label>
+                    <select name="category" id="category" class="form-select widht-select mx-auto mt-2 mb-3">
+                        <option value="none" selected>Välj...</option>
+                        <option value="Fire">Brand</option>
+                        <option value="Shooting">Skottlossning</option>
+                        <option value="Smoke">Rökutveckling</option>
+                        <!--
+                                Python:
+                                for i in cities print <option value="i">i</option>?
+                            -->
+                    </select>
+                    <h4 class="mt-2 text-center">Källa</h4>
+                    <!--Bootstrap checkbox, switch-->
+                    <div class="form-check form-switch d-flex justify-content-center mt-3">
+                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault"> Polisen.se</label>
+                    </div>
+                    <!--Bootstrap checkbox, switch-->
+                    <div class="form-check form-switch d-flex justify-content-center mt-2">
+                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault"> KrisKlar.se</label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <input type="submit" class="btn btn-dark" value="Hitta händelser">
+                    </div>
+                </form>
+                <div class="d-none d-md-flex flex-column">
+                    <hr>
+                    <h3 class="mt-4 text-center">Karta</h3>
+                    <div id="map" class="mx-auto mt-4">
+                        <!--API Google Maps-->
+                    </div>
+                </div>
+            </aside>
+
+
+
+            <!--Events-->
+            <div class="col-12 col-md-8">
+                <h1 class="ms-4 mt-4">Händelser</h1>
+                <!--Post-->
+                <div class="card mx-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Krisrubrik</h5>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
+                                    aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!</p>
+                            </div>
+                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                <img class="img-thumbnail rounded-circle icon-post" src="https://picsum.photos/200/300"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                    </div>
+                </div>
+                <!--Post-->
+                <div class="card mx-4 mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Krisrubrik</h5>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
+                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                            </div>
+                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                <img class="img-thumbnail rounded-circle icon-post" src="https://picsum.photos/208/300"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                    </div>
+                </div>
+                <!--Post-->
+                <div class="card mx-4 mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Krisrubrik</h5>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
+                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                            </div>
+                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                <img class="img-thumbnail rounded-circle icon-post
+                                        src=" https://picsum.photos/218/300" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                    </div>
+                </div>
+                <!--Post-->
+                <div class="card mx-4 mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Krisrubrik</h5>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-8">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
+                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                            </div>
+                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                <img class="img-thumbnail rounded-circle icon-post
+                                        src=" https://picsum.photos/208/340" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <!--Footer-->
+    <footer class="footer bg-dark p-3" data-bs-theme="dark">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2"><span class="mb-3 mb-md-0 text-body-secondary">© 2024 KrisKlar</span></div>
+                <div class="col-10"></div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!--BootstrapJS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
