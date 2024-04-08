@@ -1,3 +1,7 @@
+body {
+    background-color: #fffafa;
+}
+
 .icon-post {
     height: 100px;
     width: 100px;
@@ -8,8 +12,8 @@
     background-color: #2a2e42 !important;
 }
 
-#aside_index {
-    background-color: #4e5575;
+.general_light_blue {
+    background-color: #8698B3
 }
 
 .widht-select {
@@ -21,7 +25,6 @@
     height: 80vh;
     background-position: center;
     background-size: contain;
-
 }
 
 .card-img-sizing {
