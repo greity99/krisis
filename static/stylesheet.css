@@ -4,18 +4,16 @@
     object-fit: cover;
 }
 
+.navbar {
+    background-color: #2a2e42 !important;
+}
+
 #aside_index {
-    background-color: rgb(217, 213, 207);
+    background-color: #4e5575;
 }
 
 .widht-select {
     width: 15vw;
-}
-
-#map {
-    height: 30vh;
-    width: 15vw;
-    background-color: rgb(162, 161, 160);
 }
 
 .bg-img {
@@ -41,6 +39,10 @@
     padding: 10px;
     margin-left: 20px;
     width: 43vw;
+}
+
+.footer {
+    background-color: #2a2e42 !important;
 }
 
 @media screen and (max-width: 576px){
