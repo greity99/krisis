@@ -9,12 +9,12 @@ body {
     object-fit: cover;
 }
 
-.navbar {
+.btn, .navbar {
     background-color: #2a2e42 !important;
 }
 
 .general_light_blue {
-    background-color: #8698B3
+    background-color: #8698B3;
 }
 
 .widht-select {
@@ -39,7 +39,7 @@ body {
 }
 
 .form_publish_post {
-    background-color: rgb(234, 216, 188);
+    background-color: #8698B3;
     padding: 10px;
     margin-left: 20px;
     width: 43vw;
