@@ -15,24 +15,46 @@ port = "5432"  # Default PostgreSQL port
 
 @route("/")
 def index():
+    """
+    Returnar startsidan. 
+
+    Returns,
+    template: index
+    """
     return template("index")
 
 @route("/views/krisklar_tips.html")
 def chrisis_tips():
+    """
+    Returns,
+    template: chrisis_tips
+    """
     return template("chrisis_tips")
 
 #Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
 @route("/view/publicera_inlägg.html")
 def publish_post():
-    return template("publicera_inlägg")
+    """
+    Returns,
+    template: publish_post
+    """
+    return template("publish_post")
 
 @route("/Kontakt")
-def login():
+def contact():
+    """
+    Returns,
+    template: contact
+    """
     return template("contact")
 
 @route("/Logga in")
 def login():
-    return template("login.html")
+    """
+    Returns,
+    template: login
+    """
+    return template("login")
 
 '''
 #Connect to PostgreSQL
