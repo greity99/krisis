@@ -1,21 +1,24 @@
+body {
+    background-color: #fffafa;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .icon-post {
     height: 100px;
     width: 100px;
     object-fit: cover;
 }
 
-#aside_index {
-    background-color: rgb(217, 213, 207);
+.btn, .navbar {
+    background-color: #2a2e42 !important;
+}
+
+.general_light_blue {
+    background-color: #8698B3;
 }
 
 .widht-select {
     width: 15vw;
-}
-
-#map {
-    height: 30vh;
-    width: 15vw;
-    background-color: rgb(162, 161, 160);
 }
 
 .bg-img {
@@ -23,11 +26,10 @@
     height: 80vh;
     background-position: center;
     background-size: contain;
-
 }
 
 .card-img-sizing {
-    height:20vh;
+    height: 20vh;
     object-fit: cover;
 }
 
@@ -37,10 +39,14 @@
 }
 
 .form_publish_post {
-    background-color: rgb(234, 216, 188);
+    background-color: #8698B3;
     padding: 10px;
     margin-left: 20px;
     width: 43vw;
+}
+
+.footer {
+    background-color: #2a2e42 !important;
 }
 
 @media screen and (max-width: 576px){

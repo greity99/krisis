@@ -12,21 +12,6 @@
 </head>
 
 <body>
-    <div class="container-fluid bg-dark p-4 ">
-        <div class="mx-5 row">
-            <div class="col-12 col-md-8 d-flex flex-column align-items-center align-items-md-start">
-                <h2 class="h1" style="color: beige;">KrisKlar.se</h2>
-                <p style="color: beige;">Information för en säkrare vardag</p>
-            </div>
-            <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-md-end">
-                <ul class="list-unstyled">
-                    <li class="">
-                        <a class="nav-link" href="login.html" style="color: beige;">Logga in</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <!--BootStrap NavBar-->
     <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container d-md-flex justify-content-end">
@@ -46,15 +31,23 @@
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="publish_post.html">Publicera inlägg</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="contact.html">Kontakta oss</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="login.html">Logga in</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container-md mb-5">
+    <!--Wrapper-->
+    <div class="container-md mb-5">
         <div class="row">
-            <!--Filters, form-->
-            <aside class="col-12 col-md-3" id="aside_index">
+
+            <!--Aside content-->
+            <aside class="col-12 col-md-3 general_light_blue">
                 <h3 class="mt-4 text-center">Filtrering</h3>
                 <hr>
                 <form action="" class="mb-3">
@@ -99,100 +92,100 @@
                         <input type="submit" class="btn btn-dark" value="Hitta händelser">
                     </div>
                 </form>
-                <div class="d-none d-md-flex flex-column">
-                    <hr>
-                    <h3 class="mt-4 text-center">Karta</h3>
-                    <div id="map" class="mx-auto mt-4">
-                        <!--API Google Maps-->
-                    </div>
-                </div>
             </aside>
 
-
-
-            <!--Events-->
-            <div class="col-12 col-md-8">
-                <h1 class="ms-4 mt-4">Händelser</h1>
-                <!--Post-->
-                <div class="card mx-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Krisrubrik</h5>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
-                                    aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!</p>
+            <!--Main content-->
+            <main class="col-12 col-md-9">
+                <div class="row">
+                    <!--Events-->
+                    <div>
+                        <h1 class="ms-4 mt-4">Händelser</h1>
+                        <!--Post-->
+                        <div class="card mx-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Krisrubrik</h5>
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-8">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
+                                            aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                        <img class="img-thumbnail rounded-circle icon-post"
+                                            src="https://picsum.photos/200/300" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
-                                <img class="img-thumbnail rounded-circle icon-post" src="https://picsum.photos/200/300"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer small text-muted">
-                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                    </div>
-                </div>
-                <!--Post-->
-                <div class="card mx-4 mt-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Krisrubrik</h5>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
-                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
-                            </div>
-                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
-                                <img class="img-thumbnail rounded-circle icon-post" src="https://picsum.photos/208/300"
-                                    alt="">
+                            <div class="card-footer small text-muted">
+                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer small text-muted">
-                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                    </div>
-                </div>
-                <!--Post-->
-                <div class="card mx-4 mt-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Krisrubrik</h5>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
-                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                        <!--Post-->
+                        <div class="card mx-4 mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Krisrubrik</h5>
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-8">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia
+                                            asperiores
+                                            dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                        <img class="img-thumbnail rounded-circle icon-post"
+                                            src="https://picsum.photos/208/300" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
-                                <img class="img-thumbnail rounded-circle icon-post
+                            <div class="card-footer small text-muted">
+                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                            </div>
+                        </div>
+                        <!--Post-->
+                        <div class="card mx-4 mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Krisrubrik</h5>
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-8">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia
+                                            asperiores
+                                            dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                        <img class="img-thumbnail rounded-circle icon-post
                                         src=" https://picsum.photos/218/300" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer small text-muted">
+                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer small text-muted">
-                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                    </div>
-                </div>
-                <!--Post-->
-                <div class="card mx-4 mt-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Krisrubrik</h5>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia asperiores
-                                    dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
-                            </div>
-                            <div class="col-lg-5 col-md-4 d-flex justify-content-center">
-                                <img class="img-thumbnail rounded-circle icon-post
+                        <!--Post-->
+                        <div class="card mx-4 mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Krisrubrik</h5>
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-8">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde officia
+                                            asperiores
+                                            dolorum minus totam tenetur ut sapiente, et veniam debitis.</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-4 d-flex justify-content-center">
+                                        <img class="img-thumbnail rounded-circle icon-post
                                         src=" https://picsum.photos/208/340" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer small text-muted">
+                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer small text-muted">
-                        Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                    </div>
                 </div>
-            </div>
         </div>
-        </div>
+    </div>
     </main>
+    </div>
     <!--Footer-->
     <footer class="footer bg-dark p-3" data-bs-theme="dark">
         <div class="container-fluid">
