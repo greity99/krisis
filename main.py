@@ -18,25 +18,41 @@ def index():
     """
     Returnar startsidan. 
 
-    Returns:
+    Returns,
     template: index
     """
     return template("index")
 
 @route("/Krishantering")
 def chrisis_tips():
+    """
+    Returns,
+    template: chrisis_tips
+    """
     return template("chrisis_tips")
 
 @route("/Ny")
 def publish_post():
+    """
+    Returns,
+    template: publish_post
+    """
     return template("publish_post")
 
 @route("/Kontakt")
-def login():
+def contact():
+    """
+    Returns,
+    template: contact
+    """
     return template("contact")
 
 @route("/Logga in")
 def login():
+    """
+    Returns,
+    template: login
+    """
     return template("login")
 
 '''
