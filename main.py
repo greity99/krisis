@@ -17,7 +17,7 @@ def index():
 
 @route("/views/chrisis_tips.html")
 def chrisis_tips():
-    return template("chrisis_tips")
+    return template("chrisis_tips.html")
 
 #Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
 @route("/views/publish_post.html")
