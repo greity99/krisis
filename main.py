@@ -2,45 +2,47 @@
 from bottle import run, template, route
 import psycopg2
 
-# General variables
+#General variables
 host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
 password = "diq8q181"
 port = "5432"  # Default PostgreSQL port
 
-# Routes
+
+
 @route("/")
 def index():
-    return template("index.tpl")
+    return template("index.html")
 
-@route("/views/krisklar_tips.html")
+@route("/views/chrisis_tips.html")
 def chrisis_tips():
-    return template("krisklar_tips.tpl")
+    return template("chrisis_tips")
 
-@route("/views/publicera_inlägg.html")
+#Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
+@route("/views/publish_post.html")
 def publish_post():
-    return template("publicera_inlägg.tpl")
+    return template("publish_post.html")
 
 @route("/views/login.html")
 def login():
-    return template("login.tpl")
+    return template("login.html")
 
-# Connect to PostgreSQL
+#Connect to PostgreSQL
 try: 
     conn = psycopg2.connect(
-        host=host,
-        dbname=dbname,
-        user=user,
-        password=password,
-        port=port
+    host=host,
+    dbname=dbname,
+    user=user,
+    password=password,
+    port=port  
     )
 
-    # Open a cursor
-    # The cursor is needed to perform database operations
+    #Open a cursor
+    #The cursor is needed to perform database operations
     cur = conn.cursor()
     
 except psycopg2.Error as error: 
     print(f"Error: unable to connect to the database\n {error}")
-
+    
 run(host="127.0.0.1", port=8080)
