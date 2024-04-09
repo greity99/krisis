@@ -1,10 +1,10 @@
 #import modules
-from bottle import run, template, route
-import route, run, template, static_file, request, redirect
-import psycopg2
- 
-'''
+from bottle import run, template, route, static_file, request, redirect, error
+#import psycopg2
+
 #General variables
+'''
+#Databas
 host = "pgserver.mau.se"
 database = "XXX"
 user = "XXX"
@@ -15,19 +15,29 @@ port = "5432"  # Default PostgreSQL port
 
 @route("/")
 def index():
-    return template("index.html")
+    """
+    Returnar startsidan. 
 
-@route("/Kristips")
+    Returns:
+    template: index
+    """
+    return template("index")
+
+@route("/Krishantering")
 def chrisis_tips():
-    return template("chrisis_tips.html")
+    return template("chrisis_tips")
 
-@route("/Skapa inlägg")
+@route("/Ny")
 def publish_post():
-    return template("publish_post.html")
+    return template("publish_post")
 
-@route("/logga in")
+@route("/Kontakt")
 def login():
-    return template("login.html")
+    return template("contact")
+
+@route("/Logga in")
+def login():
+    return template("login")
 
 '''
 #Connect to PostgreSQL
@@ -47,5 +57,12 @@ try:
 except psycopg2.Error as error: 
     print(f"Error: unable to connect to the database\n {error}")
 '''
+
+@route("/static/<filename>")
+def static_files(filename):
+    """
+    Funktion vilken returnerar statiska filer (ex. CSS) från mappen static.
+    """
+    return static_file(filename, root="static")
 
 run(host="127.0.0.1", port=8080)
