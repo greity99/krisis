@@ -15,18 +15,18 @@ port = "5432"  # Default PostgreSQL port
 def index():
     return template("index.html")
 
-@route("/views/chrisis_tips.html")
+@route("/views/chrisis_tips")
 def chrisis_tips():
     return template("chrisis_tips")
 
 #Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
-@route("/views/publish_post.html")
+@route("/views/publish_post")
 def publish_post():
     return template("publish_post.html")
 
-@route("/views/login.html")
+@route("/login")
 def login():
-    return template("login.html")
+    return template("/views/login.html")
 
 #Connect to PostgreSQL
 try: 
@@ -40,7 +40,7 @@ try:
 
     #Open a cursor
     #The cursor is needed to perform database operations
-    cur = conn.cursor()
+    cursor = conn.cursor()
     
 except psycopg2.Error as error: 
     print(f"Error: unable to connect to the database\n {error}")
