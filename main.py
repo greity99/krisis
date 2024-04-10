@@ -1,17 +1,15 @@
 #import modules
 from bottle import run, template, route, static_file, request, redirect, error
-#import psycopg2
+import psycopg2
 
 #General variables
-'''
+
 #Databas
 host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
 password = "diq8q181"
 port = "5432"  # Default PostgreSQL port
-'''
-
 
 @route("/")
 def index():
@@ -56,7 +54,7 @@ def login():
     """
     return template("login")
 
-'''
+
 #Connect to PostgreSQL
 try: 
     conn = psycopg2.connect(
@@ -73,7 +71,6 @@ try:
     
 except psycopg2.Error as error: 
     print(f"Error: unable to connect to the database\n {error}")
-'''
 
 @route("/static/<filename>")
 def static_files(filename):
