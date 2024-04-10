@@ -1,6 +1,6 @@
 #import modules
 from bottle import run, template, route, static_file, request, redirect, error
-#import psycopg2
+import psycopg2
 
 #General variables
 '''
