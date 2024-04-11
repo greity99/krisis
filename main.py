@@ -2,14 +2,13 @@
 from bottle import run, template, route, static_file, request, redirect, error
 import psycopg2
 
-#General variables
-
 #Databas
 host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
 password = "diq8q181"
 port = "5432"  # Default PostgreSQL port
+
 
 @route("/")
 def index():
@@ -21,12 +20,11 @@ def index():
     """
     return template("index")
 
-@route("/views/krisklar_tips.html")
+@route("/Krishantering")
 def chrisis_tips():
     return template("chrisis_tips.html")
 
-#Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
-@route("/view/publicera_inlägg.html")
+@route("/Ny")
 def publish_post():
     """
     Returns,
