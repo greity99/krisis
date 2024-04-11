@@ -38,7 +38,7 @@ def publish_post():
 def publish_post():
     category = request.forms.get("category")
     city = request.forms.get("city")
-    zip_code = request.forms.get("zip_code")  
+    zip_code = request.forms.get("ZIP-code")  
     
     try:
         conn = psycopg2.connect(
@@ -51,11 +51,13 @@ def publish_post():
         
         cur = conn.cursor()
 
-        cur.execute("INSERT INTO app_publish (category) VALUES (%s) ON CONFLICT DO NOTHING", (category,))
-
-        cur.execute("INSERT INTO app_publish (city) VALUES (%s) ON CONFLICT DO NOTHING", (city,))
-
-        cur.execute("INSERT INTO app_publish (zip_code) VALUES (%s) ON CONFLICT DO NOTHING", (zip_code,))
+        cur.execute(
+            '''
+                INSERT INTO app_publish 
+                VALUES (%s, %s, %s) 
+                ON CONFLICT DO NOTHING
+            ''', (category, city, zip_code,)
+        )
         
         conn.commit()
 
@@ -113,3 +115,4 @@ def static_files(filename):
     return static_file(filename, root="static")
 
 run(host="127.0.0.1", port=8080)
+

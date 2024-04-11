@@ -48,22 +48,22 @@
             <!--Contains background-image-->
             <aside class="col-sm-3 bg-img">
             </aside>
-            <div class="col-sm-9">
+            <div class="col-sm-9 col-lg-7">
                 <h1 class="ms-4 mt-4">Publicera ett inlägg</h1>
                 <hr>
                 <p class="ms-4"> <b>Har du sett eller varit med om något som du vill informera allmänheten
                         om?</b><br>Fyll i nedan formulär så ser vi till att folk får reda på händelsen</p>
                 <!--Form-->
-                <form action="/Ny" method="post" class="form_publish_post">
-                    <div class="col-12 col-sm-5">
+                <form action="/Ny" method="post" class="form_publish_post mt-3 p-3">
+                    <div class="col-10 col-sm-9 col-md-5">
                         <label for="category" class="form-label">
-                            <h3 class="ms-4 mt-2">Kriskategori</h3>
+                            <h3 class="ms-4 mt-3">Kriskategori</h3>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" placeholder="Sök...">
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" placeholder="Sök...">
                         <datalist id="categoryOptions">
                             <option value="Brand">
                             <option value="Skottlossning">
-                            <option value="Röutveckling">
+                            <option value="Rökutveckling">
 
                                 <!--
                                 Python:
@@ -72,22 +72,22 @@
                         </datalist>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-lg-5">
+                        <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="city" class="form-label">
                                 <h3 class="ms-4 mt-2">Stad</h3>
                             </label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" placeholder="Sök..." required>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." required>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
                                 <option value="Lund">
                                 <option value="Karlshamn">
                             </datalist>
                         </div>
-                        <div class="col-12 col-lg-5">
+                        <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="ZIP-code" class="form-label">
                                 <h3 class="ms-4 mt-2">Postnummer</h3>
                             </label>
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" placeholder="Sök..."
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" placeholder="Sök..."
                                 required>
                             <datalist id="zipOptions">
                                 <option value="21110">
@@ -102,9 +102,7 @@
                             Den information som jag har uppgett är sanningsenlig
                         </label>
                     </div>
-
                     <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" value="Publicera händelse">
-
                 </form>
             </div>
         </div>
