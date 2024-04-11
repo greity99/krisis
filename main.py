@@ -42,13 +42,13 @@ def contact():
     """
     return template("contact")
 
-@route("/Logga in")
+@route("/Login")
 def login():
     """
     Returns,
     template: login
     """
-    return template("login")
+    return template("login.html")
 
 
 #Connect to PostgreSQL
