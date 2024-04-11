@@ -51,11 +51,11 @@ def publish_post():
         
         cur = conn.cursor()
 
-        cur.execute("INSERT INTO categories (name) VALUES (%s) ON CONFLICT DO NOTHING", (category,))
+        cur.execute("INSERT INTO app_publish (category) VALUES (%s) ON CONFLICT DO NOTHING", (category,))
 
-        cur.execute("INSERT INTO cities (name) VALUES (%s) ON CONFLICT DO NOTHING", (city,))
+        cur.execute("INSERT INTO app_publish (city) VALUES (%s) ON CONFLICT DO NOTHING", (city,))
 
-        cur.execute("INSERT INTO post_numbers (number) VALUES (%s) ON CONFLICT DO NOTHING", (zip_code,))
+        cur.execute("INSERT INTO app_publish (zip_code) VALUES (%s) ON CONFLICT DO NOTHING", (zip_code,))
         
         conn.commit()
 
