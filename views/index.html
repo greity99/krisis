@@ -53,7 +53,7 @@
                 <form action="" class="mb-3">
 
                     <!--Categories-->
-                    <label class="d-flex justify-content-center text-center" for="category" class="form-label">
+                    <label class="d-flex justify-content-center text-center form-label" for="category">
                         <h6>Riskkategori</h6>
                     </label>
                     <input class="form-control widht-select mx-auto mt-2 mb-3" list="categoryOptions" id="category"
@@ -69,7 +69,7 @@
                     </datalist>
 
                     <!--City-->
-                    <label class="d-flex justify-content-center text-center" for="city" class="form-label">
+                    <label class="d-flex justify-content-center text-center form-label" for="city">
                         <h6>Stad</h6>
                     </label>
                     <input class="form-control widht-select mx-auto mt-2 mb-3" list="cityOptions" id="city" name="city"
@@ -84,9 +84,8 @@
                             -->
                     </datalist>
 
-
                     <!--Zip-code-->
-                    <label class="d-flex justify-content-center text-center" for="ZIP-code" class="form-label">
+                    <label class="d-flex justify-content-center text-center form-label" for="ZIP-code">
                         <h6>Postnummer</h6>
                     </label>
                     <input class="form-control widht-select mx-auto mt-2 mb-3" list="zipOptions" id="ZIP-code"
@@ -101,16 +100,23 @@
                             -->
                     </datalist>
 
+                    <label class="d-flex justify-content-center text-center form-label" for="date">
+                        <h6>Datum för publicering</h6>
+                    </label>
+                    <input class="form-control widht-select mx-auto mt-2 mb-3" type="date" id="date" name="date">
+
+
+
                     <h4 class="mt-2 text-center">Källa</h4>
                     <!--Bootstrap checkbox, switch-->
                     <div class="form-check form-switch d-flex justify-content-center mt-3">
-                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"> Polisen.se</label>
+                        <input class="form-check-input me-2" type="checkbox" id="switchPolice">
+                        <label class="form-check-label" for="switchPolice"> Polisen.se</label>
                     </div>
                     <!--Bootstrap checkbox, switch-->
                     <div class="form-check form-switch d-flex justify-content-center mt-2">
-                        <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"> KrisKlar.se</label>
+                        <input class="form-check-input me-2" type="checkbox" id="switchKrisKlar">
+                        <label class="form-check-label" for="switchKrisKlar"> KrisKlar.se</label>
                     </div>
                     <div class="d-flex justify-content-center mt-4">
                         <input type="submit" class="btn btn-dark" value="Hitta händelser">
