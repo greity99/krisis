@@ -24,7 +24,7 @@ def index():
 def chrisis_tips():
     return template("chrisis_tips.html")
 
-@route("/Ny")
+@route("/Publicera")
 def publish_post():
     """
     Returns,
