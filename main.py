@@ -24,6 +24,8 @@ def index():
 def chrisis_tips():
     return template("chrisis_tips.html")
 
+
+
 @route("/Ny")
 def publish_post():
     """
@@ -31,6 +33,43 @@ def publish_post():
     template: publish_post
     """
     return template("publish_post")
+    
+@route("/Ny", method="POST")
+def publish_post():
+    category = request.forms.get("category")
+    city = request.forms.get("city")
+    zip_code = request.forms.get("zip_code")  
+    
+    try:
+        conn = psycopg2.connect(
+            host=host,
+            dbname=dbname,
+            user=user,
+            password=password,
+            port=port
+        )
+        
+        cur = conn.cursor()
+
+        cur.execute("INSERT INTO categories (name) VALUES (%s) ON CONFLICT DO NOTHING", (category,))
+
+        cur.execute("INSERT INTO cities (name) VALUES (%s) ON CONFLICT DO NOTHING", (city,))
+
+        cur.execute("INSERT INTO post_numbers (number) VALUES (%s) ON CONFLICT DO NOTHING", (zip_code,))
+        
+        conn.commit()
+
+        cur.close()
+        conn.close()
+        
+
+        return "Data inserted successfully!"
+    
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+        
+        return f"Error: unable to insert data\n{error}"
 
 @route("/Kontakt")
 def contact():
