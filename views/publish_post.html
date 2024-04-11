@@ -29,7 +29,8 @@
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Krishantering">Krishantering</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" aria-current="page" href="/Ny">Publicera inlägg</a>
+                        <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" aria-current="page" href="/Ny">Publicera
+                            inlägg</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta oss</a>
@@ -47,48 +48,52 @@
             <!--Contains background-image-->
             <aside class="col-sm-3 bg-img">
             </aside>
-            <div class="col-sm-9">
+            <div class="col-sm-9 col-lg-7">
                 <h1 class="ms-4 mt-4">Publicera ett inlägg</h1>
                 <hr>
                 <p class="ms-4"> <b>Har du sett eller varit med om något som du vill informera allmänheten
                         om?</b><br>Fyll i nedan formulär så ser vi till att folk får reda på händelsen</p>
                 <!--Form-->
-                <form action="/Ny" method="post" class="form_publish_post">
-                    <label for="category">
-                        <h3 class="ms-4 mt-2">Kriskategori</h3>
-                    </label>
-                    <select name="category" id="category" class="form-select widht-select ms-4 mt-1 mb-3">
-                        <option value="none" selected>Välj...</option>
-                        <option value="Fire">Brand</option>
-                        <option value="Shooting">Skottlossning</option>
-                        <option value="Smoke">Rökutveckling</option>
-                        <!--
+                <form action="/Ny" method="post" class="form_publish_post mt-3 p-3">
+                    <div class="col-10 col-sm-9 col-md-5">
+                        <label for="category" class="form-label">
+                            <h3 class="ms-4 mt-3">Kriskategori</h3>
+                        </label>
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" placeholder="Sök...">
+                        <datalist id="categoryOptions">
+                            <option value="Brand">
+                            <option value="Skottlossning">
+                            <option value="Rökutveckling">
+
+                                <!--
                                 Python:
                                 for i in cities print <option value="i">i</option>?
                             -->
-                    </select>
+                        </datalist>
+                    </div>
                     <div class="row">
-                        <div class="col-12 col-lg-5">
-                            <label for="city">
+                        <div class="col-10 col-sm-9 col-md-5 p-2">
+                            <label for="city" class="form-label">
                                 <h3 class="ms-4 mt-2">Stad</h3>
                             </label>
-                            <select name="city" id="city" class="form-select widht-select ms-4 mt-1 mb-3">
-                                <option value="none" selected>Välj...</option>
-                                <option value="Malmö">Malmö</option>
-                                <option value="Lund">Lund</option>
-                                <option value="Karlshamn">Karlshamn</option>
-                            </select>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." required>
+                            <datalist id="cityOptions">
+                                <option value="Malmö">
+                                <option value="Lund">
+                                <option value="Karlshamn">
+                            </datalist>
                         </div>
-                        <div class="col-12 col-lg-5">
-                            <label for="ZIP-code">
+                        <div class="col-10 col-sm-9 col-md-5 p-2">
+                            <label for="ZIP-code" class="form-label">
                                 <h3 class="ms-4 mt-2">Postnummer</h3>
                             </label>
-                            <select name="ZIP-code" id="ZIP-code" class="form-select widht-select ms-4 mt-1 mb-3">
-                                <option value="none" selected>Välj...</option>
-                                <option value="21110">211 10</option>
-                                <option value="21111">211 11</option>
-                                <option value="21112">211 12</option>
-                            </select>
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" placeholder="Sök..."
+                                required>
+                            <datalist id="zipOptions">
+                                <option value="21110">
+                                <option value="21111">
+                                <option value="21112">
+                            </datalist>
                         </div>
                     </div>
                     <div class="form-check ms-4 mt-2">
@@ -97,9 +102,7 @@
                             Den information som jag har uppgett är sanningsenlig
                         </label>
                     </div>
-
                     <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" value="Publicera händelse">
-
                 </form>
             </div>
         </div>
