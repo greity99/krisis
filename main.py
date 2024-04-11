@@ -95,7 +95,7 @@ def publish_post():
         
         cursor = conn.cursor()
 
-        cur.execute(
+        cursor.execute(
             '''
                 INSERT INTO app_publish 
                 VALUES (%s, %s, %s) 
