@@ -2,14 +2,13 @@
 from bottle import run, template, route, static_file, request, redirect, error
 import psycopg2
 
-#General variables
-
 #Databas
 host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
 password = "diq8q181"
 port = "5432"  # Default PostgreSQL port
+
 
 @route("/")
 def index():
