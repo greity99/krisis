@@ -20,7 +20,7 @@ def index():
     """
     return template("index")
 
-@route("/views/krisklar_tips.html")
+@route("/Krishantering")
 def chrisis_tips():
     """
     Returns,
@@ -28,8 +28,7 @@ def chrisis_tips():
     """
     return template("chrisis_tips")
 
-#Denna är lite oklar, vet inte varför det finns två publish post/publicera inlägg, återkommer
-@route("/view/publicera_inlägg.html")
+@route("/Ny")
 def publish_post():
     """
     Returns,
