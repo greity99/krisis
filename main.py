@@ -7,7 +7,7 @@ host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
 password = "diq8q181"
-port = "5432"  # Default PostgreSQL port
+port = "5432"  
 
 
 @route("/")
@@ -41,25 +41,18 @@ def publish_post():
     zip_code = request.forms.get("zip_code")  
     
     try:
-        conn = psycopg2.connect(
-            host=host,
-            dbname=dbname,
-            user=user,
-            password=password,
-            port=port
-        )
+        conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
         
-        cur = conn.cursor()
+        cursor = conn.cursor()
 
-        cur.execute("INSERT INTO app_publish (category) VALUES (%s) ON CONFLICT DO NOTHING", (category,))
-
-        cur.execute("INSERT INTO app_publish (city) VALUES (%s) ON CONFLICT DO NOTHING", (city,))
-
-        cur.execute("INSERT INTO app_publish (zip_code) VALUES (%s) ON CONFLICT DO NOTHING", (zip_code,))
+        sql_query = "INSERT INTO app_publish (category, city, zip_code) VALUES (%s, %s, %s)"
+        publish_data = (category, city, zip_code)
+ 
+        cursor.execute(sql_query, publish_data)
         
         conn.commit()
 
-        cur.close()
+        cursor.close()
         conn.close()
         
 
