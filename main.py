@@ -133,6 +133,14 @@ def login():
     """
     return template("login.html")
 
+@route("/Registrering")
+def register():
+    """
+    Returns,
+    template: login
+    """
+    return template("register.html")
+
 
 #Connect to PostgreSQL
 try: 
