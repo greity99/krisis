@@ -1,8 +1,9 @@
 #import modules
 from bottle import run, template, route, static_file, request, redirect, error
 import psycopg2
+from datetime import datetime
 
-#Databas
+#Database
 host = "pgserver.mau.se"
 dbname = "ao7831"
 user = "ao7831"
@@ -10,6 +11,99 @@ password = "diq8q181"
 port = "5432"  
 
 
+#General functions
+#Testa sen med databas för att se i vilket format som datumet sparas då det skickas via formuläret
+def check_user_age(date_str):
+    '''
+    Function which takes a date as an argument and returns True if the user is 16 or older and False if the user is younger than 16.
+    '''
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+    birth_year = date.year
+    year_today = date.today().year
+    age = year_today - birth_year
+    
+    if age < 16:
+        print("Användaren är yngre än 16 år")
+        return False
+    
+    else:
+        print("Användaren är 16 eller äldre")
+        return True
+    
+#Check password
+def check_password_uppercase(pwd):  
+    uppercase = False   
+      
+    for i in pwd:
+        if i.isupper():
+            uppercase = True
+            break
+            
+        else: 
+            uppercase = False
+            
+    if uppercase == False:
+        return False
+    else: 
+        return True
+        
+        
+def check_password_lowercase(pwd):
+    lowercase = False   
+      
+    for i in pwd:
+        if i.islower():
+            lowercase = True
+            break
+            
+        else: 
+            lowercase = False
+            
+    if lowercase == False:
+        return False
+    else: 
+        return True
+    
+def check_password_lenght(pwd):
+    length = len(pwd)
+    if length < 8:
+        return False
+    else:
+        return True
+    
+    
+def check_password_digit(pwd):
+    digit = False   
+      
+    for i in pwd:
+        if i.isdigit():
+            digit = True
+            break
+            
+        else: 
+            digit = False
+            
+    if digit == False:
+        return False
+    else: 
+        return True       
+        
+        
+def check_password_all(pwd):
+    uppercase = check_password_uppercase(pwd)
+    lowercase = check_password_lowercase(pwd)
+    digit = check_password_digit(pwd)
+    length = check_password_lenght(pwd)
+    
+    if uppercase == True and lowercase == True and length == True and digit == True:
+        print("Lösenordet är godkänt!")
+        return True
+    
+    else:
+        print("Lösenordet uppfyller inte kraven, det ska innehålla minst en versal, en gemen, en siffra och bestå av minst 8 karaktärer")
+        return False
+
+#Routes
 @route("/")
 def index():
     """
@@ -140,6 +234,56 @@ def register():
     template: login
     """
     return template("register.html")
+
+@route("/Registrering", method="POST")
+def register_user():
+    email = request.forms.get("email")
+    birthday = request.forms.get("birthday")
+    password = request.forms.get("pwd")
+        
+    age = check_user_age(birthday)
+    
+    if age == True:
+        pwd = check_password_all(password)
+        if pwd == True:
+                conn = psycopg2.connect(
+                    host=host,
+                    dbname=dbname,
+                    user=user,
+                    password=password,
+                    port=port
+                )
+                
+                cur = conn.cursor()
+
+                cur.execute(
+                    '''
+                        INSERT INTO app_user (user_mail, user_password, user_birtday) 
+                        VALUES (%s, %s, %s) 
+                    ''', (email, password, birthday,)
+                )
+                
+                conn.commit()
+
+                cursor.close()
+                conn.close()
+                
+                #Feedback till användaren om att konto är skapat
+        
+        else:
+            pass 
+            #Lösenordet som användaren har uppgett uppfyller inte kraven
+        
+    else:
+        pass
+        #Användaren är inte gammal nog
+            
+        
+        
+        
+    
+        
+        
 
 
 #Connect to PostgreSQL
