@@ -37,7 +37,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Logga in">Logga in/
-                        <br>Registrera dig</a>
+                            <br>Registrera dig</a>
                     </li>
                 </ul>
             </div>
@@ -60,25 +60,35 @@
 
                 <p>Fyll i dina uppgifter nedan!</p>
                 <hr>
-                <form action="" method="">
+                <form action="/Registrering" method="POST">
                     <label for="email" class="form-label">
                         <h4>Mejladress</h4>
                     </label><br>
                     <input class="form-control" type="email" id="email" name="email" placeholder="Din mejladress...">
+                    <p><small>{{no_email_feedback}}</small></p>
                     <label for="birthday">
                         <h4 class="mt-4">Födelsedatum</h4>
                     </label>
+
                     <input class="form-control" type="date" id="birthday" name="birthday">
+                    <p><small>{{no_birthday_feedback}}</small></p>
+                    <p><small>{{age_feedback}}</small></p>
+
+
                     <label for="pwd">
                         <h4 class="mt-4">Lösenord</h4>
                     </label>
+                    <p><small>{{no_pwd_feedback}}</small></p>
+                    <p><small>{{pwd_feedback}}</small></p>
+
                     <input class="form-control" type="password" id="pwd" name="pwd">
                     <input class="mt-2" type="checkbox" onclick="togglePassword()"> Visa lösenord
                     <br>
                     <input type="submit" value="Registrera mig" class="btn btn-dark mt-4">
                 </form>
+                <h2>{{welcome_new_user}}</h2>
 
-        
+
 
 
 

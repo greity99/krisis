@@ -231,52 +231,71 @@ def login():
 def register():
     """
     Returns,
-    template: login
+    template: register
     """
-    return template("register.html")
+    
+    return template("register.html", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
 
 @route("/Registrering", method="POST")
 def register_user():
     email = request.forms.get("email")
     birthday = request.forms.get("birthday")
     password = request.forms.get("pwd")
-        
-    age = check_user_age(birthday)
     
-    if age == True:
-        pwd = check_password_all(password)
-        if pwd == True:
-                conn = psycopg2.connect(
-                    host=host,
-                    dbname=dbname,
-                    user=user,
-                    password=password,
-                    port=port
-                )
-                
-                cur = conn.cursor()
-
-                cur.execute(
-                    '''
-                        INSERT INTO app_user (user_mail, user_password, user_birtday) 
-                        VALUES (%s, %s, %s) 
-                    ''', (email, password, birthday,)
-                )
-                
-                conn.commit()
-
-                cursor.close()
-                conn.close()
-                
-                #Feedback till användaren om att konto är skapat
+    if email == "":
+        no_email_feedback = "Detta fält får inte lämnas tomt"
+        return template("register", no_email_feedback=no_email_feedback, no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="" )
+    
+    else: 
+        if birthday == "":
+            no_birthday_feedback = "Detta fält får inte lämnas tomt"
+            return template("register", no_email_feedback="", no_birthday_feedback=no_birthday_feedback, age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
         
         else:
-            pass 
-            #Lösenordet som användaren har uppgett uppfyller inte kraven
-        
-    else:
-        pass
-        #Användaren är inte gammal nog
+            if password == "":
+                no_pwd_feedback = "Detta fält får inte lämnas tomt"
+                return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback=no_pwd_feedback, pwd_feedback="", welcome_new_user="")
+            
+            else:
+                age = check_user_age(birthday)
+                
+                if age == True:
+                    pwd = check_password_all(password)
+                    if pwd == True:
+                            conn = psycopg2.connect(
+                                host=host,
+                                dbname=dbname,
+                                user=user,
+                                password=password,
+                                port=port
+                            )
+                            
+                            cur = conn.cursor()
+
+                            cur.execute(
+                                '''
+                                    INSERT INTO app_user (user_mail, user_password, user_birtday) 
+                                    VALUES (%s, %s, %s) 
+                                ''', (email, password, birthday,)
+                            )
+                            
+                            conn.commit()
+
+                            cur.close()
+                            conn.close()
+                            
+                            welcome_new_user = "Ditt konto är nu registrerat! Logga in för att ta del av registrerade användares förmåner!"
+                            return template ("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user=welcome_new_user)
+                            
+                            #Feedback till användaren om att konto är skapat
+                    
+                    else:
+                        pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
+                        return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="",  pwd_feedback=pwd_feedback, welcome_new_user="")
+                    
+                else:
+                    age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
+                    return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback=age_feedback, no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
             
         
         
