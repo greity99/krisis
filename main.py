@@ -366,9 +366,7 @@ def register_user():
                                         welcome_new_user=welcome_new_user,
                                         entered_email="",
                                         entered_birthdate="")
-                    
-                    #Feedback till användaren om att konto är skapat
-            
+                               
             else:
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 return template("register", 
@@ -393,7 +391,6 @@ def register_user():
                             entered_email="",
                             entered_birthdate="")
             
-
 #Connect to PostgreSQL
 try: 
     conn = psycopg2.connect(
