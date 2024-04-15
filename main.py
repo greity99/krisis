@@ -238,7 +238,7 @@ def register():
                     pwd_feedback="", 
                     welcome_new_user="",
                     entered_email="",
-                    entered_birtdate="")
+                    entered_birthdate="")
 
 @route("/Registrering", method="POST")
 def register_user():
@@ -256,7 +256,7 @@ def register_user():
                         pwd_feedback="", 
                         welcome_new_user="",
                         entered_email=email,
-                        entered_birtdate=birthday)
+                        entered_birthdate=birthday)
     
     else: 
         if birthday == "":
@@ -269,7 +269,7 @@ def register_user():
                             pwd_feedback="", 
                             welcome_new_user="",
                             entered_email=email,
-                            entered_birtdate=birthday)
+                            entered_birthdate=birthday)
                   
         
         else:
@@ -283,7 +283,7 @@ def register_user():
                                 pwd_feedback="", 
                                 welcome_new_user="",
                                 entered_email=email,
-                                entered_birtdate=birthday)
+                                entered_birthdate=birthday)
             
             else:
                 age = check_user_age(birthday)
@@ -322,7 +322,7 @@ def register_user():
                                              pwd_feedback="", 
                                              welcome_new_user=welcome_new_user,
                                              entered_email="",
-                                             entered_birtdate="")
+                                             entered_birthdate="")
                             
                             #Feedback till användaren om att konto är skapat
                     
@@ -336,7 +336,7 @@ def register_user():
                                         pwd_feedback=pwd_feedback, 
                                         welcome_new_user="",
                                         entered_email=email,
-                                        entered_birtdate=birthday)
+                                        entered_birthdate=birthday)
                     
                 else:
                     age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
@@ -348,15 +348,8 @@ def register_user():
                                     pwd_feedback="", 
                                     welcome_new_user="",
                                     entered_email="",
-                                    entered_birtdate="")
+                                    entered_birthdate="")
             
-        
-        
-        
-    
-        
-        
-
 
 #Connect to PostgreSQL
 try: 
