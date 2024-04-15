@@ -17,6 +17,10 @@ body {
     background-color: #8698B3;
 }
 
+.feedback_message_register{
+    color: red;
+}
+
 /*Index.html*/
 .widht-select {
     width: 15vw;
