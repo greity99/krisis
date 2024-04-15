@@ -153,6 +153,15 @@ body {
 }
 /* Här slutar login styling */
 
+.BGLIGHT {
+    background-image: url(krilog.png);
+}
+
+.mrkontakt {
+    color: #fff;
+    text-align: center;
+}
+
 @media screen and (max-width: 576px){
     .widht-select {
         width: 50vw;
