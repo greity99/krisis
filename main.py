@@ -200,12 +200,11 @@ def publish_post():
         conn.close()
 
 
-        redirect('/')  # Redirect to the index page, adjust the path as needed
+        redirect('/')  
         
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        logging.error(f"Database error: {error}")
         return f"Error: unable to insert data\n{error}"
 
 @route("/Kontakt")
