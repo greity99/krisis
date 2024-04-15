@@ -215,7 +215,7 @@ def contact():
     """
     return template("contact")
 
-@route("/Login", method="POST")
+@route("/Logga in")
 def login():
     """
     Returns,
