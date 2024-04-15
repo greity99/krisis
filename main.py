@@ -246,10 +246,11 @@ def register_user():
     birthday = request.forms.get("birthday")
     password = request.forms.get("pwd")
     
+    empty_field = "Detta fält får inte lämnas tomt"
+    
     if email == "":
-        no_email_feedback = "Detta fält får inte lämnas tomt"
         return template("register", 
-                        no_email_feedback=no_email_feedback, 
+                        no_email_feedback=empty_field, 
                         no_birthday_feedback="", 
                         age_feedback="", 
                         no_pwd_feedback="", 
@@ -260,10 +261,9 @@ def register_user():
     
     else: 
         if birthday == "":
-            no_birthday_feedback = "Detta fält får inte lämnas tomt"
             return template("register", 
                             no_email_feedback="", 
-                            no_birthday_feedback=no_birthday_feedback, 
+                            no_birthday_feedback=empty_field, 
                             age_feedback="", 
                             no_pwd_feedback="", 
                             pwd_feedback="", 
@@ -274,12 +274,11 @@ def register_user():
         
         else:
             if password == "":
-                no_pwd_feedback = "Detta fält får inte lämnas tomt"
                 return template("register", 
                                 no_email_feedback="", 
                                 no_birthday_feedback="", 
                                 age_feedback="", 
-                                no_pwd_feedback=no_pwd_feedback, 
+                                no_pwd_feedback=empty_field, 
                                 pwd_feedback="", 
                                 welcome_new_user="",
                                 entered_email=email,
