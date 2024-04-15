@@ -60,7 +60,7 @@
                         <label for="category" class="form-label">
                             <h3 class="ms-4 mt-3">Kriskategori</h3>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" placeholder="Sök...">
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" placeholder="Sök..." value={{category}}>
                         <datalist id="categoryOptions">
                             <option value="Brand">
                             <option value="Skottlossning">
@@ -71,30 +71,32 @@
                                 for i in cities print <option value="i">i</option>?
                             -->
                         </datalist>
+                        <p class="feedback_message_register ms-4"><small>{{no_category}}</small></p>
                     </div>
                     <div class="row">
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="city" class="form-label">
                                 <h3 class="ms-4 mt-2">Stad</h3>
                             </label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." required>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." value={{city}}>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
                                 <option value="Lund">
                                 <option value="Karlshamn">
                             </datalist>
+                            <p class="feedback_message_register ms-4"><small>{{no_city}}</small></p>
                         </div>
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="ZIP-code" class="form-label">
                                 <h3 class="ms-4 mt-2">Postnummer</h3>
                             </label>
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" placeholder="Sök..."
-                                required>
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" placeholder="Sök..." value={{zip_code}}>
                             <datalist id="zipOptions">
                                 <option value="21110">
                                 <option value="21111">
                                 <option value="21112">
                             </datalist>
+                            <p class="feedback_message_register ms-4"><small>{{no_zip}}</small></p>
                         </div>
                     </div>
                     <div class="form-check ms-4 mt-2">

@@ -172,7 +172,13 @@ def publish_post():
     Returns,
     template: publish_post
     """
-    return template("publish_post")
+    return template("publish_post",
+                    no_category="",
+                    no_zip="",
+                    no_city="",
+                    category="",
+                    city="",
+                    zip_code="")
     
 @route("/Ny", method="POST")
 def publish_post():
@@ -180,28 +186,100 @@ def publish_post():
     city = request.forms.get("city")
     zip_code = request.forms.get("ZIP-code")
     
-    try:
-        conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-        cursor = conn.cursor()
-
-        cursor.execute(
-            '''
-            INSERT INTO app_publish (category, city, zip_code, date, time)
-            VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
-            ''', (category, city, zip_code)
-        )
+    empty_field = "Detta fält får inte lämnas tomt"
+    
+    #All fields empty
+    if category =="" and city =="" and zip_code =="":
+        return template ("publish_post",
+                         no_category=empty_field,
+                         no_zip=empty_field,
+                         no_city=empty_field,
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+    #category-field empty
+    elif category =="" and city !="" and zip_code !="":
+        return template ("publish_post",
+                         no_category=empty_field,
+                         no_zip="",
+                         no_city="",
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
         
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-
-        redirect('/')  
         
-    except psycopg2.Error as error:
-        if conn:
-            conn.rollback()
-        return f"Error: unable to insert data\n{error}"
+    #zip-field empty
+    elif category !="" and city !="" and zip_code =="":
+        return template ("publish_post",
+                         no_category="",
+                         no_zip=empty_field,
+                         no_city="",
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+        
+    #city-field empty
+    elif category !="" and city =="" and zip_code !="":
+        return template ("publish_post",
+                         no_category="",
+                         no_zip="",
+                         no_city=empty_field,
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+            
+    #city-field and zip_code-field empty
+    elif category != "" and city =="" and zip_code =="":
+        return template ("publish_post",
+                         no_category="",
+                         no_zip=empty_field,
+                         no_city=empty_field,
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+    
+    #city-field and category-field empty    
+    elif category == "" and city =="" and zip_code !="":
+        return template ("publish_post",
+                         no_category=empty_field,
+                         no_zip="",
+                         no_city=empty_field,
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+        
+    #zip_code-field and category-field empty    
+    elif category =="" and city !="" and zip_code =="":
+        return template ("publish_post",
+                         no_category=empty_field,
+                         no_zip=empty_field,
+                         no_city="",
+                         category=category,
+                         city=city,
+                         zip_code=zip_code)
+        
+    else:   
+        try:
+            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+            cursor = conn.cursor()
+
+            cursor.execute(
+                '''
+                INSERT INTO app_publish (category, city, zip_code, date, time)
+                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
+                ''', (category, city, zip_code)
+            )
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+            redirect('/')  
+            
+        except psycopg2.Error as error:
+            if conn:
+                conn.rollback()
+            return f"Error: unable to insert data\n{error}"
 
 @route("/Kontakt")
 def contact():

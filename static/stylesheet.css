@@ -30,7 +30,7 @@ body {
     background-image: url(copcar.jpg);
     height: 80vh;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
 }
 
 .card-img-sizing {
