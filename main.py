@@ -182,33 +182,30 @@ def publish_post():
 def publish_post():
     category = request.forms.get("category")
     city = request.forms.get("city")
-    zip_code = request.forms.get("ZIP-code")  
+    zip_code = request.forms.get("ZIP-code")
     
     try:
         conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-        
         cursor = conn.cursor()
 
         cursor.execute(
             '''
-                INSERT INTO app_publish 
-                VALUES (%s, %s, %s) 
-                ON CONFLICT DO NOTHING
-            ''', (category, city, zip_code,)
+            INSERT INTO app_publish (category, city, zip_code, date, time)
+            VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
+            ''', (category, city, zip_code)
         )
         
         conn.commit()
-
         cursor.close()
         conn.close()
-        
 
-        return "Data inserted successfully!"
-    
+
+        redirect('/')  # Redirect to the index page, adjust the path as needed
+        
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        
+        logging.error(f"Database error: {error}")
         return f"Error: unable to insert data\n{error}"
 
 @route("/Kontakt")
@@ -219,7 +216,7 @@ def contact():
     """
     return template("contact")
 
-@route("/Logga in")
+@route("/Login", method="POST")
 def login():
     """
     Returns,
