@@ -182,33 +182,30 @@ def publish_post():
 def publish_post():
     category = request.forms.get("category")
     city = request.forms.get("city")
-    zip_code = request.forms.get("ZIP-code")  
+    zip_code = request.forms.get("ZIP-code")
     
     try:
         conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-        
         cursor = conn.cursor()
 
         cursor.execute(
             '''
-                INSERT INTO app_publish 
-                VALUES (%s, %s, %s) 
-                ON CONFLICT DO NOTHING
-            ''', (category, city, zip_code,)
+            INSERT INTO app_publish (category, city, zip_code, date, time)
+            VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
+            ''', (category, city, zip_code)
         )
         
         conn.commit()
-
         cursor.close()
         conn.close()
-        
 
-        return "Data inserted successfully!"
-    
+
+        redirect('/')  # Redirect to the index page, adjust the path as needed
+        
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        
+        logging.error(f"Database error: {error}")
         return f"Error: unable to insert data\n{error}"
 
 @route("/Kontakt")
@@ -219,7 +216,7 @@ def contact():
     """
     return template("contact")
 
-@route("/Login")
+@route("/Login", method="POST")
 def login():
     """
     Returns,
@@ -234,7 +231,14 @@ def register():
     template: register
     """
     
-    return template("register.html", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
+    return template("register.html", 
+                    no_email_feedback="", 
+                    no_birthday_feedback="", 
+                    age_feedback="", 
+                    no_pwd_feedback="", 
+                    pwd_feedback="", 
+                    welcome_new_user="",
+                    entered_email="")
 
 @route("/Registrering", method="POST")
 def register_user():
@@ -244,17 +248,39 @@ def register_user():
     
     if email == "":
         no_email_feedback = "Detta fält får inte lämnas tomt"
-        return template("register", no_email_feedback=no_email_feedback, no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="" )
+        return template("register", 
+                        no_email_feedback=no_email_feedback, 
+                        no_birthday_feedback="", 
+                        age_feedback="", 
+                        no_pwd_feedback="", 
+                        pwd_feedback="", 
+                        welcome_new_user="",
+                        entered_email=email)
     
     else: 
         if birthday == "":
             no_birthday_feedback = "Detta fält får inte lämnas tomt"
-            return template("register", no_email_feedback="", no_birthday_feedback=no_birthday_feedback, age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
+            return template("register", 
+                            no_email_feedback="", 
+                            no_birthday_feedback=no_birthday_feedback, 
+                            age_feedback="", 
+                            no_pwd_feedback="", 
+                            pwd_feedback="", 
+                            welcome_new_user="",)
+                  
         
         else:
             if password == "":
                 no_pwd_feedback = "Detta fält får inte lämnas tomt"
-                return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback=no_pwd_feedback, pwd_feedback="", welcome_new_user="")
+                return template("register", 
+                                no_email_feedback="", 
+                                no_birthday_feedback="", 
+                                age_feedback="", 
+                                no_pwd_feedback=no_pwd_feedback, 
+                                pwd_feedback="", 
+                                welcome_new_user="",
+                                entered_email=email,
+                                entered_age=age)
             
             else:
                 age = check_user_age(birthday)
@@ -285,17 +311,38 @@ def register_user():
                             conn.close()
                             
                             welcome_new_user = "Ditt konto är nu registrerat! Logga in för att ta del av registrerade användares förmåner!"
-                            return template ("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="", pwd_feedback="", welcome_new_user=welcome_new_user)
+                            return template ("register", 
+                                             no_email_feedback="", 
+                                             no_birthday_feedback="", 
+                                             age_feedback="", 
+                                             no_pwd_feedback="", 
+                                             pwd_feedback="", 
+                                             welcome_new_user=welcome_new_user,
+                                             entered_email=email)
                             
                             #Feedback till användaren om att konto är skapat
                     
                     else:
                         pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
-                        return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback="", no_pwd_feedback="",  pwd_feedback=pwd_feedback, welcome_new_user="")
+                        return template("register", 
+                                        no_email_feedback="", 
+                                        no_birthday_feedback="", 
+                                        age_feedback="", 
+                                        no_pwd_feedback="",  
+                                        pwd_feedback=pwd_feedback, 
+                                        welcome_new_user="",
+                                        entered_email=email)
                     
                 else:
                     age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
-                    return template("register", no_email_feedback="", no_birthday_feedback="", age_feedback=age_feedback, no_pwd_feedback="", pwd_feedback="", welcome_new_user="")
+                    return template("register", 
+                                    no_email_feedback="", 
+                                    no_birthday_feedback="", 
+                                    age_feedback=age_feedback, 
+                                    no_pwd_feedback="", 
+                                    pwd_feedback="", 
+                                    welcome_new_user="",
+                                    entered_email="")
             
         
         
