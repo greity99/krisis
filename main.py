@@ -314,6 +314,9 @@ def register():
                     entered_email="",
                     entered_birthdate="")
 
+from bottle import route, request, template, redirect
+import psycopg2
+
 @route("/Registrering", method="POST")
 def register_user():
     email = request.forms.get("email")
@@ -322,8 +325,8 @@ def register_user():
     
     empty_field = "Detta fält får inte lämnas tomt"
     
-    #All fields empty
-    if email =="" and birthday =="" and password =="":
+    # All fields empty
+    if email == "" and birthday == "" and password == "":
         return template("register", 
                         no_email_feedback=empty_field, 
                         no_birthday_feedback=empty_field, 
@@ -334,117 +337,32 @@ def register_user():
                         entered_email=email,
                         entered_birthdate=birthday)
     
-    #email-field empty
-    elif email =="" and birthday !="" and password !="":
-        return template("register", 
-                        no_email_feedback=empty_field, 
-                        no_birthday_feedback="", 
-                        age_feedback="", 
-                        no_pwd_feedback="", 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-        
-    #birthday-field empty
-    elif birthday =="" and password !="" and email !="":
-        return template("register", 
-                        no_email_feedback="", 
-                        no_birthday_feedback=empty_field, 
-                        age_feedback="", 
-                        no_pwd_feedback="", 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-        
-    #password-field empty
-    elif password =="" and email !="" and birthday !="":
-        return template("register", 
-                        no_email_feedback="", 
-                        no_birthday_feedback="", 
-                        age_feedback="", 
-                        no_pwd_feedback=empty_field, 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-        
-    #email-field and birtday-field empty
-    elif email =="" and birthday =="" and password !="":
-        return template("register", 
-                        no_email_feedback=empty_field, 
-                        no_birthday_feedback=empty_field, 
-                        age_feedback="", 
-                        no_pwd_feedback="", 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-        
-        
-    #email-field and password-field empty
-    elif email =="" and birthday !="" and password =="":
-        return template("register", 
-                        no_email_feedback=empty_field, 
-                        no_birthday_feedback="", 
-                        age_feedback="", 
-                        no_pwd_feedback=empty_field, 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-    
-    #birthday-field and password-field empty
-    elif email != "" and birthday =="" and password =="":
-        return template("register", 
-                        no_email_feedback="", 
-                        no_birthday_feedback=empty_field, 
-                        age_feedback="", 
-                        no_pwd_feedback=empty_field, 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-        
     else: 
         age = check_user_age(birthday)
-        if age == True:
+        if age:
             pwd = check_password_all(password)
-            if pwd == True:
-                    conn = psycopg2.connect(
-                        host=host,
-                        dbname=dbname,
-                        user=user,
-                        password=password,
-                        port=port
-                    )
-                    
-                    cur = conn.cursor()
+            if pwd:
+                try:
+                    conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+                    cursor = conn.cursor()
 
-                    cur.execute(
+                    cursor.execute(
                         '''
-                            INSERT INTO app_user (user_mail, user_password, user_birtday) 
-                            VALUES (%s, %s, %s) 
-                        ''', (email, password, birthday,)
+                        INSERT INTO app_user (user_mail, user_password, user_birthday)
+                        VALUES (%s, %s, %s)
+                        ''', (email, password, birthday)
                     )
                     
                     conn.commit()
-
-                    cur.close()
+                    cursor.close()
                     conn.close()
+
+                    redirect('/')  
                     
-                    welcome_new_user = "Ditt konto är nu registrerat! Logga in för att ta del av registrerade användares förmåner!"
-                    return template ("register", 
-                                        no_email_feedback="", 
-                                        no_birthday_feedback="", 
-                                        age_feedback="", 
-                                        no_pwd_feedback="", 
-                                        pwd_feedback="", 
-                                        welcome_new_user=welcome_new_user,
-                                        entered_email="",
-                                        entered_birthdate="")
-                               
+                except psycopg2.Error as error:
+                    if conn:
+                        conn.rollback()
+                    return f"Error: unable to insert data\n{error}"
             else:
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 return template("register", 
@@ -456,7 +374,6 @@ def register_user():
                                 welcome_new_user="",
                                 entered_email=email,
                                 entered_birthdate=birthday)
-            
         else:
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
             return template("register", 
@@ -468,23 +385,6 @@ def register_user():
                             welcome_new_user="",
                             entered_email="",
                             entered_birthdate="")
-            
-#Connect to PostgreSQL
-try: 
-    conn = psycopg2.connect(
-    host=host,
-    dbname=dbname,
-    user=user,
-    password=password,
-    port=port  
-    )
-
-    #Open a cursor
-    #The cursor is needed to perform database operations
-    cursor = conn.cursor()
-    
-except psycopg2.Error as error: 
-    print(f"Error: unable to connect to the database\n {error}")
 
 @route("/static/<filename>")
 def static_files(filename):
