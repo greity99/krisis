@@ -297,6 +297,38 @@ def login():
     """
     return template("login.html")
 
+
+@route("/Logga in", method=['GET', 'POST'])
+def login_user():
+    if request.method == 'POST':
+        email = request.forms.get("email")
+        password = request.forms.get("password")
+
+        try:
+            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+            cursor = conn.cursor()
+
+            cursor.execute("SELECT user_id FROM app_user WHERE user_mail = %s AND user_password = %s", (email, password))
+            user = cursor.fetchone()
+
+            if user:
+                redirect('/')
+            else:
+                print("Invalid email or password. Please try again.")
+        
+        except psycopg2.Error as e:
+            print("Database connection error:", e)
+            return template('login', error="Database connection error.")
+
+        finally:
+            if conn:
+                cursor.close()
+                conn.close()
+    else:
+        return template('login')
+
+
+
 @route("/Registrering")
 def register():
     """
@@ -314,8 +346,6 @@ def register():
                     entered_email="",
                     entered_birthdate="")
 
-from bottle import route, request, template, redirect
-import psycopg2
 
 @route("/Registrering", method="POST")
 def register_user():
