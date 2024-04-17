@@ -4,11 +4,11 @@ import psycopg2
 from datetime import datetime
 
 #Database
-host = "pgserver.mau.se"
-dbname = "ao7831"
-user = "ao7831"
-password = "diq8q181"
-port = "5432"  
+db_host = "pgserver.mau.se"
+db_name = "ao7831"
+db_user = "ao7831"
+db_password = "diq8q181"
+db_port = "5432"  
 
 
 #General functions
@@ -125,6 +125,7 @@ def check_password_all(pwd):
     else:
         return False
 
+
 @route("/")
 def index():
     """
@@ -152,11 +153,11 @@ def index():
     
     try:
         conn = psycopg2.connect(
-            host=host,
-            dbname=dbname,
-            user=user,
-            password=password,
-            port=port
+            db_host = db_host,
+            db_name = db_name,
+            db_user = db_user,
+            db_password = db_password,
+            db_port = db_port
         )
         
         cur = conn.cursor()
@@ -192,6 +193,7 @@ def chrisis_tips():
     """
     return template("chrisis_tips")
 
+
 @route("/Ny")
 def publish_post():
     """
@@ -211,6 +213,7 @@ def publish_post():
 @route("/Ny", method="POST")
 def publish_post():
     '''
+    Form.
     Depending on the user input, the variables sent contains different content. 
     
     Returns,
@@ -238,31 +241,38 @@ def publish_post():
         no_category = empty_field
     
     #zip-field empty
-    elif category !="" and city !="" and zip_code =="":
+    elif category != "" and city != "" and zip_code == "":
         no_zip = empty_field
         
     #city-field empty
-    elif category !="" and city =="" and zip_code !="":
+    elif category != "" and city == "" and zip_code != "":
        no_city = empty_field
        
     #city-field and zip_code-field empty
-    elif category != "" and city =="" and zip_code =="":
+    elif category != "" and city == "" and zip_code == "":
         no_zip=empty_field
         no_city=empty_field
     
     #city-field and category-field empty    
-    elif category == "" and city =="" and zip_code !="":
+    elif category == "" and city == "" and zip_code != "":
         no_category = empty_field
         no_city = empty_field
         
     #zip_code-field and category-field empty    
-    elif category =="" and city !="" and zip_code =="":
+    elif category == "" and city != "" and zip_code == "":
         category = empty_field
         no_zip = empty_field
         
     else:   
         try:
-            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+            conn = psycopg2.connect(
+                db_host = db_host,
+                db_name = db_name,
+                db_user = db_user,
+                db_password = db_password,
+                db_port = db_port
+            )
+
             cur = conn.cursor()
 
             cur.execute(
@@ -277,7 +287,7 @@ def publish_post():
             cur.close()
             conn.close()
 
-            redirect('/')  
+            redirect("/")  
             
         except psycopg2.Error as error:
             if conn:
@@ -291,114 +301,48 @@ def publish_post():
                     category = category,
                     city = city,
                     zip_code = zip_code) 
-        
-    
-    
-    
-    
-    
-    
-    
-    '''
-    #Error-handling
-    #All fields empty
-    if category == "" and city == "" and zip_code == "":
-        return template ("publish_post",
-                         no_category = empty_field,
-                         no_zip = empty_field,
-                         no_city = empty_field,
-                         category = category,
-                         city = city,
-                         zip_code = zip_code)
-        
-    #category-field empty
-    elif category == "" and city != "" and zip_code != "":
-        return template ("publish_post",
-                         no_category = empty_field,
-                         no_zip = "",
-                         no_city = "",
-                         category = category,
-                         city = city,
-                         zip_code = zip_code)
-        
-    #zip-field empty
-    elif category !="" and city !="" and zip_code =="":
-        return template ("publish_post",
-                         no_category="",
-                         no_zip=empty_field,
-                         no_city="",
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
-        
-    #city-field empty
-    elif category !="" and city =="" and zip_code !="":
-        return template ("publish_post",
-                         no_category="",
-                         no_zip="",
-                         no_city=empty_field,
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
-            
-    #city-field and zip_code-field empty
-    elif category != "" and city =="" and zip_code =="":
-        return template ("publish_post",
-                         no_category="",
-                         no_zip=empty_field,
-                         no_city=empty_field,
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
-    
-    #city-field and category-field empty    
-    elif category == "" and city =="" and zip_code !="":
-        return template ("publish_post",
-                         no_category=empty_field,
-                         no_zip="",
-                         no_city=empty_field,
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
-        
-    #zip_code-field and category-field empty    
-    elif category =="" and city !="" and zip_code =="":
-        return template ("publish_post",
-                         no_category=empty_field,
-                         no_zip=empty_field,
-                         no_city="",
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
-'''
-      
-    
 
 @route("/Kontakt")
 def contact():
     """
+    Returns page for contacting suupport.
+    
     Returns,
     template: contact
     """
     return template("contact")
 
-@route("/Logga in")
+@route("/Logga_in")
 def login():
     """
+    Returns page for login.
+
     Returns,
     template: login
     """
-    return template("login", checked_login_details="")
+    checked_login_details=""
+    return template("login", checked_login_details=checked_login_details)
 
 
-@route("/Logga in", method=['GET', 'POST'])
+@route("/Logga_in", method=['GET', 'POST'])
 def login_user():
+    '''
+    
+    '''
     if request.method == 'POST':
         email = request.forms.get("email")
-        password = request.forms.get("password")
-
+        pwd = request.forms.get("password")
+        checked_login_details=""
+        
         try:
-            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+            conn = psycopg2.connect(
+                db_host = db_host,
+                db_name = db_name,
+                db_user = db_user,
+                db_password = db_password,
+                db_port = db_port
+            )
+
             cur = conn.cursor()
 
             cur.execute(
@@ -406,7 +350,7 @@ def login_user():
                 SELECT user_id 
                 FROM app_user 
                 WHERE user_mail = %s AND user_password = %s
-                ''', (email, password))
+                ''', (email, pwd))
             
             user = cur.fetchone()
 
@@ -414,7 +358,8 @@ def login_user():
                 redirect('/')
                 
             else:
-                return template("login.html", checked_login_details="wrong")
+                checked_login_details="wrong"
+                return template("login.html", checked_login_details=checked_login_details)
         
         except psycopg2.Error as e:
             return template('login', error="Database connection error.")
@@ -424,7 +369,7 @@ def login_user():
                 cur.close()
                 conn.close()
     else:
-        return template("login", checked_login_details="")
+        return template("login", checked_login_details=checked_login_details)
 
 
 
@@ -472,10 +417,17 @@ def register_user():
             pwd = check_password_all(password)
             if pwd:
                 try:
-                    conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-                    cursor = conn.cursor()
+                    conn = psycopg2.connect(
+                        db_host = db_host,
+                        db_name = db_name,
+                        db_user = db_user,
+                        db_password = db_password,
+                        db_port = db_port
+                    )
+                    
+                    cur = conn.cursor()
 
-                    cursor.execute(
+                    cur.execute(
                         '''
                         INSERT INTO app_user (user_mail, user_password, user_birthday)
                         VALUES (%s, %s, %s)
@@ -483,7 +435,7 @@ def register_user():
                     )
                     
                     conn.commit()
-                    cursor.close()
+                    cur.close()
                     conn.close()
 
                     redirect('/')  
