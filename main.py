@@ -334,10 +334,11 @@ def login_user():
     template: login
     '''
     
+    checked_login_details = ""
+    
     if request.method == 'POST':
         email = request.forms.get("email")
-        pwd = request.forms.get("password")
-        checked_login_details=""
+        pwd = request.forms.get("password")        
         
         try:
             conn = psycopg2.connect(
@@ -363,8 +364,8 @@ def login_user():
                 redirect('/')
                 
             else:
-                checked_login_details="wrong"
-                return template("login.html", checked_login_details = checked_login_details)
+                checked_login_details = "wrong"
+                return template("login", checked_login_details = checked_login_details)
         
         except psycopg2.Error as e:
             return template('login', error = "Database connection error.")
