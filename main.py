@@ -12,7 +12,6 @@ port = "5432"
 
 
 #General functions
-#Testa sen med databas för att se i vilket format som datumet sparas då det skickas via formuläret
 def check_user_age(date_str):
     '''
     Function which takes a date as an argument and returns True if the user is 16 or older and False if the user is younger than 16.
