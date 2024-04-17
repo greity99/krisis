@@ -319,7 +319,7 @@ def login():
     Returns,
     template: login
     """
-    checked_login_details=""
+    checked_login_details = ""
     return template("login", checked_login_details = checked_login_details)
 
 
@@ -354,19 +354,20 @@ def login_user():
                 SELECT user_id 
                 FROM app_user 
                 WHERE user_mail = %s AND user_password = %s
-                ''', (email, pwd,))
+                ''', (email, pwd,)
+                )
             
-            user = cur.fetchone()
+            logged_in_user = cur.fetchone()
 
-            if user:
-                redirect('/')
+            if logged_in_user:
+                redirect("/Krishantering")
                 
             else:
                 checked_login_details = "wrong"
                 return template("login", checked_login_details = checked_login_details)
         
         except psycopg2.Error as e:
-            return template("login", error = "Database connection error.")
+            return template("login", error = "Database connection error.", checked_login_details = checked_login_details)
 
         finally:
             if conn:
