@@ -257,7 +257,7 @@ def publish_post():
         
     #zip_code-field and category-field empty    
     elif category =="" and city !="" and zip_code =="":
-        category = empty_field
+        no_category = empty_field
         no_zip = empty_field
         
     else:   
