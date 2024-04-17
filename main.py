@@ -4,11 +4,11 @@ import psycopg2
 from datetime import datetime
 
 #Database
-db_host = "pgserver.mau.se"
-db_name = "ao7831"
-db_user = "ao7831"
-db_password = "diq8q181"
-db_port = "5432"  
+host = "pgserver.mau.se"
+dbname = "ao7831"
+user = "ao7831"
+password = "diq8q181"
+port = "5432"  
 
 
 #General functions
@@ -266,11 +266,10 @@ def publish_post():
     else:   
         try:
             conn = psycopg2.connect(
-                db_host = db_host,
-                db_name = db_name,
-                db_user = db_user,
-                db_password = db_password,
-                db_port = db_port
+                host = host,
+                dbname = dbname,
+                user = user,
+                password = password
             )
 
             cur = conn.cursor()
@@ -342,11 +341,10 @@ def login_user():
         
         try:
             conn = psycopg2.connect(
-                db_host = db_host,
-                db_name = db_name,
-                db_user = db_user,
-                db_password = db_password,
-                db_port = db_port
+                host = host,
+                dbname = dbname,
+                user = user,
+                password = password
             )
 
             cur = conn.cursor()
@@ -356,7 +354,7 @@ def login_user():
                 SELECT user_id 
                 FROM app_user 
                 WHERE user_mail = %s AND user_password = %s
-                ''', (email, pwd))
+                ''', (email, pwd,))
             
             user = cur.fetchone()
 
@@ -368,7 +366,7 @@ def login_user():
                 return template("login", checked_login_details = checked_login_details)
         
         except psycopg2.Error as e:
-            return template('login', error = "Database connection error.")
+            return template("login", error = "Database connection error.")
 
         finally:
             if conn:
@@ -402,7 +400,7 @@ def register():
 def register_user():
     email = request.forms.get("email")
     birthday = request.forms.get("birthday")
-    password = request.forms.get("pwd")
+    pwd = request.forms.get("pwd")
 
     no_email_feedback = ""
     no_birthday_feedback = ""
@@ -448,15 +446,14 @@ def register_user():
     else: 
         age = check_user_age(birthday)
         if age:
-            pwd = check_password_all(password)
+            pwd = check_password_all(pwd)
             if pwd:
                 try:
                     conn = psycopg2.connect(
-                        db_host = db_host,
-                        db_name = db_name,
-                        db_user = db_user,
-                        db_password = db_password,
-                        db_port = db_port
+                        host = host,
+                        dbname = dbname,
+                        user = user,
+                        password = password
                     )
                     
                     cur = conn.cursor()
@@ -465,10 +462,11 @@ def register_user():
                         '''
                         INSERT INTO app_user (user_mail, user_password, user_birthday)
                         VALUES (%s, %s, %s)
-                        ''', (email, password, birthday)
+                        ''', (email, pwd, birthday)
                     )
                     
                     conn.commit()
+                    
                     cur.close()
                     conn.close()
 
