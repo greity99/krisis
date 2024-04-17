@@ -481,7 +481,8 @@ def register_user():
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
         else:
-            age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
+            redirect("/")
+            #age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
         
     return template("register", 
                     no_email_feedback = no_email_feedback, 
