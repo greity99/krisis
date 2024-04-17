@@ -321,14 +321,19 @@ def login():
     template: login
     """
     checked_login_details=""
-    return template("login", checked_login_details=checked_login_details)
+    return template("login", checked_login_details = checked_login_details)
 
 
 @route("/Logga_in", method=['GET', 'POST'])
 def login_user():
     '''
-    
+    Returns page for login with error message if login does not exist,
+    Redirects to home page if login is correct.
+
+    Returns,
+    template: login
     '''
+    
     if request.method == 'POST':
         email = request.forms.get("email")
         pwd = request.forms.get("password")
@@ -359,23 +364,25 @@ def login_user():
                 
             else:
                 checked_login_details="wrong"
-                return template("login.html", checked_login_details=checked_login_details)
+                return template("login.html", checked_login_details = checked_login_details)
         
         except psycopg2.Error as e:
-            return template('login', error="Database connection error.")
+            return template('login', error = "Database connection error.")
 
         finally:
             if conn:
                 cur.close()
                 conn.close()
     else:
-        return template("login", checked_login_details=checked_login_details)
+        return template("login", checked_login_details = checked_login_details)
 
 
 
 @route("/Registrering")
 def register():
     """
+    Returns page for registering.
+
     Returns,
     template: register
     """
@@ -386,9 +393,8 @@ def register():
                     age_feedback="", 
                     no_pwd_feedback="", 
                     pwd_feedback="", 
-                    welcome_new_user="",
-                    entered_email="",
-                    entered_birthdate="")
+                    email="",
+                    birthday="")
 
 
 @route("/Registrering", method="POST")
@@ -396,21 +402,21 @@ def register_user():
     email = request.forms.get("email")
     birthday = request.forms.get("birthday")
     password = request.forms.get("pwd")
+
+    no_email_feedback = ""
+    no_birthday_feedback = ""
+    age_feedback = ""
+    no_pwd_feedback = ""
+    pwd_feedback = ""
     
-    empty_field = "Detta fält får inte lämnas tomt"
+    empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
     if email == "" and birthday == "" and password == "":
-        return template("register", 
-                        no_email_feedback=empty_field, 
-                        no_birthday_feedback=empty_field, 
-                        age_feedback="", 
-                        no_pwd_feedback=empty_field, 
-                        pwd_feedback="", 
-                        welcome_new_user="",
-                        entered_email=email,
-                        entered_birthdate=birthday)
-    
+        no_email_feedback == empty_field
+        no_birthday_feedback == empty_field
+        no_pwd_feedback == empty_field
+            
     else: 
         age = check_user_age(birthday)
         if age:
@@ -446,26 +452,19 @@ def register_user():
                     return f"Error: unable to insert data\n{error}"
             else:
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
-                return template("register", 
-                                no_email_feedback="", 
-                                no_birthday_feedback="", 
-                                age_feedback="", 
-                                no_pwd_feedback="",  
-                                pwd_feedback=pwd_feedback, 
-                                welcome_new_user="",
-                                entered_email=email,
-                                entered_birthdate=birthday)
+                
         else:
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
-            return template("register", 
-                            no_email_feedback="", 
-                            no_birthday_feedback="", 
-                            age_feedback=age_feedback, 
-                            no_pwd_feedback="", 
-                            pwd_feedback="", 
-                            welcome_new_user="",
-                            entered_email="",
-                            entered_birthdate="")
+        
+    return template("register", 
+                    no_email_feedback = no_email_feedback, 
+                    no_birthday_feedback = no_birthday_feedback, 
+                    age_feedback = age_feedback, 
+                    no_pwd_feedback = no_pwd_feedback, 
+                    pwd_feedback = pwd_feedback, 
+                    email = email,
+                    birthday = birthday)
+    
 
 @route("/static/<filename>")
 def static_files(filename):
