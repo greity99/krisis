@@ -29,7 +29,10 @@ def check_user_age(date_str):
         return True
     
 #Check password
-def check_password_uppercase(pwd):  
+def check_password_uppercase(pwd):
+    '''
+    Function that ensures that the password contains at least one uppercase letter.
+    '''
     uppercase = False   
       
     for i in pwd:
@@ -42,11 +45,15 @@ def check_password_uppercase(pwd):
             
     if uppercase == False:
         return False
+    
     else: 
         return True
         
         
 def check_password_lowercase(pwd):
+    '''
+    Function that ensures that the password contains at least one lowercase letter.
+    '''
     lowercase = False   
       
     for i in pwd:
@@ -59,18 +66,28 @@ def check_password_lowercase(pwd):
             
     if lowercase == False:
         return False
+    
     else: 
         return True
     
 def check_password_lenght(pwd):
+    '''
+    Function that ensures that the password is atleast 8 characters long.
+    '''
+    
     length = len(pwd)
+    
     if length < 8:
         return False
+    
     else:
         return True
     
     
 def check_password_digit(pwd):
+    '''
+    Function that ensures that the password contains at least one digit.
+    '''
     digit = False   
       
     for i in pwd:
@@ -83,11 +100,21 @@ def check_password_digit(pwd):
             
     if digit == False:
         return False
+    
     else: 
         return True       
         
         
 def check_password_all(pwd):
+    '''
+    Function which includes the following functions:
+    - check_password_uppercase(pwd)
+    - check_password_lowercase(pwd)
+    - check_password_digit(pwd)
+    - check_password_lenght(pwd)
+    
+    and returns True if all password requirements are met. 
+    '''
     uppercase = check_password_uppercase(pwd)
     lowercase = check_password_lowercase(pwd)
     digit = check_password_digit(pwd)
@@ -99,11 +126,10 @@ def check_password_all(pwd):
     else:
         return False
 
-#Routes
 @route("/")
 def index():
     """
-    Returnar startsidan. 
+    Returns main page. 
 
     Returns,
     template: index
@@ -157,16 +183,21 @@ def index():
             conn.rollback()
 '''
 
-
-
-
 @route("/Krishantering")
 def chrisis_tips():
-    return template("chrisis_tips.html")
+    """
+    Returns articles about how to handle different crises. 
+
+    Returns,
+    template: chrisis_tips
+    """
+    return template("chrisis_tips")
 
 @route("/Ny")
 def publish_post():
     """
+    Returns a page on which the user can publish a post about a ongoing crisis.
+    
     Returns,
     template: publish_post
     """
@@ -180,32 +211,116 @@ def publish_post():
     
 @route("/Ny", method="POST")
 def publish_post():
+    '''
+    Depending on the user input, the variables sent contains different content. 
+    
+    Returns,
+    template: publish_post (if the information is not filled out correctly).
+    else it redirects the user to the main page. 
+    '''
     category = request.forms.get("category")
     city = request.forms.get("city")
     zip_code = request.forms.get("ZIP-code")
     
-    empty_field = "Detta fält får inte lämnas tomt"
+    no_category = ""
+    no_zip = ""
+    no_city = ""
     
+    empty_field = "Fältet får inte lämnas tomt"
+    
+    #All fields empty
+    if category == "" and city == "" and zip_code == "":
+        no_category = empty_field
+        no_zip = empty_field
+        no_city = empty_field
+    
+    #category-field empty
+    elif category == "" and city != "" and zip_code != "":
+        no_category = empty_field
+    
+    #zip-field empty
+    elif category !="" and city !="" and zip_code =="":
+        no_zip = empty_field
+        
+    #city-field empty
+    elif category !="" and city =="" and zip_code !="":
+       no_city = empty_field
+       
+    #city-field and zip_code-field empty
+    elif category != "" and city =="" and zip_code =="":
+        no_zip=empty_field
+        no_city=empty_field
+    
+    #city-field and category-field empty    
+    elif category == "" and city =="" and zip_code !="":
+        no_category = empty_field
+        no_city = empty_field
+        
+    #zip_code-field and category-field empty    
+    elif category =="" and city !="" and zip_code =="":
+        category = empty_field
+        no_zip = empty_field
+        
+    else:   
+        try:
+            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
+            cur = conn.cursor()
+
+            cur.execute(
+                '''
+                INSERT INTO app_publish (category, city, zip_code, date, time)
+                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
+                ''', (category, city, zip_code)
+            )
+            
+            conn.commit()
+            
+            cur.close()
+            conn.close()
+
+            redirect('/')  
+            
+        except psycopg2.Error as error:
+            if conn:
+                conn.rollback()
+            return f"Error: unable to insert data\n{error}"
+        
+    return template ("publish_post",
+                    no_category = no_category,
+                    no_zip = no_zip,
+                    no_city = no_city,
+                    category = category,
+                    city = city,
+                    zip_code = zip_code) 
+        
+    
+    
+    
+    
+    
+    
+    
+    '''
     #Error-handling
     #All fields empty
-    if category =="" and city =="" and zip_code =="":
+    if category == "" and city == "" and zip_code == "":
         return template ("publish_post",
-                         no_category=empty_field,
-                         no_zip=empty_field,
-                         no_city=empty_field,
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
+                         no_category = empty_field,
+                         no_zip = empty_field,
+                         no_city = empty_field,
+                         category = category,
+                         city = city,
+                         zip_code = zip_code)
         
     #category-field empty
-    elif category =="" and city !="" and zip_code !="":
+    elif category == "" and city != "" and zip_code != "":
         return template ("publish_post",
-                         no_category=empty_field,
-                         no_zip="",
-                         no_city="",
-                         category=category,
-                         city=city,
-                         zip_code=zip_code)
+                         no_category = empty_field,
+                         no_zip = "",
+                         no_city = "",
+                         category = category,
+                         city = city,
+                         zip_code = zip_code)
         
     #zip-field empty
     elif category !="" and city !="" and zip_code =="":
@@ -256,30 +371,9 @@ def publish_post():
                          category=category,
                          city=city,
                          zip_code=zip_code)
-        
-    else:   
-        try:
-            conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-            cur = conn.cursor()
-
-            cur.execute(
-                '''
-                INSERT INTO app_publish (category, city, zip_code, date, time)
-                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
-                ''', (category, city, zip_code)
-            )
-            
-            conn.commit()
-            
-            cur.close()
-            conn.close()
-
-            redirect('/')  
-            
-        except psycopg2.Error as error:
-            if conn:
-                conn.rollback()
-            return f"Error: unable to insert data\n{error}"
+'''
+      
+    
 
 @route("/Kontakt")
 def contact():
@@ -295,7 +389,7 @@ def login():
     Returns,
     template: login
     """
-    return template("login.html", checked_login_details="")
+    return template("login", checked_login_details="")
 
 
 @route("/Logga in", method=['GET', 'POST'])
@@ -331,7 +425,7 @@ def login_user():
                 cur.close()
                 conn.close()
     else:
-        return template("login.html", checked_login_details="")
+        return template("login", checked_login_details="")
 
 
 
