@@ -37,7 +37,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Logga in">Logga in/
-                        <br>Registrera dig</a>
+                            <br>Registrera dig</a>
                     </li>
                 </ul>
             </div>
@@ -58,9 +58,11 @@
                 <form action="/Ny" method="post" class="form_publish_post mt-3 p-3">
                     <div class="col-10 col-sm-9 col-md-5">
                         <label for="category" class="form-label">
-                            <h3 class="ms-4 mt-3">Kriskategori</h3>
+                            <h3 class="ms-4 mt-3">Kriskategori<span class="text-danger">*</span>
+                        </label></h3>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" placeholder="Sök..." value={{category}}>
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category"
+                            placeholder="Sök..." value={{category}}>
                         <datalist id="categoryOptions">
                             <option value="Brand">
                             <option value="Skottlossning">
@@ -76,9 +78,11 @@
                     <div class="row">
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="city" class="form-label">
-                                <h3 class="ms-4 mt-2">Stad</h3>
+                                <h3 class="ms-4 mt-2">Stad<span class="text-danger">*</span>
+                            </label></h3>
                             </label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." value={{city}}>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city"
+                                placeholder="Sök..." value={{city}}>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
                                 <option value="Lund">
@@ -88,9 +92,11 @@
                         </div>
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="ZIP-code" class="form-label">
-                                <h3 class="ms-4 mt-2">Postnummer</h3>
+                                <h3 class="ms-4 mt-2">Postnummer<span class="text-danger">*</span>
+                            </label></h3>
                             </label>
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" placeholder="Sök..." value={{zip_code}}>
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code"
+                                placeholder="Sök..." value={{zip_code}}>
                             <datalist id="zipOptions">
                                 <option value="21110">
                                 <option value="21111">
