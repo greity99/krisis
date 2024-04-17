@@ -164,8 +164,6 @@ def index():
 def chrisis_tips():
     return template("chrisis_tips.html")
 
-
-
 @route("/Ny")
 def publish_post():
     """
@@ -188,6 +186,7 @@ def publish_post():
     
     empty_field = "Detta fält får inte lämnas tomt"
     
+    #Error-handling
     #All fields empty
     if category =="" and city =="" and zip_code =="":
         return template ("publish_post",
@@ -197,6 +196,7 @@ def publish_post():
                          category=category,
                          city=city,
                          zip_code=zip_code)
+        
     #category-field empty
     elif category =="" and city !="" and zip_code !="":
         return template ("publish_post",
@@ -206,7 +206,6 @@ def publish_post():
                          category=category,
                          city=city,
                          zip_code=zip_code)
-        
         
     #zip-field empty
     elif category !="" and city !="" and zip_code =="":
@@ -261,9 +260,9 @@ def publish_post():
     else:   
         try:
             conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-            cursor = conn.cursor()
+            cur = conn.cursor()
 
-            cursor.execute(
+            cur.execute(
                 '''
                 INSERT INTO app_publish (category, city, zip_code, date, time)
                 VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
@@ -271,7 +270,8 @@ def publish_post():
             )
             
             conn.commit()
-            cursor.close()
+            
+            cur.close()
             conn.close()
 
             redirect('/')  
@@ -295,7 +295,7 @@ def login():
     Returns,
     template: login
     """
-    return template("login.html")
+    return template("login.html", checked_login_details="")
 
 
 @route("/Logga in", method=['GET', 'POST'])
@@ -306,26 +306,32 @@ def login_user():
 
         try:
             conn = psycopg2.connect(dbname="ao7831", user="ao7831", password="diq8q181", host="pgserver.mau.se")
-            cursor = conn.cursor()
+            cur = conn.cursor()
 
-            cursor.execute("SELECT user_id FROM app_user WHERE user_mail = %s AND user_password = %s", (email, password))
-            user = cursor.fetchone()
+            cur.execute(
+                '''
+                SELECT user_id 
+                FROM app_user 
+                WHERE user_mail = %s AND user_password = %s
+                ''', (email, password))
+            
+            user = cur.fetchone()
 
             if user:
                 redirect('/')
+                
             else:
-                print("Invalid email or password. Please try again.")
+                return template("login.html", checked_login_details="wrong")
         
         except psycopg2.Error as e:
-            print("Database connection error:", e)
             return template('login', error="Database connection error.")
 
         finally:
             if conn:
-                cursor.close()
+                cur.close()
                 conn.close()
     else:
-        return template('login')
+        return template("login.html", checked_login_details="")
 
 
 
