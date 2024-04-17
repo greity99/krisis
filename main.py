@@ -259,7 +259,7 @@ def publish_post():
         no_city = empty_field
         
     #zip_code-field and category-field empty    
-    elif category =="" and city !="" and zip_code =="":
+    elif category == "" and city != "" and zip_code == "":
         no_category = empty_field
         no_zip = empty_field
         
@@ -414,10 +414,37 @@ def register_user():
     
     # All fields empty
     if email == "" and birthday == "" and password == "":
-        no_email_feedback == empty_field
-        no_birthday_feedback == empty_field
-        no_pwd_feedback == empty_field
-            
+        no_email_feedback = empty_field
+        no_birthday_feedback = empty_field
+        no_pwd_feedback = empty_field
+    
+    #email-field empty
+    elif email == "" and birthday != "" and password != "":
+        no_email_feedback = empty_field
+    
+    #birthday-field empty
+    elif email != "" and birthday == "" and password != "":
+        no_birthday_feedback = empty_field
+    
+    #password-field empty
+    elif email != "" and birthday != "" and password == "":
+        no_pwd_feedback = empty_field
+        
+    #email-field and birthday-field empty
+    elif email == "" and birthday == "" and password != "":
+        no_email_feedback = empty_field
+        no_birthday_feedback = empty_field
+    
+    #email-field and password-field empty
+    elif email == "" and birthday != "" and password == "":
+        no_email_feedback = empty_field
+        no_pwd_feedback = empty_field
+    
+    #birthday-field and password-field empty
+    elif email != "" and birthday == "" and password == "":
+        no_birthday_feedback = empty_field
+        no_pwd_feedback = empty_field
+        
     else: 
         age = check_user_age(birthday)
         if age:
