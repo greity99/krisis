@@ -360,7 +360,7 @@ def login_user():
             logged_in_user = cur.fetchone()
 
             if logged_in_user:
-                redirect("/Krishantering")
+                redirect("/")
                 
             else:
                 checked_login_details = "wrong"
