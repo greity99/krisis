@@ -55,6 +55,7 @@
                 <p class="ms-4"> <b>Har du sett eller varit med om något som du vill informera allmänheten
                         om?</b><br>Fyll i nedan formulär så ser vi till att folk får reda på händelsen</p>
                 <!--Form-->
+                <form id="myForm" action="#!">
                 <form action="/Ny" method="post" class="form_publish_post mt-3 p-3">
                     <div class="col-10 col-sm-9 col-md-5">
                         <label for="category" class="form-label">
@@ -111,10 +112,11 @@
                             Den information som jag har uppgett är sanningsenlig
                         </label>
                     </div>
-                    <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" value="Publicera händelse">
+                    <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" data-dismiss="alert" value="Publicera händelse">
                 </form>
             </div>
         </div>
+    </form>
 
 
 
@@ -130,10 +132,25 @@
         </div>
     </footer>
 
+    
     <!--BootstrapJS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    
+<!-- JavaScript for Pop-up Message -->
+<script>
+function handleSubmit(event) {
+  event.preventDefault();
+  
+  alert("Bra jobbat! Din händelse är nu publicerad!");
+  
+  window.location.href = "/";
+}
+
+document.getElementById("myForm").addEventListener("submit", handleSubmit);
+
+</script>
 </body>
 
 </html>
