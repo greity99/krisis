@@ -482,7 +482,7 @@ def register_user():
                 
         else:
             redirect("/")
-            #age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
+            age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
         
     return template("register", 
                     no_email_feedback = no_email_feedback, 

@@ -1,12 +1,20 @@
 body {
-    background-color: #fffafa;
+    background-color: #f4f3f1;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    background-color: #fffefc !important;
 }
 
 .icon-post {
     height: 100px;
     width: 100px;
     object-fit: cover;
+}
+
+main {
+    background-color: #FFDEAD;
 }
 
 .btn, .navbar {
@@ -26,6 +34,11 @@ body {
     width: 15vw;
 }
 
+.logo_home {
+    width: 55vh;
+}
+
+/*publish_post.html*/
 .bg-img {
     background-image: url(copcar.jpg);
     height: 80vh;
@@ -41,10 +54,6 @@ body {
 .chrisis_tips_card {
     box-shadow: 6px 6px 0 0 rgba(33,54,90,.11)!important;
     border-left: 10px solid #000000;
-}
-
-.form_publish_post {
-    background-color: #8698B3;
 }
 
 .footer {
@@ -163,6 +172,8 @@ body {
     color: #fff;
     text-align: center;
 }
+
+
 
 @media screen and (max-width: 576px){
     .widht-select {
