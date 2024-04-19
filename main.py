@@ -1,15 +1,18 @@
+import os
+
 #import modules
 from bottle import run, template, route, static_file, request, redirect, error
 import psycopg2
 from datetime import datetime
+from dotenv import load_dotenv
 
-#Database
-host = "pgserver.mau.se"
-dbname = "ao7831"
-user = "ao7831"
-password = "diq8q181"
-port = "5432"  
+load_dotenv()
 
+host = os.getenv("host")
+dbname = os.getenv("dbname")
+user = os.getenv("user")
+password = os.getenv("password")
+port = os.getenv("port")
 
 #General functions
 def check_user_age(date_str):
