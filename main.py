@@ -323,7 +323,8 @@ def login():
     template: login
     """
     checked_login_details = ""
-    return template("login", checked_login_details = checked_login_details)
+    user_name = ""
+    return template("login", checked_login_details = checked_login_details, user_name = user_name)
 
 
 @route("/Logga_in", method=['GET', 'POST'])
@@ -337,6 +338,7 @@ def login_user():
     '''
     
     checked_login_details = ""
+    user_name = ""
     
     if request.method == 'POST':
         email = request.forms.get("email")
@@ -366,18 +368,19 @@ def login_user():
                 redirect("/")
                 
             else:
+                user_name = email
                 checked_login_details = "wrong"
-                return template("login", checked_login_details = checked_login_details)
+                return template("login", checked_login_details = checked_login_details, user_name = user_name)
         
         except psycopg2.Error as e:
-            return template("login", error = "Database connection error.", checked_login_details = checked_login_details)
+            return template("login", error = "Database connection error.", checked_login_details = checked_login_details, user_name = user_name)
 
         finally:
             if conn:
                 cur.close()
                 conn.close()
     else:
-        return template("login", checked_login_details = checked_login_details)
+        return template("login", checked_login_details = checked_login_details, user_name = user_name)
 
 
 
