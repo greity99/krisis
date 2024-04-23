@@ -17,7 +17,8 @@ main {
     background-color: #FFDEAD;
 }
 
-.btn, .navbar {
+.btn,
+.navbar {
     background-color: #2a2e42 !important;
 }
 
@@ -25,9 +26,25 @@ main {
     background-color: #8698B3;
 }
 
-.feedback_message_register{
+.feedback_message_register {
     color: red;
 }
+
+.icon_confirm_post:hover {
+    fill: #2a2e42;
+}
+
+.icon_confirm_post {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+}
+
 
 /*Index.html*/
 .widht-select {
@@ -52,7 +69,7 @@ main {
 }
 
 .chrisis_tips_card {
-    box-shadow: 6px 6px 0 0 rgba(33,54,90,.11)!important;
+    box-shadow: 6px 6px 0 0 rgba(33, 54, 90, .11) !important;
     border-left: 10px solid #000000;
 }
 
@@ -63,11 +80,11 @@ main {
 
 /* Login sidan */
 .container-login {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background:url(krilog.png)repeat;
+    background: url(krilog.png)repeat;
 }
 
 .container-lg {
@@ -83,7 +100,7 @@ main {
 
 .container-lg h1 {
     font-size: 36px;
-    text-align:center;
+    text-align: center;
 }
 
 .container-lg .Input-box {
@@ -154,14 +171,16 @@ main {
     margin: 20px 0 15px;
 }
 
-.register-link p a{
+.register-link p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
+
 .register-link p a:hover {
     text-decoration: underline;
 }
+
 /* Här slutar login styling */
 
 .BGLIGHT {
@@ -175,16 +194,16 @@ main {
 
 
 
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
     .widht-select {
         width: 50vw;
     }
 
 }
 
-@media screen and (max-width: 768px) and (min-width: 576px){
+@media screen and (max-width: 768px) and (min-width: 576px) {
     .widht-select {
         width: 30vw;
     }
-    
+
 }
