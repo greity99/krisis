@@ -55,6 +55,11 @@ main {
     width: 55vh;
 }
 
+.hover_collapse:hover {
+    background-color: #a0afc6;
+
+}
+
 /*publish_post.html*/
 .bg-img {
     background-image: url(copcar.jpg);
