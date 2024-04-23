@@ -323,8 +323,15 @@ def login():
     template: login
     """
     checked_login_details = ""
-    user_name = ""
-    return template("login", checked_login_details = checked_login_details, user_name = user_name)
+    email = ""
+    no_email = ""
+    no_pwd = ""
+    
+    return template("login", 
+                    checked_login_details = checked_login_details, 
+                    email = email, 
+                    no_email = no_email,
+                    no_pwd = no_pwd)
 
 
 @route("/Logga_in", method=['GET', 'POST'])
@@ -338,50 +345,84 @@ def login_user():
     '''
     
     checked_login_details = ""
-    user_name = ""
+    email = ""
+    no_email = ""
+    no_pwd = ""
+    
+    empty_field = "Fältet får inte lämnas tomt"
     
     if request.method == 'POST':
         email = request.forms.get("email")
-        pwd = request.forms.get("password")        
+        pwd = request.forms.get("password")
         
-        try:
-            conn = psycopg2.connect(
-                host = host,
-                dbname = dbname,
-                user = user,
-                password = password
-            )
-
-            cur = conn.cursor()
-
-            cur.execute(
-                '''
-                SELECT user_id 
-                FROM app_user 
-                WHERE user_mail = %s AND user_password = %s
-                ''', (email, pwd,)
-                )
+        if email == "" and pwd != "":
+            no_email = empty_field
             
-            logged_in_user = cur.fetchone()
-
-            if logged_in_user:
-                redirect("/")
+        elif email != "" and pwd == "":
+            no_pwd = empty_field
+            
+        elif email == "" and pwd == "":
+            no_email = empty_field
+            no_pwd = empty_field
                 
-            else:
-                user_name = email
-                checked_login_details = "wrong"
-                return template("login", checked_login_details = checked_login_details, user_name = user_name)
+        else:
+            try:
+                conn = psycopg2.connect(
+                    host = host,
+                    dbname = dbname,
+                    user = user,
+                    password = password
+                )
+
+                cur = conn.cursor()
+
+                cur.execute(
+                    '''
+                    SELECT user_id 
+                    FROM app_user 
+                    WHERE user_mail = %s AND user_password = %s
+                    ''', (email, pwd,)
+                    )
+                
+                logged_in_user = cur.fetchone()
+
+                if logged_in_user:
+                    redirect("/")
+                    
+                else:
+                    user_name = email
+                    checked_login_details = "wrong"
+                    return template("login", 
+                                    checked_login_details = checked_login_details, 
+                                    email = email, 
+                                    no_email = no_email,
+                                    no_pwd = no_pwd)
+            
+            except psycopg2.Error as e:
+                return template("login", 
+                                error = "Database connection error.", 
+                                checked_login_details = checked_login_details, 
+                                email = email, 
+                                no_email = no_email,
+                                no_pwd = no_pwd)
+
+            finally:
+                if conn:
+                    cur.close()
+                    conn.close()
+                
+        return template("login", 
+                    checked_login_details = checked_login_details, 
+                    email = email, 
+                    no_email = no_email,
+                    no_pwd = no_pwd)            
         
-        except psycopg2.Error as e:
-            return template("login", error = "Database connection error.", checked_login_details = checked_login_details, user_name = user_name)
-
-        finally:
-            if conn:
-                cur.close()
-                conn.close()
     else:
-        return template("login", checked_login_details = checked_login_details, user_name = user_name)
-
+        return template("login", 
+                    checked_login_details = checked_login_details, 
+                    email = email, 
+                    no_email = no_email,
+                    no_pwd = no_pwd)
 
 
 @route("/Registrering")

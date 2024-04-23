@@ -51,13 +51,15 @@
                 <form action="/Logga_in" method="POST">
                     <h1>Login</h1>
                     <div class="Input-box">
-                        <input type="text" name="email" placeholder="Användarnamn" value = "{{user_name}}"required>
+                        <input type="text" name="email" placeholder="Användarnamn" value = "{{email}}">
                         <i class='bx bx-user'></i>
                     </div>
+                    <p class="feedback_message_register"><small>{{no_email}}</small></p>
                     <div class="Input-box">
-                        <input type="password" name="password" placeholder="Lösenord" required>
+                        <input type="password" name="password" placeholder="Lösenord">
                         <i class='bx bxs-lock'></i>
                     </div>
+                    <p class="feedback_message_register"><small>{{no_pwd}}</small></p>
                     <div class="remember-forgot">
                         <label><input type="checkbox"> Kom ihåg mig!</label>
                         <a href="#">Glömt lösenord?</a>
