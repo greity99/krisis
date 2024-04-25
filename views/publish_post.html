@@ -61,12 +61,14 @@
                         <label for="category" class="form-label ms-4 mt-3 h4">Kriskategori<span
                                 class="text-danger">*</span>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category"
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" required
                             placeholder="Sök..." value={{category}}>
                         <datalist id="categoryOptions">
                             <option value="Brand">
                             <option value="Skottlossning">
                             <option value="Rökutveckling">
+                            <option value="Vattenförorening">
+                            <option value="Sprängdåd">
 
                                 <!--
                                 Python:
@@ -77,9 +79,11 @@
                     </div>
                     <div class="row">
                         <div class="col-10 col-sm-9 col-md-5 p-2">
-                            <label for="city" class="form-label ms-4 mt-2 h4">Stad<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" name="city"
+                            <label for="city" class="form-label">
+                                <h3 class="ms-4 mt-2">Stad<span class="text-danger">*</span>
+                            </label></h3>
+                            </label>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" required
                                 placeholder="Sök..." value={{city}}>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
@@ -92,8 +96,7 @@
                             <label for="ZIP-code" class="form-label ms-4 mt-2 h4">
                                 Postnummer<span class="text-danger">*</span>
                             </label>
-
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code"
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP-code" name="ZIP-code" required
                                 placeholder="Sök..." value={{zip_code}}>
                             <datalist id="zipOptions">
                                 <option value="21110">
