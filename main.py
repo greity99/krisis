@@ -494,8 +494,8 @@ def register_user():
     else: 
         age = check_user_age(birthday)
         if age:
-            pwd = check_password_all(pwd)
-            if pwd:
+            checked_pwd = check_password_all(pwd)
+            if checked_pwd:
                 try:
                     conn = psycopg2.connect(
                         host = host,
