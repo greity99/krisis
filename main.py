@@ -150,7 +150,8 @@ def index():
 
         cur.execute(
             '''
-            SELECT category, city, zip_code, date, time FROM app_publish
+            SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time 
+            FROM app_publish
             ORDER BY date DESC, time DESC;
             '''
         )
