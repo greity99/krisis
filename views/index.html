@@ -58,7 +58,8 @@
                 </p>
                 <div class="collapse" id="collapseFilter">
                     <div>
-                        <form action="" class="mb-3">
+                        <form action="/filter" method="GET" class="mb-3">
+
 
                             <!--Categories-->
                             <label class="d-flex justify-content-center text-center form-label" for="category">
@@ -109,10 +110,11 @@
                             </datalist>
 
                             <label class="d-flex justify-content-center text-center form-label" for="date">
-                                <h6>Datum för publicering</h6>
-                            </label>
-                            <input class="form-control widht-select mx-auto mt-2 mb-3" type="date" id="date"
+                                <input class="form-control widht-select mx-auto mt-2 mb-3" type="date" id="date"
                                 name="date">
+                                </label>
+
+
                             <h4 class="mt-2 text-center">Källa</h4>
                             <!--Bootstrap checkbox, switch-->
                             <div class="form-check form-switch d-flex justify-content-center mt-3">
@@ -136,156 +138,55 @@
             </aside>
 
             <!--Main content-->
-            <main class="col-12 col-md-9 pb-5">
+<!-- Main content area where articles will be dynamically displayed -->
+<main class="col-12 col-md-9 pb-5">
+    <div class="row">
+        <h1 class="ms-4 mt-4">Händelser</h1>
+        % for article in articles:
+        <div class="card mx-4 mt-3">
+            <div class="card-body">
+                <h5 class="card-title">{{article[0]}}</h5>
                 <div class="row">
-                    <!--Events-->
-                    <div>
-                        <h1 class="ms-4 mt-4">Händelser</h1>
-                        <!--Post-->
-                        % for article in articles:
-                        <div class="card mx-4 mt-3">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{article[0]}}
-                                </h5>
-                                <div class="row">
-                                    <div class="col-lg-7 col-md-12">
-                                        <p>{{article[2]}} - {{article[1]}}</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
-                                            aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5 col-md-12 d-flex justify-content-center">
-                                        <div class="d-flex align-items-end mb-3 me-3">
-                                            <span>
-                                                <button type="button" onclick="myFunction()"
-                                                    class="icon_confirm_post"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        width="45" height="45" fill="#8698B3"
-                                                        class="bi bi-caret-up-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-                                                    </svg></button>
-                                                <p class="text-center my-auto">30%</p>
-                                            </span>
-                                            <span>
-
-                                                <p class="text-center my-auto">70%</p>
-                                                <button type="button" onclick="myFunction()" class="icon_confirm_post">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
-                                                        fill="#8698B3" class="bi bi-caret-down-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                                    </svg>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <img class="img-thumbnail rounded-circle icon-post"
-                                            src="https://picsum.photos/200/300" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer small text-muted">
-                                Publicerad: {{article[3]}} {{article[4]}}
-                            </div>
+                    <div class="col-lg-7 col-md-12">
+                        <p>{{article[2]}} - {{article[1]}}</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
+                            aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
+                        </p>
+                    </div>
+                    <div class="col-lg-5 col-md-12 d-flex justify-content-center">
+                        <div class="d-flex align-items-end mb-3 me-3">
+                            <span>
+                                <button type="button" onclick="myFunction()" class="icon_confirm_post">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="#8698B3"
+                                         class="bi bi-caret-up-fill icon_confirm_post" viewBox="0 0 16 16">
+                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                    </svg>
+                                </button>
+                                <p class="text-center my-auto">30%</p>
+                            </span>
+                            <span>
+                                <p class="text-center my-auto">70%</p>
+                                <button type="button" onclick="myFunction()" class="icon_confirm_post">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="#8698B3"
+                                         class="bi bi-caret-down-fill icon_confirm_post" viewBox="0 0 16 16">
+                                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                    </svg>
+                                </button>
+                            </span>
                         </div>
-                        %end
-
-
-
-                        <!--Post-->
-                        <div class="card mx-4 mt-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Krisrubrik</h5>
-                                <div class="row">
-                                    <div class="col-lg-7 col-md-12">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
-                                            aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5 col-md-12 d-flex justify-content-center">
-                                        <div class="d-flex align-items-end mb-3 me-3">
-                                            <span>
-                                                <button type="button" onclick="myFunction()"
-                                                    class="icon_confirm_post"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        width="45" height="45" fill="#8698B3"
-                                                        class="bi bi-caret-up-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-                                                    </svg></button>
-                                                <p class="text-center my-auto">40%</p>
-                                            </span>
-                                            <span>
-
-                                                <p class="text-center my-auto">60%</p>
-                                                <button type="button" onclick="myFunction()" class="icon_confirm_post">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
-                                                        fill="#8698B3" class="bi bi-caret-down-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                                    </svg>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <img class="img-thumbnail rounded-circle icon-post"
-                                            src="https://picsum.photos/240/300" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer small text-muted">
-                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                            </div>
-                        </div>
-                        <!--Post-->
-                        <div class="card mx-4 mt-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Krisrubrik</h5>
-                                <div class="row">
-                                    <div class="col-lg-7 col-md-12">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
-                                            aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-5 col-md-12 d-flex justify-content-center">
-                                        <div class="d-flex align-items-end mb-3 me-3">
-                                            <span>
-                                                <button type="button" onclick="myFunction()"
-                                                    class="icon_confirm_post"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        width="45" height="45" fill="#8698B3"
-                                                        class="bi bi-caret-up-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-                                                    </svg></button>
-                                                <p class="text-center my-auto">50%</p>
-                                            </span>
-                                            <span>
-                                                <p class="text-center my-auto">50%</p>
-                                                <button type="button" onclick="myFunction()" class="icon_confirm_post">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
-                                                        fill="#8698B3" class="bi bi-caret-down-fill icon_confirm_post"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                                    </svg>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <img class="img-thumbnail rounded-circle icon-post"
-                                            src="https://picsum.photos/200/340" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer small text-muted">
-                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
-                            </div>
-                        </div>
+                        <img class="img-thumbnail rounded-circle icon-post" src="https://picsum.photos/200/300" alt="">
                     </div>
                 </div>
-            </main>
+            </div>
+            <div class="card-footer small text-muted">
+                Publicerad: {{article[3]}} {{article[4]}}
+            </div>
+        </div>
+        %end
+    </div>
+</main>
+
+
             <!--Footer-->
             <footer class="footer bg-dark p-3" data-bs-theme="dark">
                 <div class="container-fluid">

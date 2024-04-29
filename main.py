@@ -574,6 +574,47 @@ def register_user():
                     birthday = birthday)
     
 
+@route("/filter", method='GET')
+def filter_events():
+    # Fetch data from the form
+    category = request.query.category
+    city = request.query.city
+    zip_code = request.query.zip_code
+    date = request.query.date
+
+    query_parts = []
+    params = []
+
+    if category:
+        query_parts.append("category = %s")
+        params.append(category)
+    if city:
+        query_parts.append("city = %s")
+        params.append(city)
+    if zip_code:
+        query_parts.append("zip_code = %s")
+        params.append(zip_code)
+    if date:
+        query_parts.append("date = %s")
+        params.append(date)
+
+    query_base = "SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time FROM app_publish"
+    if query_parts:
+        query_base += " WHERE " + " AND ".join(query_parts)
+    query_base += " ORDER BY date DESC, time DESC;"
+
+    try:
+        conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
+        cur = conn.cursor()
+        cur.execute(query_base, params)
+        articles = cur.fetchall()
+        cur.close()
+        conn.close()
+        return template("index", articles=articles)
+    except psycopg2.Error as error:
+        return f"Error: unable to retrieve data\n{error}"
+
+
 @route("/static/<filename>")
 def static_files(filename):
     """
