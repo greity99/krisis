@@ -142,11 +142,15 @@
                     <div>
                         <h1 class="ms-4 mt-4">Händelser</h1>
                         <!--Post-->
-                        <div class="card mx-4">
+                        % for article in articles:
+                        <div class="card mx-4 mt-3">
                             <div class="card-body">
-                                <h5 class="card-title">Krisrubrik</h5>
+                                <h5 class="card-title">
+                                    {{article[0]}}
+                                </h5>
                                 <div class="row">
                                     <div class="col-lg-7 col-md-12">
+                                        <p>{{article[2]}} - {{article[1]}}</p>
                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione cupiditate
                                             aperiam accusantium culpa voluptatem quidem deserunt saepe et fugiat autem!
                                         </p>
@@ -183,9 +187,13 @@
                                 </div>
                             </div>
                             <div class="card-footer small text-muted">
-                                Publicerad: ÅÅ-MM-DD, HH:SS:MM
+                                Publicerad: {{article[3]}} {{article[4]}}
                             </div>
                         </div>
+                        %end
+
+
+
                         <!--Post-->
                         <div class="card mx-4 mt-3">
                             <div class="card-body">

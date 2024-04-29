@@ -137,7 +137,37 @@ def index():
     Returns,
     template: index
     """
-    return template("index")
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )
+
+        cur = conn.cursor()
+
+        cur.execute(
+            '''
+            SELECT category, city, zip_code, date, time FROM app_publish
+            ORDER BY date DESC, time DESC;
+            '''
+        )
+        
+        articles = cur.fetchall()
+        
+        conn.close()
+
+        return template("index", articles = articles)
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+        return f"Error: unable to insert data\n{error}"
+    
+    
+
 
 
 #Searchfunction index.html
@@ -227,6 +257,8 @@ def publish_post():
     city = request.forms.get("city")
     zip_code = request.forms.get("ZIP-code")
     
+    print()
+    
     no_category = ""
     no_zip = ""
     no_city = ""
@@ -279,9 +311,9 @@ def publish_post():
 
             cur.execute(
                 '''
-                INSERT INTO app_publish (category, city, zip_code, date, time)
+                INSERT INTO app_publish
                 VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
-                ''', (category, city, zip_code)
+                ''', (category, city, zip_code,)
             )
             
             conn.commit()
