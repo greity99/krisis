@@ -576,7 +576,6 @@ def register_user():
 
 @route("/filter", method='GET')
 def filter_events():
-    # Fetch data from the form
     category = request.query.category
     city = request.query.city
     zip_code = request.query.zip_code
