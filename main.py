@@ -166,56 +166,6 @@ def index():
         if conn:
             conn.rollback()
         return f"Error: unable to insert data\n{error}"
-    
-    
-
-
-
-#Searchfunction index.html
-#Questions:
-# How to receive information about source checked by user from checkbox in HTML, is javascript needed?
-# POST or GET?
-# How to make a search with all fields?
-'''
-@route("/", method="POST")
-def index():
-    category = request.forms.get("category")
-    city = request.forms.get("city")
-    zip_code = request.forms.get("ZIP-code")
-    date = request.forms.get("date")
-    #Information from the two checkboxes!
-    
-    try:
-        conn = psycopg2.connect(
-            db_host = db_host,
-            db_name = db_name,
-            db_user = db_user,
-            db_password = db_password,
-            db_port = db_port
-        )
-        
-        cur = conn.cursor()
-
-        cur.execute(
-            """
-                SELECT art_title, art_text, upvote, downvote, pic
-                FROM app_post
-                WHERE category LIKE (%s) OR city LIKE (%s) OR zip_code LIKE (%s) OR date LIKE (%s)
-            """, (category, city, zip_code, date)
-        )
-        
-        conn.commit()
-
-        cur.close()
-        conn.close()
-        
-
-        return "Data inserted successfully!"
-    
-    except psycopg2.Error as error:
-        if conn:
-            conn.rollback()
-'''
 
 @route("/Krishantering")
 def chrisis_tips():
@@ -610,6 +560,7 @@ def filter_events():
         cur.close()
         conn.close()
         return template("index", articles=articles)
+    
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
