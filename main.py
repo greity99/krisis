@@ -494,6 +494,10 @@ def register_user():
                     birthday = birthday)
     
 
+@route("/polisen_api.html")
+def polisen_api():
+    return template ("polisen_api.html")
+
 @route("/static/<filename>")
 def static_files(filename):
     """
