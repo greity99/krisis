@@ -132,7 +132,7 @@ def check_password_all(pwd):
         return False
 
 
-@app.route("/")
+@app.route("/index")
 def index():
     """
     Returns main page. 
@@ -180,7 +180,7 @@ def chrisis_tips():
     return render_template("chrisis_tips.html")
 
 
-@app.route("/Ny")
+@app.route("/publish_post.html")
 def create_post():
     """
     Returns a page on which the user can publish a post about a ongoing crisis.
