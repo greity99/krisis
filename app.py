@@ -1,7 +1,7 @@
 import os
 
 #import modules
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session
 import psycopg2
 from datetime import datetime
 from dotenv import load_dotenv
@@ -188,7 +188,7 @@ def create_post():
     Returns,
     template: publish_post
     """
-    return render_template("publish_post",
+    return render_template("publish_post.html",
                     no_category="",
                     no_zip="",
                     no_city="",
@@ -279,7 +279,7 @@ def publish_post():
                 conn.rollback()
             return f"Error: unable to insert data\n{error}"
         
-    return render_template ("publish_post",
+    return render_template ("publish_post.html",
                     no_category = no_category,
                     no_zip = no_zip,
                     no_city = no_city,
@@ -295,7 +295,7 @@ def contact():
     Returns,
     template: contact
     """
-    return render_template("contact")
+    return render_template("contact.html")
 
 @app.route("/Logga_in")
 def login():
@@ -310,7 +310,7 @@ def login():
     no_email = ""
     no_pwd = ""
     
-    return render_template("login", 
+    return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
@@ -375,14 +375,14 @@ def login_user():
                 else:
                     user_name = email
                     checked_login_details = "wrong"
-                    return render_template("login", 
+                    return render_template("login.html", 
                                     checked_login_details = checked_login_details, 
                                     email = email, 
                                     no_email = no_email,
                                     no_pwd = no_pwd)
             
             except psycopg2.Error as e:
-                return render_template("login", 
+                return render_template("login.html", 
                                 error = "Database connection error.", 
                                 checked_login_details = checked_login_details, 
                                 email = email, 
@@ -394,14 +394,14 @@ def login_user():
                     cur.close()
                     conn.close()
                 
-        return render_template("login", 
+        return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
                     no_pwd = no_pwd)            
         
     else:
-        return render_template("login", 
+        return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
@@ -514,7 +514,7 @@ def register_user():
             redirect("/")
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
         
-    return render_template("register", 
+    return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
                     no_birthday_feedback = no_birthday_feedback, 
                     age_feedback = age_feedback, 
@@ -559,7 +559,7 @@ def filter_events():
         articles = cur.fetchall()
         cur.close()
         conn.close()
-        return render_template("index", articles=articles)
+        return render_template("index.html", articles=articles)
     
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
