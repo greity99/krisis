@@ -156,8 +156,7 @@ def index():
             '''
         )
         
-        articles = cur.fetchall()
-        
+        articles = cur.fetchall()        
         conn.close()
 
         return template("index", articles = articles)
@@ -204,11 +203,9 @@ def publish_post():
     template: publish_post (if the information is not filled out correctly).
     else it redirects the user to the main page. 
     '''
-    category = request.forms.get("category")
-    city = request.forms.get("city")
-    zip_code = request.forms.get("ZIP-code")
-    
-    print()
+    category = request.forms.category
+    city = request.forms.city
+    zip_code = request.forms.ZIP
     
     no_category = ""
     no_zip = ""
