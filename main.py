@@ -181,7 +181,7 @@ def chrisis_tips():
 
 
 @app.route("/Ny")
-def publish_post():
+def create_post():
     """
     Returns a page on which the user can publish a post about a ongoing crisis.
     
@@ -196,7 +196,7 @@ def publish_post():
                     city="",
                     zip_code="")
     
-@app.route("/Ny", method="POST")
+@app.route("/Ny", methods=["POST"])
 def publish_post():
     '''
     Form.
@@ -317,7 +317,7 @@ def login():
                     no_pwd = no_pwd)
 
 
-@app.route("/Logga_in", method=['GET', 'POST'])
+@app.route("/Logga_in", methods=['GET', 'POST'])
 def login_user():
     '''
     Returns page for login with error message if login does not exist,
@@ -427,7 +427,7 @@ def register():
                     birthday="")
 
 
-@app.route("/Registrering", method="POST")
+@app.route("/Registrering", methods=["POST"])
 def register_user():
     email = request.forms.get("email")
     birthday = request.forms.get("birthday")
@@ -524,7 +524,7 @@ def register_user():
                     birthday = birthday)
     
 
-@app.route("/filter", method='GET')
+@app.route("/filter", methods=['GET'])
 def filter_events():
     category = request.query.category
     city = request.query.city
