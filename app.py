@@ -1,7 +1,7 @@
 import os
 
 #import modules
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, send_from_directory
 import psycopg2
 from datetime import datetime
 from dotenv import load_dotenv
@@ -570,7 +570,7 @@ def static_files(filename):
     """
     Funktion vilken returnerar statiska filer (ex. CSS) från mappen static.
     """
-    return static_files(filename, root="static")
+    return send_from_directory("static", filename)
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080)
