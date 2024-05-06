@@ -132,7 +132,7 @@ def check_password_all(pwd):
         return False
 
 
-@app.route("/index")
+@app.route("/")
 def index():
     """
     Returns main page. 
@@ -180,7 +180,7 @@ def chrisis_tips():
     return render_template("chrisis_tips.html")
 
 
-@app.route("/publish_post.html")
+@app.route("/Ny")
 def create_post():
     """
     Returns a page on which the user can publish a post about a ongoing crisis.
@@ -570,7 +570,7 @@ def static_files(filename):
     """
     Funktion vilken returnerar statiska filer (ex. CSS) från mappen static.
     """
-    return static_file(filename, root="static")
+    return static_files(filename, root="static")
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080)
