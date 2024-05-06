@@ -1,7 +1,7 @@
 import os
 
 #import modules
-from bottle import run, template, route, static_file, request, redirect, error
+from flask import Flask, render_template, request, redirect, session, send_from_directory
 import psycopg2
 from datetime import datetime
 from dotenv import load_dotenv
@@ -13,6 +13,9 @@ dbname = os.getenv("dbname")
 user = os.getenv("user")
 password = os.getenv("password")
 port = os.getenv("port")
+
+app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
 
 #General functions
 def check_user_age(date_str):
@@ -129,7 +132,7 @@ def check_password_all(pwd):
         return False
 
 
-@route("/")
+@app.route("/")
 def index():
     """
     Returns main page. 
@@ -159,14 +162,14 @@ def index():
         articles = cur.fetchall()        
         conn.close()
 
-        return template("index", articles = articles)
+        return render_template("index.html", articles = articles)
         
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
         return f"Error: unable to insert data\n{error}"
 
-@route("/Krishantering")
+@app.route("/Krishantering")
 def chrisis_tips():
     """
     Returns articles about how to handle different crises. 
@@ -174,18 +177,18 @@ def chrisis_tips():
     Returns,
     template: chrisis_tips
     """
-    return template("chrisis_tips")
+    return render_template("chrisis_tips.html")
 
 
-@route("/Ny")
-def publish_post():
+@app.route("/Ny")
+def create_post():
     """
     Returns a page on which the user can publish a post about a ongoing crisis.
     
     Returns,
     template: publish_post
     """
-    return template("publish_post",
+    return render_template("publish_post.html",
                     no_category="",
                     no_zip="",
                     no_city="",
@@ -193,7 +196,7 @@ def publish_post():
                     city="",
                     zip_code="")
     
-@route("/Ny", method="POST")
+@app.route("/Ny", methods=["POST"])
 def publish_post():
     '''
     Form.
@@ -276,7 +279,7 @@ def publish_post():
                 conn.rollback()
             return f"Error: unable to insert data\n{error}"
         
-    return template ("publish_post",
+    return render_template ("publish_post.html",
                     no_category = no_category,
                     no_zip = no_zip,
                     no_city = no_city,
@@ -284,7 +287,7 @@ def publish_post():
                     city = city,
                     zip_code = zip_code) 
 
-@route("/Kontakt")
+@app.route("/Kontakt")
 def contact():
     """
     Returns page for contacting suupport.
@@ -292,9 +295,9 @@ def contact():
     Returns,
     template: contact
     """
-    return template("contact")
+    return render_template("contact.html")
 
-@route("/Logga_in")
+@app.route("/Logga_in")
 def login():
     """
     Returns page for login.
@@ -307,14 +310,14 @@ def login():
     no_email = ""
     no_pwd = ""
     
-    return template("login", 
+    return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
                     no_pwd = no_pwd)
 
 
-@route("/Logga_in", method=['GET', 'POST'])
+@app.route("/Logga_in", methods=['GET', 'POST'])
 def login_user():
     '''
     Returns page for login with error message if login does not exist,
@@ -372,14 +375,14 @@ def login_user():
                 else:
                     user_name = email
                     checked_login_details = "wrong"
-                    return template("login", 
+                    return render_template("login.html", 
                                     checked_login_details = checked_login_details, 
                                     email = email, 
                                     no_email = no_email,
                                     no_pwd = no_pwd)
             
             except psycopg2.Error as e:
-                return template("login", 
+                return render_template("login.html", 
                                 error = "Database connection error.", 
                                 checked_login_details = checked_login_details, 
                                 email = email, 
@@ -391,21 +394,21 @@ def login_user():
                     cur.close()
                     conn.close()
                 
-        return template("login", 
+        return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
                     no_pwd = no_pwd)            
         
     else:
-        return template("login", 
+        return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
                     no_pwd = no_pwd)
 
 
-@route("/Registrering")
+@app.route("/Registrering")
 def register():
     """
     Returns page for registering.
@@ -414,7 +417,7 @@ def register():
     template: register
     """
     
-    return template("register.html", 
+    return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
                     age_feedback="", 
@@ -424,7 +427,7 @@ def register():
                     birthday="")
 
 
-@route("/Registrering", method="POST")
+@app.route("/Registrering", methods=["POST"])
 def register_user():
     email = request.forms.get("email")
     birthday = request.forms.get("birthday")
@@ -511,7 +514,7 @@ def register_user():
             redirect("/")
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
         
-    return template("register", 
+    return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
                     no_birthday_feedback = no_birthday_feedback, 
                     age_feedback = age_feedback, 
@@ -521,7 +524,7 @@ def register_user():
                     birthday = birthday)
     
 
-@route("/filter", method='GET')
+@app.route("/filter", methods=['GET'])
 def filter_events():
     category = request.query.category
     city = request.query.city
@@ -556,18 +559,19 @@ def filter_events():
         articles = cur.fetchall()
         cur.close()
         conn.close()
-        return template("index", articles=articles)
+        return render_template("index.html", articles=articles)
     
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
 
-@route("/static/<filename>")
+@app.route("/static/<filename>")
 def static_files(filename):
     """
     Funktion vilken returnerar statiska filer (ex. CSS) från mappen static.
     """
-    return static_file(filename, root="static")
+    return send_from_directory("static", filename)
 
-run(host="127.0.0.1", port=8080)
+if __name__ == '__main__':
+    app.run(host="127.0.0.1", port=8080)
 
