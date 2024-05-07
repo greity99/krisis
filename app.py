@@ -564,6 +564,9 @@ def filter_events():
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
+@app.route("/polisen_api.html")
+def polisen_api():
+    return render_template("polisen_api.html")
 
 @app.route("/static/<filename>")
 def static_files(filename):
