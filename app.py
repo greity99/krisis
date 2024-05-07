@@ -206,9 +206,9 @@ def publish_post():
     template: publish_post (if the information is not filled out correctly).
     else it redirects the user to the main page. 
     '''
-    category = request.forms.category
-    city = request.forms.city
-    zip_code = request.forms.ZIP
+    category = request.form.category
+    city = request.form.city
+    zip_code = request.form.ZIP
     
     no_category = ""
     no_zip = ""
@@ -564,6 +564,9 @@ def filter_events():
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
+@app.route("/polisen_api.html")
+def polisen_api():
+    return render_template("polisen_api.html")
 
 @app.route("/static/<filename>")
 def static_files(filename):
