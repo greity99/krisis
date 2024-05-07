@@ -206,9 +206,9 @@ def publish_post():
     template: publish_post (if the information is not filled out correctly).
     else it redirects the user to the main page. 
     '''
-    category = request.forms.category
-    city = request.forms.city
-    zip_code = request.forms.ZIP
+    category = request.form.get("category")
+    city = request.form.get("city")
+    zip_code = request.form.get("ZIP")
     
     no_category = ""
     no_zip = ""
@@ -272,7 +272,7 @@ def publish_post():
             cur.close()
             conn.close()
 
-            redirect("/")  
+            return redirect("/")
             
         except psycopg2.Error as error:
             if conn:
@@ -334,9 +334,9 @@ def login_user():
     
     empty_field = "Fältet får inte lämnas tomt"
     
-    if request.method == 'POST':
-        email = request.forms.get("email")
-        pwd = request.forms.get("password")
+    if request.method == "POST":
+        email = request.form.get("email")
+        pwd = request.form.get("password")
         
         if email == "" and pwd != "":
             no_email = empty_field
@@ -370,7 +370,7 @@ def login_user():
                 logged_in_user = cur.fetchone()
 
                 if logged_in_user:
-                    redirect("/")
+                    return redirect("/")
                     
                 else:
                     user_name = email
@@ -429,9 +429,9 @@ def register():
 
 @app.route("/Registrering", methods=["POST"])
 def register_user():
-    email = request.forms.get("email")
-    birthday = request.forms.get("birthday")
-    pwd = request.forms.get("pwd")
+    email = request.form.get("email")
+    birthday = request.form.get("birthday")
+    pwd = request.form.get("pwd")
 
     no_email_feedback = ""
     no_birthday_feedback = ""
@@ -501,7 +501,7 @@ def register_user():
                     cur.close()
                     conn.close()
 
-                    redirect('/')  
+                    return redirect("/")
                     
                 except psycopg2.Error as error:
                     if conn:
@@ -511,8 +511,8 @@ def register_user():
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
         else:
-            redirect("/")
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
+            return redirect("/")
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
@@ -524,12 +524,12 @@ def register_user():
                     birthday = birthday)
     
 
-@app.route("/filter", methods=['GET'])
+@app.route("/filter", methods=["GET"])
 def filter_events():
-    category = request.query.category
-    city = request.query.city
-    zip_code = request.query.zip_code
-    date = request.query.date
+    category = request.args.get("category") 
+    city = request.args.get("city")
+    zip_code = request.args.get("ZIP-code")
+    date = request.args.get("date")
 
     query_parts = []
     params = []
