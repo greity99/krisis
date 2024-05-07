@@ -67,7 +67,7 @@
                     </div>
                     <button type="submit" class="butn">Logga in</button>
 
-                    %if checked_login_details == "wrong":
+                    {% if checked_login_details == "wrong" %}
                     <div class="alert alert-danger mt-3" role="alert">
                         <p class="text-center mb-0 mt-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -80,8 +80,8 @@
                             Fel användarnamn eller lösenord!
                         </p>
                     </div>
-                    %end
-
+                    {% endif %}
+                         
                     <div class="register-link">
                         <p>Har du inget konto? <a href="/Registrering">Registrera dig här!</a></p>
                     </div>
