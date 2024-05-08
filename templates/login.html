@@ -52,7 +52,7 @@
 
                     <h1>Login</h1>
                     <div class="Input-box">
-                        <input type="text" name="email" placeholder="Användarnamn" value = "{{email}}">
+                        <input type="text" name="email" placeholder="Användarnamn" value="{{email}}">
                         <i class='bx bx-user'></i>
                     </div>
                     <p class="feedback_message_register"><small>{{no_email}}</small></p>
@@ -66,8 +66,7 @@
                         <a href="#">Glömt lösenord?</a>
                     </div>
                     <button type="submit" class="butn">Logga in</button>
-
-                    %if checked_login_details == "wrong":
+                    {%if checked_login_details == "wrong": %}
                     <div class="alert alert-danger mt-3" role="alert">
                         <p class="text-center mb-0 mt-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -80,8 +79,7 @@
                             Fel användarnamn eller lösenord!
                         </p>
                     </div>
-                    %end
-
+                    {% endif %}
                     <div class="register-link">
                         <p>Har du inget konto? <a href="/Registrering">Registrera dig här!</a></p>
                     </div>
@@ -89,7 +87,7 @@
             </div>
         </div>
     </main>
-    
+
     <!--Footer-->
     <footer class="footer bg-dark p-3" data-bs-theme="dark">
         <div class="container-fluid">
