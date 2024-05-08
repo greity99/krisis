@@ -59,6 +59,17 @@
                 </div>
                 <p>Fyll i dina uppgifter nedan!</p>
                 <hr>
+                <!--Alert when registration succeed-->
+                {%if created == True: %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading">Sådärja!</h4>
+                    <p>Nu är ditt konto skapat</p>
+                    <a href="/Logga_in" class="btn btn-dark">Logga in</a>
+                </div>
+                {% endif %}
+
+                <!--Form shown when registration is not done-->
+                {%if created == False: %}
                 <form action="/Registrering" method="POST" class="pb-5" accept-charset="UTF-8">
                     <label for="email" class="form-label h4">
                         Mejladress
@@ -87,7 +98,7 @@
                     <br>
                     <input type="submit" value="Registrera mig" class="btn btn-dark mt-4">
                 </form>
-
+                {% endif %}
             </main>
         </div>
     </div>

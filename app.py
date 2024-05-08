@@ -38,77 +38,26 @@ def check_password_uppercase(pwd):
     '''
     Function that ensures that the password contains at least one uppercase letter.
     '''
-    uppercase = False   
-      
-    for i in pwd:
-        if i.isupper():
-            uppercase = True
-            break
-            
-        else: 
-            uppercase = False
-            
-    if uppercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.isupper() for char in pwd)
         
         
 def check_password_lowercase(pwd):
     '''
     Function that ensures that the password contains at least one lowercase letter.
     '''
-    lowercase = False   
-      
-    for i in pwd:
-        if i.islower():
-            lowercase = True
-            break
-            
-        else: 
-            lowercase = False
-            
-    if lowercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.islower() for char in pwd)
     
 def check_password_lenght(pwd):
     '''
     Function that ensures that the password is atleast 8 characters long.
     '''
-    
-    length = len(pwd)
-    
-    if length < 8:
-        return False
-    
-    else:
-        return True
-    
+    return len(pwd) >= 8
     
 def check_password_digit(pwd):
     '''
     Function that ensures that the password contains at least one digit.
     '''
-    digit = False   
-      
-    for i in pwd:
-        if i.isdigit():
-            digit = True
-            break
-            
-        else: 
-            digit = False
-            
-    if digit == False:
-        return False
-    
-    else: 
-        return True       
-        
+    return any(char.isdigit() for char in pwd)
         
 def check_password_all(pwd):
     '''
@@ -120,19 +69,10 @@ def check_password_all(pwd):
     
     and returns True if all password requirements are met. 
     '''
-    uppercase = check_password_uppercase(pwd)
-    lowercase = check_password_lowercase(pwd)
-    digit = check_password_digit(pwd)
-    length = check_password_lenght(pwd)
-    
-    if uppercase == True and lowercase == True and length == True and digit == True:
-        return True
-    
-    else:
-        return False
-    
-def is_user_logged_in():
-    return 'user_id' in session
+    return (check_password_uppercase(pwd) and
+            check_password_lowercase(pwd) and
+            check_password_digit(pwd) and
+            check_password_lenght(pwd))
 
 @app.route("/")
 def index():
@@ -169,7 +109,7 @@ def index():
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        return f"Error: unable to insert data\n{error}"
+            return f"Error: unable to insert data\n{error}"
 
 @app.route("/Krishantering")
 def chrisis_tips():
@@ -214,6 +154,8 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
+    
+    print(city)
     
     no_category = ""
     no_zip = ""
@@ -302,28 +244,8 @@ def contact():
     """
     return render_template("contact.html")
 
-@app.route("/Logga_in")
-def login():
-    """
-    Returns page for login.
-
-    Returns,
-    template: login
-    """
-    checked_login_details = ""
-    email = ""
-    no_email = ""
-    no_pwd = ""
-    
-    return render_template("login.html", 
-                    checked_login_details = checked_login_details, 
-                    email = email, 
-                    no_email = no_email,
-                    no_pwd = no_pwd)
-
-
 @app.route("/Logga_in", methods=['GET', 'POST'])
-def login_user():
+def login():
     '''
     Returns page for login with error message if login does not exist,
     Redirects to home page if login is correct.
@@ -431,7 +353,8 @@ def register():
                     no_pwd_feedback="", 
                     pwd_feedback="", 
                     email="",
-                    birthday="")
+                    birthday="",
+                    created = False)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -446,38 +369,39 @@ def register_user():
     no_pwd_feedback = ""
     pwd_feedback = ""
     
+    created = False    
     empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
-    if email == "" and birthday == "" and password == "":
+    if email == "" and birthday == "" and pwd == "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #email-field empty
-    elif email == "" and birthday != "" and password != "":
+    elif email == "" and birthday != "" and pwd != "":
         no_email_feedback = empty_field
     
     #birthday-field empty
-    elif email != "" and birthday == "" and password != "":
+    elif email != "" and birthday == "" and pwd != "":
         no_birthday_feedback = empty_field
     
     #password-field empty
-    elif email != "" and birthday != "" and password == "":
+    elif email != "" and birthday != "" and pwd == "":
         no_pwd_feedback = empty_field
         
     #email-field and birthday-field empty
-    elif email == "" and birthday == "" and password != "":
+    elif email == "" and birthday == "" and pwd != "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
     
     #email-field and password-field empty
-    elif email == "" and birthday != "" and password == "":
+    elif email == "" and birthday != "" and pwd == "":
         no_email_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #birthday-field and password-field empty
-    elif email != "" and birthday == "" and password == "":
+    elif email != "" and birthday == "" and pwd == "":
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
         
@@ -507,8 +431,18 @@ def register_user():
                     
                     cur.close()
                     conn.close()
-
-                    return redirect("/")
+                    
+                    created = True
+                    
+                    return render_template("register.html", 
+                                no_email_feedback = no_email_feedback, 
+                                no_birthday_feedback = no_birthday_feedback, 
+                                age_feedback = age_feedback, 
+                                no_pwd_feedback = no_pwd_feedback, 
+                                pwd_feedback = pwd_feedback, 
+                                email = "",
+                                birthday = "",
+                                created = created)
                     
                 except psycopg2.Error as error:
                     if conn:
@@ -528,7 +462,8 @@ def register_user():
                     no_pwd_feedback = no_pwd_feedback, 
                     pwd_feedback = pwd_feedback, 
                     email = email,
-                    birthday = birthday)
+                    birthday = birthday,
+                    created = created)
     
 
 @app.route("/filter", methods=["GET"])
