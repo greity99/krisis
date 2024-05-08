@@ -576,6 +576,15 @@ def filter_events():
 def polisen_api():
     return render_template("polisen_api.html")
 
+@app.route("/Profil")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/Logga_ut", methods=["GET"])
+def Log_out():
+    session['user_id'] = None
+    return redirect("/")
+
 @app.route("/static/<filename>")
 def static_files(filename):
     """
