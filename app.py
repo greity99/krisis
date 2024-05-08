@@ -572,9 +572,11 @@ def filter_events():
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
-@app.route("/polisen_api.html")
+@app.route("/Händelser_från_polisen")
 def polisen_api():
-    return render_template("polisen_api.html")
+    is_logged_in = is_user_logged_in()
+    return render_template("polisen_api.html",
+                           is_logged_in = is_logged_in)
 
 @app.route("/Profil")
 def profile():
