@@ -74,6 +74,7 @@ def check_password_all(pwd):
             check_password_digit(pwd) and
             check_password_lenght(pwd))
 
+
 @app.route("/")
 def index():
     """
