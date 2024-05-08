@@ -118,7 +118,7 @@ main {
 .Input-box input {
     width: 100%;
     height: 100%;
-    background: transparent;
+    background: #2a2e42;
     border: none;
     outline: none;
     border: 2px solid black;
@@ -158,7 +158,7 @@ main {
 .container-lg .butn {
     width: 100%;
     height: 45px;
-    background: black;
+    background: #2a2e42;
     border: none;
     outline: none;
     border-radius: 40px;
