@@ -114,7 +114,7 @@ def index():
         articles = cur.fetchall()        
         conn.close()
 
-        return render_template("index.html", articles = articles)
+        return render_template("index.html", articles = articles, is_user_logged_in=is_user_logged_in)
         
     except psycopg2.Error as error:
         if conn:
