@@ -69,11 +69,20 @@ def check_password_all(pwd):
     
     and returns True if all password requirements are met. 
     '''
-    return (check_password_uppercase(pwd) and
-            check_password_lowercase(pwd) and
-            check_password_digit(pwd) and
-            check_password_lenght(pwd))
+    uppercase = check_password_uppercase(pwd)
+    lowercase = check_password_lowercase(pwd)
+    digit = check_password_digit(pwd)
+    length = check_password_lenght(pwd)
+    
+    if uppercase == True and lowercase == True and length == True and digit == True:
+        return True
+    
+    else:
+        return False
+    
 
+def is_user_logged_in():
+    return 'user_id' in session
 
 @app.route("/")
 def index():
