@@ -38,77 +38,26 @@ def check_password_uppercase(pwd):
     '''
     Function that ensures that the password contains at least one uppercase letter.
     '''
-    uppercase = False   
-      
-    for i in pwd:
-        if i.isupper():
-            uppercase = True
-            break
-            
-        else: 
-            uppercase = False
-            
-    if uppercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.isupper() for char in pwd)
         
         
 def check_password_lowercase(pwd):
     '''
     Function that ensures that the password contains at least one lowercase letter.
     '''
-    lowercase = False   
-      
-    for i in pwd:
-        if i.islower():
-            lowercase = True
-            break
-            
-        else: 
-            lowercase = False
-            
-    if lowercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.islower() for char in pwd)
     
 def check_password_lenght(pwd):
     '''
     Function that ensures that the password is atleast 8 characters long.
     '''
-    
-    length = len(pwd)
-    
-    if length < 8:
-        return False
-    
-    else:
-        return True
-    
+    return len(pwd) >= 8
     
 def check_password_digit(pwd):
     '''
     Function that ensures that the password contains at least one digit.
     '''
-    digit = False   
-      
-    for i in pwd:
-        if i.isdigit():
-            digit = True
-            break
-            
-        else: 
-            digit = False
-            
-    if digit == False:
-        return False
-    
-    else: 
-        return True       
-        
+    return any(char.isdigit() for char in pwd)
         
 def check_password_all(pwd):
     '''
@@ -120,17 +69,10 @@ def check_password_all(pwd):
     
     and returns True if all password requirements are met. 
     '''
-    uppercase = check_password_uppercase(pwd)
-    lowercase = check_password_lowercase(pwd)
-    digit = check_password_digit(pwd)
-    length = check_password_lenght(pwd)
-    
-    if uppercase == True and lowercase == True and length == True and digit == True:
-        return True
-    
-    else:
-        return False
-
+    return (check_password_uppercase(pwd) and
+            check_password_lowercase(pwd) and
+            check_password_digit(pwd) and
+            check_password_lenght(pwd))
 
 @app.route("/")
 def index():
