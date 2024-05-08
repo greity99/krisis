@@ -82,7 +82,9 @@ def check_password_all(pwd):
     
 
 def is_user_logged_in():
-    return 'user_id' in session
+    user_id = session.get('user_id')
+    return user_id
+
 
 @app.route("/")
 def index():
@@ -113,8 +115,11 @@ def index():
         
         articles = cur.fetchall()        
         conn.close()
+        
+        is_logged_in = is_user_logged_in()
+        print(is_logged_in)
 
-        return render_template("index.html", articles = articles, is_user_logged_in=is_user_logged_in)
+        return render_template("index.html", articles = articles, is_logged_in = is_logged_in)
         
     except psycopg2.Error as error:
         if conn:
@@ -308,11 +313,11 @@ def login():
 
                 if logged_in_user:
                     # Set user_id in session
-                    session['user_id'] = logged_in_user[0]
+                    
+                    session['user_id'] = logged_in_user
                     return redirect("/")
                     
                 else:
-                    user_name = email
                     checked_login_details = "wrong"
                     return render_template("login.html", 
                                     checked_login_details = checked_login_details, 
