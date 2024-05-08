@@ -60,20 +60,14 @@
                         <label for="category" class="form-label ms-4 mt-3 h4">Kriskategori<span
                                 class="text-danger">*</span>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" required
-                            placeholder="Sök..." value={{category}}>
-                        <datalist id="categoryOptions">
-                            <option value="Brand">
-                            <option value="Skottlossning">
-                            <option value="Rökutveckling">
-                            <option value="Vattenförorening">
-                            <option value="Sprängdåd">
-
-                                <!--
-                                Python:
-                                for i in cities print <option value="i">i</option>?
-                            -->
-                        </datalist>
+                        <select class="form-control ms-4" name="category" id="category" value={{category}}>
+                            <option hidden value="">Välj...</option>
+                            {% for category in categories %}
+                            {% for i in category %}
+                            <option class="p-2">{{i}}</option>
+                            {% endfor %}
+                            {% endfor %}
+                        </select>
                         <p class="feedback_message_register ms-4"><small>{{no_category}}</small></p>
                     </div>
                     <div class="row">

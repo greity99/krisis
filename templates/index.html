@@ -71,18 +71,14 @@
                             <label class="d-flex justify-content-center text-center form-label" for="category">
                                 <h6>Riskkategori</h6>
                             </label>
-                            <input class="form-control widht-select mx-auto mt-2 mb-3" list="categoryOptions"
-                                id="category" name="category" placeholder="Sök...">
-                            <datalist id="categoryOptions">
-                                <option value="Brand">
-                                <option value="Skottlossning">
-                                <option value="Rökutveckling">
-                                    <!--
-                                Python:
-                                for i in cities print <option value="i">i</option>?
-                            -->
-                            </datalist>
-
+                            <select class="form-control widht-select mx-auto mt-2 mb-3" id="category" name="category">
+                                <option hidden value="">Välj...</option>
+                                {% for category in categories %}
+                                {% for i in category %}
+                                <option>{{i}}</option>
+                                {% endfor %}
+                                {% endfor %}
+                            </select>
                             <!--City-->
                             <label class="d-flex justify-content-center text-center form-label" for="city">
                                 <h6>Stad</h6>

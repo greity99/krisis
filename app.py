@@ -85,6 +85,34 @@ def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
 
+def get_categories():
+    try:
+            conn = psycopg2.connect(
+                host = host,
+                dbname = dbname,
+                user = user,
+                password = password
+            )
+
+            cur = conn.cursor()
+
+            cur.execute(
+                '''
+                SELECT category
+                FROM app_category
+                '''
+            )
+            
+            categories = cur.fetchall() 
+            conn.close()
+            return categories
+            
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+            return f"Error: unable to insert data\n{error}"
+    
+
 
 @app.route("/")
 def index():
@@ -94,6 +122,7 @@ def index():
     Returns,
     template: index
     """
+    categories = get_categories()
     
     try:
         conn = psycopg2.connect(
@@ -120,7 +149,8 @@ def index():
 
         return render_template("index.html", 
                                articles = articles, 
-                               is_logged_in = is_logged_in)
+                               is_logged_in = is_logged_in,
+                               categories = categories)
         
     except psycopg2.Error as error:
         if conn:
@@ -152,14 +182,16 @@ def create_post():
     """
     if not is_user_logged_in():
         return redirect("/Logga_in") 
-    else:
-         return render_template("publish_post.html",
-                    no_category="",
-                    no_zip="",
-                    no_city="",
-                    category="",
-                    city="",
-                    zip_code="")
+    else:        
+        categories = get_categories()
+        return render_template("publish_post.html",
+                               no_category="",
+                               no_zip="",
+                               no_city="",
+                               category="",
+                               city="",
+                               zip_code="",
+                               categories = categories)
     
 @app.route("/Ny", methods=["POST"])
 def publish_post():
@@ -174,8 +206,6 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
-    
-    print(city)
     
     no_category = ""
     no_zip = ""
@@ -252,7 +282,8 @@ def publish_post():
                     no_city = no_city,
                     category = category,
                     city = city,
-                    zip_code = zip_code) 
+                    zip_code = zip_code,
+                    categories = "") 
 
 @app.route("/Kontakt")
 def contact():
@@ -500,6 +531,8 @@ def filter_events():
     city = request.args.get("city")
     zip_code = request.args.get("ZIP-code")
     date = request.args.get("date")
+    
+    categories = get_categories()
 
     query_parts = []
     params = []
@@ -526,10 +559,15 @@ def filter_events():
         conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
         cur = conn.cursor()
         cur.execute(query_base, params)
+        
         articles = cur.fetchall()
+        
         cur.close()
         conn.close()
-        return render_template("index.html", articles=articles)
+        
+        return render_template("index.html", 
+                               articles=articles, 
+                               categories = categories)
     
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
