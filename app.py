@@ -134,6 +134,7 @@ def check_password_all(pwd):
 def is_user_logged_in():
     return 'user_id' in session
 
+
 @app.route("/")
 def index():
     """
