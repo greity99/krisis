@@ -109,7 +109,7 @@ def index():
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        return f"Error: unable to insert data\n{error}"
+            return f"Error: unable to insert data\n{error}"
 
 @app.route("/Krishantering")
 def chrisis_tips():
@@ -151,6 +151,8 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
+    
+    print(city)
     
     no_category = ""
     no_zip = ""
