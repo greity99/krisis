@@ -29,9 +29,11 @@
                         <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" aria-current="page"
                             href="/Krishantering">Krishantering</a>
                     </li>
+                    {% if is_logged_in != None %}
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Ny">Publicera inlägg</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta oss</a>
                     </li>
@@ -61,12 +63,13 @@
                     <div class="card-body">
                         <h5 class="card-title">SOS</h5>
                         <p class="card-text">
-                            Ring alltid <span style="color: red;">112</span> om du befinner dig i en akut nödsituation. <br>
+                            Ring alltid <span style="color: red;">112</span> om du befinner dig i en akut nödsituation.
+                            <br>
                             Ring <span style="color: red;">113 13</span> för information om olyckor och kriser. <br>
                             Ring <span style="color: red;">114 14</span> för icke akuta polisärenden. <br>
                             Ring <span style="color: red;">1177</span> för sjukvårdsrådgivning.
                         </p>
-                        
+
                         <a href="https://www.sosalarm.se" class="btn btn-dark">Läs mer</a>
                     </div>
                     <img class="card-img-bottom card-img-sizing" src="sos.jpeg" alt="SOS">
@@ -78,8 +81,12 @@
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">
                     <div class="card-body">
                         <h5 class="card-title">MSB</h5>
-                        <p class="card-text">Myndigheten för samhällsskydd och beredskap är en svensk statlig förvaltningsmyndighet, som sorterar under försvarsdepartementet och tillhör ministern för civilt försvars ansvarsområde.<br>
-                            <span style="color: red;">Vid en större olycka eller en kris behöver du få veta vad som händer, hur du själv ska agera och vad ansvariga myndigheter gör. Du kan också behöva komma i kontakt med dina anhöriga.</span>
+                        <p class="card-text">Myndigheten för samhällsskydd och beredskap är en svensk statlig
+                            förvaltningsmyndighet, som sorterar under försvarsdepartementet och tillhör ministern för
+                            civilt försvars ansvarsområde.<br>
+                            <span style="color: red;">Vid en större olycka eller en kris behöver du få veta vad som
+                                händer, hur du själv ska agera och vad ansvariga myndigheter gör. Du kan också behöva
+                                komma i kontakt med dina anhöriga.</span>
                         </p>
                         <a href="#" class="btn btn-dark">Läs mer</a>
                     </div>

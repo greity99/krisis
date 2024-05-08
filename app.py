@@ -117,9 +117,10 @@ def index():
         conn.close()
         
         is_logged_in = is_user_logged_in()
-        print(is_logged_in)
 
-        return render_template("index.html", articles = articles, is_logged_in = is_logged_in)
+        return render_template("index.html", 
+                               articles = articles, 
+                               is_logged_in = is_logged_in)
         
     except psycopg2.Error as error:
         if conn:
@@ -134,7 +135,11 @@ def chrisis_tips():
     Returns,
     template: chrisis_tips
     """
-    return render_template("chrisis_tips.html")
+    
+    is_logged_in = is_user_logged_in()
+    
+    return render_template("chrisis_tips.html", 
+                           is_logged_in = is_logged_in)
 
 
 @app.route("/Ny")
@@ -257,7 +262,10 @@ def contact():
     Returns,
     template: contact
     """
-    return render_template("contact.html")
+    is_logged_in = is_user_logged_in()
+    
+    return render_template("contact.html",
+                           is_logged_in = is_logged_in)
 
 @app.route("/Logga_in", methods=['GET', 'POST'])
 def login():
@@ -268,6 +276,7 @@ def login():
     Returns,
     template: login
     '''
+    is_logged_in = is_user_logged_in()
     
     checked_login_details = ""
     email = ""
@@ -323,7 +332,8 @@ def login():
                                     checked_login_details = checked_login_details, 
                                     email = email, 
                                     no_email = no_email,
-                                    no_pwd = no_pwd)
+                                    no_pwd = no_pwd, 
+                                    is_logged_in = is_logged_in)
             
             except psycopg2.Error as e:
                 return render_template("login.html", 
@@ -331,7 +341,8 @@ def login():
                                 checked_login_details = checked_login_details, 
                                 email = email, 
                                 no_email = no_email,
-                                no_pwd = no_pwd)
+                                no_pwd = no_pwd, 
+                                is_logged_in = is_logged_in)
 
             finally:
                 if conn:
@@ -342,14 +353,16 @@ def login():
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
-                    no_pwd = no_pwd)            
+                    no_pwd = no_pwd, 
+                    is_logged_in = is_logged_in)            
         
     else:
         return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
-                    no_pwd = no_pwd)
+                    no_pwd = no_pwd, 
+                    is_logged_in = is_logged_in)
 
 
 @app.route("/Registrering")
