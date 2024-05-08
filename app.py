@@ -297,28 +297,8 @@ def contact():
     """
     return render_template("contact.html")
 
-@app.route("/Logga_in")
-def login():
-    """
-    Returns page for login.
-
-    Returns,
-    template: login
-    """
-    checked_login_details = ""
-    email = ""
-    no_email = ""
-    no_pwd = ""
-    
-    return render_template("login.html", 
-                    checked_login_details = checked_login_details, 
-                    email = email, 
-                    no_email = no_email,
-                    no_pwd = no_pwd)
-
-
 @app.route("/Logga_in", methods=['GET', 'POST'])
-def login_user():
+def login():
     '''
     Returns page for login with error message if login does not exist,
     Redirects to home page if login is correct.
@@ -424,7 +404,8 @@ def register():
                     no_pwd_feedback="", 
                     pwd_feedback="", 
                     email="",
-                    birthday="")
+                    birthday="",
+                    created = False)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -439,6 +420,7 @@ def register_user():
     no_pwd_feedback = ""
     pwd_feedback = ""
     
+    created = False    
     empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
@@ -500,8 +482,18 @@ def register_user():
                     
                     cur.close()
                     conn.close()
-
-                    return redirect("/")
+                    
+                    created = True
+                    
+                    return render_template("register.html", 
+                                no_email_feedback = no_email_feedback, 
+                                no_birthday_feedback = no_birthday_feedback, 
+                                age_feedback = age_feedback, 
+                                no_pwd_feedback = no_pwd_feedback, 
+                                pwd_feedback = pwd_feedback, 
+                                email = "",
+                                birthday = "",
+                                created = created)
                     
                 except psycopg2.Error as error:
                     if conn:
@@ -521,7 +513,8 @@ def register_user():
                     no_pwd_feedback = no_pwd_feedback, 
                     pwd_feedback = pwd_feedback, 
                     email = email,
-                    birthday = birthday)
+                    birthday = birthday,
+                    created = created)
     
 
 @app.route("/filter", methods=["GET"])
