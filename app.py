@@ -15,7 +15,7 @@ password = os.getenv("password")
 port = os.getenv("port")
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = os.getenv("SECRET_KEY") or "HEJEHEJEHEJJEEh12345"
 
 #General functions
 def check_user_age(date_str):
@@ -130,7 +130,9 @@ def check_password_all(pwd):
     
     else:
         return False
-
+    
+def is_user_logged_in():
+    return 'user_id' in session
 
 @app.route("/")
 def index():
@@ -188,7 +190,10 @@ def create_post():
     Returns,
     template: publish_post
     """
-    return render_template("publish_post.html",
+    if not is_user_logged_in():
+        return redirect("/Logga_in") 
+    else:
+         return render_template("publish_post.html",
                     no_category="",
                     no_zip="",
                     no_city="",
@@ -370,6 +375,8 @@ def login_user():
                 logged_in_user = cur.fetchone()
 
                 if logged_in_user:
+                    # Set user_id in session
+                    session['user_id'] = logged_in_user[0]
                     return redirect("/")
                     
                 else:

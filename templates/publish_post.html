@@ -61,7 +61,7 @@
                         <label for="category" class="form-label ms-4 mt-3 h4">Kriskategori<span
                                 class="text-danger">*</span>
                         </label>
-                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category"
+                        <input class="form-control ms-4" list="categoryOptions" id="category" name="category" required
                             placeholder="Sök..." value={{category}}>
                         <datalist id="categoryOptions">
                             <option value="Brand">
@@ -82,7 +82,7 @@
                             <label for="city" class="form-label ms-4 mt-2 h4">
                                 Stad<span class="text-danger">*</span>
                             </label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" name="city"
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" required
                                 placeholder="Sök..." value={{city}}>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
@@ -95,7 +95,7 @@
                             <label for="ZIP-code" class="form-label ms-4 mt-2 h4">
                                 Postnummer<span class="text-danger">*</span>
                             </label>
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP" name="ZIP" placeholder="Sök..."
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP" name="ZIP" placeholder="Sök..." required
                                 value={{zip_code}}>
                             <datalist id="zipOptions">
                                 <option value="21110">
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="form-check ms-4 mt-2">
-                        <input class="form-check-input" type="checkbox" value="" id="confirmation">
+                        <input class="form-check-input" type="checkbox" value="" id="confirmation" required>
                         <label class="form-check-label" for="confirmation">
                             Den information som jag har uppgett är sanningsenlig
                         </label>
