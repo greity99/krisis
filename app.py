@@ -442,35 +442,35 @@ def register_user():
     empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
-    if email == "" and birthday == "" and password == "":
+    if email == "" and birthday == "" and pwd == "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #email-field empty
-    elif email == "" and birthday != "" and password != "":
+    elif email == "" and birthday != "" and pwd != "":
         no_email_feedback = empty_field
     
     #birthday-field empty
-    elif email != "" and birthday == "" and password != "":
+    elif email != "" and birthday == "" and pwd != "":
         no_birthday_feedback = empty_field
     
     #password-field empty
-    elif email != "" and birthday != "" and password == "":
+    elif email != "" and birthday != "" and pwd == "":
         no_pwd_feedback = empty_field
         
     #email-field and birthday-field empty
-    elif email == "" and birthday == "" and password != "":
+    elif email == "" and birthday == "" and pwd != "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
     
     #email-field and password-field empty
-    elif email == "" and birthday != "" and password == "":
+    elif email == "" and birthday != "" and pwd == "":
         no_email_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #birthday-field and password-field empty
-    elif email != "" and birthday == "" and password == "":
+    elif email != "" and birthday == "" and pwd == "":
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
         
