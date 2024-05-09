@@ -60,6 +60,7 @@ main {
 
 }
 
+
 /*publish_post.html*/
 .bg-img {
     background-image: url(copcar.jpg);
@@ -83,7 +84,8 @@ main {
 
 }
 
-/* Login sidan */
+
+/* Login page */
 .container-login {
     display: flex;
     justify-content: center;
@@ -186,8 +188,8 @@ main {
 .register-link p a:hover {
     text-decoration: underline;
 }
+/* Login page styling ends here */
 
-/* Här slutar login styling */
 
 .BGLIGHT {
     background-image: url(krilog.png);
@@ -199,7 +201,7 @@ main {
 }
 
 
-
+/* Styling for screens with a maximum width of 576px */
 @media screen and (max-width: 576px) {
     .widht-select {
         width: 50vw;
