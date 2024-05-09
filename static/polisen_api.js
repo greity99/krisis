@@ -36,8 +36,9 @@ fetch(url)
 
       const eventDetails = document.createElement('p');
       eventDetails.classList.add('card-text');
-      eventDetails.textContent = `${event.datetime} - ${event.locationname}`; // Antag att 'datetime' är datumet för händelsen och 'locationname' är platsen
-
+      const formattedDatetime = event.datetime.slice(0, -6);
+      eventDetails.textContent = formattedDatetime; 
+      
       // Lägg till skapade elementen till card body
       cardBody.appendChild(title);
       cardBody.appendChild(description);

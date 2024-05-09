@@ -135,7 +135,8 @@
                             </label>
 
                             <h4 class="mt-2 text-center">Källa</h4>
-                            <!--Bootstrap checkbox, switch-->
+
+                            <!--Bootstrap checkbox, switch Polisen-->
                             <div class="form-check form-switch d-flex justify-content-center mt-3">
                                 <input class="form-check-input me-2" type="checkbox" id="switchPolice"
                                     onchange="redirectToPage()">
@@ -146,7 +147,6 @@
                                 function redirectToPage() {
                                     // Hämta switchen
                                     var switchPolice = document.getElementById("switchPolice");
-
                                     // Om switchen är ikryssad (checked), omdirigera användaren till den angivna sidan
                                     if (switchPolice.checked) {
                                         window.location.href = "/Händelser_från_polisen";
@@ -154,12 +154,27 @@
                                 }
                             </script>
 
-                            <!--Bootstrap checkbox, switch-->
+                            <!--Bootstrap checkbox, switch KrisKoll-->
                             <div class="form-check form-switch d-flex justify-content-center mt-2">
-                                <input class="form-check-input me-2" type="checkbox" id="switchKrisKlar"
-                                    onchange="redirectToPage2()">
-                                <label class="form-check-label" for="switchKrisKlar"> KrisKlar.se</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="switchKrisKlar" 
+                                checked onchange="redirectToPage2()">
+                                <label class="form-check-label" for="switchKrisKlar"> KrisKoll.se</label>
                             </div>
+
+                            <script>
+                                function redirectToPage2() {
+                                    // Hämta switchen
+                                    var switchKrisKlar = document.getElementById("switchKrisKlar");
+
+                                    // Om switchen är ikryssad (checked), omdirigera användaren till sidan för KrisKlar
+                                    if (switchKrisKlar.checked) {
+                                        window.location.href = "/Händelser_från_KrisKlar";
+                                    } else {
+                                        // Annars, omdirigera användaren till sidan för händelser från polisen
+                                        window.location.href = "/Händelser_från_polisen";
+                                    }
+                                }
+                            </script>
 
                             <div class="d-flex justify-content-center mt-4">
                                 <input type="submit" class="btn btn-dark" value="Hitta händelser">
@@ -171,7 +186,7 @@
 
             <!-- Main content area where articles will be dynamically displayed -->
             <main class="col-12 col-md-9 pb-5">
-                <h1 class="ms-4 mt-4">Händelser</h1>
+                <h1 class="ms-4 mt-4">Händelser - KrisKoll</h1>
 
                 {% for article in articles %}
                 <div class="card mx-4 mt-3">

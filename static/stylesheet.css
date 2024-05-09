@@ -81,7 +81,7 @@ main {
 
 .footer {
     background-color: #2a2e42 !important;
-    height: 200px;
+    height: 100px;
 }
 
 
@@ -261,6 +261,9 @@ main {
     text-align: center;
 }
 
+.form-check-label{
+    padding: 2px;
+}
 
 /* Styling for screens with a maximum width of 576px */
 @media screen and (max-width: 576px) {
