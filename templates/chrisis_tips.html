@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="sv">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,35 +12,44 @@
     <link rel="stylesheet" href="../static/stylesheet.css">
 </head>
 
+
 <body>
     <!--BootStrap NavBar-->
     <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container d-md-flex justify-content-end">
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/">Hem</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" aria-current="page" href="/Krishantering">Krishantering</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta
                             oss</a>
                     </li>
+
                     <!--Inloggad användare-->
                     {% if is_logged_in != None %}
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Ny">Publicera inlägg</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Profil">Min profil</a>
                     </li>
+
                     <!--Inte inloggad användare-->
                     {% else %}
                     <li class="nav-item">
@@ -52,15 +62,18 @@
         </div>
     </nav>
 
+
     <main class="container-md mt-4 pb-5">
         <div class="row border-bottom">
             <div class="col-md-3 general_light_blue"> </div>
+
             <div class="col-md-9 py-3">
                 <h1 class="ms-4 mt-4">Krishantering</h1>
                 <h5 class="ms-4">Här hittar du användbar information om hur du som privatperson bör agera i olika
                     typer av nödsituationer, samt vem du kan kontakta i händelse av kris.</h5>
             </div>
         </div>
+
 
         <div class="row mt-4">
             <div class="col-12 col-lg-7">
@@ -75,13 +88,14 @@
                             Ring <span style="color: red;">114 14</span> för icke akuta polisärenden. <br>
                             Ring <span style="color: red;">1177</span> för sjukvårdsrådgivning.
                         </p>
-
                         <a href="https://www.sosalarm.se" class="btn btn-dark">Läs mer</a>
                     </div>
                     <img class="card-img-bottom card-img-sizing" src="sos.jpeg" alt="SOS">
                 </div>
                 <!--Card ends here-->
             </div>
+
+
             <div class="col-sm-12 col-md-6 col-lg-5">
                 <!--Card starts here-->
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">
@@ -100,6 +114,8 @@
                 </div>
                 <!--Card ends here-->
             </div>
+
+
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <!--Card starts here-->
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">
@@ -113,6 +129,8 @@
                 </div>
                 <!--Card ends here-->
             </div>
+
+
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <!--Card starts here-->
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">
@@ -126,6 +144,8 @@
                 </div>
                 <!--Card ends here-->
             </div>
+
+
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <!--Card starts here-->
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">
@@ -139,6 +159,8 @@
                 </div>
                 <!--Card ends here-->
             </div>
+
+            
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <!--Card starts here-->
                 <div class="card mx-3 mx-sm-5 mx-md-3 mx-lg-1 my-4 chrisis_tips_card">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="sv">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="../static/stylesheet.css">
 </head>
 
+
 <body>
     <!--BootStrap NavBar-->
     <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -20,26 +22,32 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/">Hem</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Krishantering">Krishantering</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta
                             oss</a>
                     </li>
+
                     <!--Inloggad användare-->
                     {% if is_logged_in != None %}
                     <li class="nav-item">
                         <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" href="/Ny" aria-current="page">Publicera inlägg</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Profil">Min profil</a>
                     </li>
+
                     <!--Inte inloggad användare-->
                     {% else %}
                     <li class="nav-item">
@@ -47,13 +55,16 @@
                             <br>Registrera dig</a>
                     </li>
                     {% endif %}
+
                 </ul>
             </div>
         </div>
     </nav>
 
+
     <main class="container-md">
         <div class="row">
+            
             <!--Contains background-image-->
             <aside class="col-sm-3 bg-img">
             </aside>
@@ -62,6 +73,7 @@
                 <hr>
                 <p class="ms-4"> <b>Har du sett eller varit med om något som du vill informera allmänheten
                         om?</b><br>Fyll i nedan formulär så ser vi till att folk får reda på händelsen</p>
+
                 <!--Form-->
                 <!--id="myForm"-->
                 <form action="/Ny" method="POST" class="form_publish_post mt-3 p-3" accept-charset="UTF-8">
@@ -79,6 +91,7 @@
                         </select>
                         <p class="feedback_message_register ms-4"><small>{{no_category}}</small></p>
                     </div>
+
                     <div class="row">
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="city" class="form-label ms-4 mt-2 h4">
@@ -93,6 +106,7 @@
                             </datalist>
                             <p class="feedback_message_register ms-4"><small>{{no_city}}</small></p>
                         </div>
+
                         <div class="col-10 col-sm-9 col-md-5 p-2">
                             <label for="ZIP-code" class="form-label ms-4 mt-2 h4">
                                 Postnummer<span class="text-danger">*</span>
@@ -107,21 +121,21 @@
                             <p class="feedback_message_register ms-4"><small>{{no_zip}}</small></p>
                         </div>
                     </div>
+
                     <div class="form-check ms-4 mt-2">
                         <input class="form-check-input" type="checkbox" value="" id="confirmation" required>
                         <label class="form-check-label" for="confirmation">
                             Den information som jag har uppgett är sanningsenlig
                         </label>
                     </div>
+
                     <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" data-dismiss="alert"
                         value="Publicera händelse">
                 </form>
             </div>
         </div>
-
-
-
     </main>
+
 
     <!--Footer-->
     <footer class="footer bg-dark p-3" data-bs-theme="dark">
@@ -140,6 +154,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+
     <!-- JavaScript for Pop-up Message - Fucks upp sparandet av någon anledning-->
     <script>
         function handleSubmit(event) {
@@ -154,5 +169,4 @@
 
     </script>
 </body>
-
 </html>
