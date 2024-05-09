@@ -81,7 +81,7 @@ main {
 
 .footer {
     background-color: #2a2e42 !important;
-
+    height: 200px;
 }
 
 
@@ -136,7 +136,7 @@ main {
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-}
+} 
 
 .container-lg .remember-forgot {
     display: flex;
@@ -178,7 +178,6 @@ main {
     text-align: center;
     margin: 20px 0 15px;
 }
-
 .register-link p a {
     color: black;
     text-decoration: none;
@@ -189,6 +188,68 @@ main {
     text-decoration: underline;
 }
 /* Login page styling ends here */
+
+
+/* Profile page styling */
+#profilepage {
+    overflow: hidden;
+    padding-bottom: 25px;
+}
+
+#phead {
+    margin-top: 10px;
+}
+
+.profilefont {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.formhead {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.form-control{
+    width: 50%;
+}
+
+#savebtn {
+    font-size: 10px;
+    background-color: rgb(159, 183, 220);
+    color: white;
+    padding: 5px 15px;
+    margin-top: 19px;
+    cursor: pointer;
+    border-radius: 10px;
+    border-style: none;
+    display: block;
+}
+
+#deletebtn {
+    font-size: 10px;
+    background-color: rgb(218, 71, 71);
+    color: white;
+    padding: 5px 15px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    border-style: none;
+    display: block;
+}
+
+.logoutbtn {
+    background-color: #2a2e42;
+    color: white;
+    margin-top: 15px;
+    margin-right: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    border-style: none;
+    float: right;
+}
+/* Profile page styling ends here */
 
 
 .BGLIGHT {
