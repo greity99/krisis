@@ -1,23 +1,29 @@
+# Standard modules
 import os
+from datetime import datetime
 
-#import modules
+# Imported third-party modules
 from flask import Flask, render_template, request, redirect, session, send_from_directory
 import psycopg2
-from datetime import datetime
 from dotenv import load_dotenv
 
+# Load environment variables from the .env file
 load_dotenv()
 
+# Database connection details retrieved from environment variables
 host = os.getenv("host")
 dbname = os.getenv("dbname")
 user = os.getenv("user")
 password = os.getenv("password")
 port = os.getenv("port")
 
+# Flask application setup
 app = Flask(__name__)
+
+# If no secret key is found in environment variables, default key is used
 app.secret_key = os.getenv("SECRET_KEY") or "HEJEHEJEHEJJEEh12345"
 
-#General functions
+# General functions
 def check_user_age(date_str):
     '''
     Function which takes a date as an argument and returns True if the user is 16 or older and False if the user is younger than 16.
@@ -33,6 +39,7 @@ def check_user_age(date_str):
     else:
         return True
     
+
 #Check password
 def check_password_uppercase(pwd):
     '''
@@ -53,12 +60,14 @@ def check_password_lenght(pwd):
     '''
     return len(pwd) >= 8
     
+
 def check_password_digit(pwd):
     '''
     Function that ensures that the password contains at least one digit.
     '''
     return any(char.isdigit() for char in pwd)
-        
+
+
 def check_password_all(pwd):
     '''
     Function which includes the following functions:
@@ -84,6 +93,7 @@ def check_password_all(pwd):
 def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
+
 
 def get_categories():
     try:
@@ -112,7 +122,6 @@ def get_categories():
             conn.rollback()
             return f"Error: unable to insert data\n{error}"
     
-
 
 @app.route("/")
 def index():
@@ -180,10 +189,13 @@ def create_post():
     Returns,
     template: publish_post
     """
+
     if not is_user_logged_in():
-        return redirect("/Logga_in") 
+        return redirect("/Logga_in")
+     
     else:        
         categories = get_categories()
+
         return render_template("publish_post.html",
                                no_category="",
                                no_zip="",
@@ -193,6 +205,7 @@ def create_post():
                                zip_code="",
                                categories = categories)
     
+
 @app.route("/Ny", methods=["POST"])
 def publish_post():
     '''
@@ -203,6 +216,7 @@ def publish_post():
     template: publish_post (if the information is not filled out correctly).
     else it redirects the user to the main page. 
     '''
+
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
@@ -274,6 +288,7 @@ def publish_post():
         except psycopg2.Error as error:
             if conn:
                 conn.rollback()
+
             return f"Error: unable to insert data\n{error}"
         
     return render_template ("publish_post.html",
@@ -285,6 +300,7 @@ def publish_post():
                     zip_code = zip_code,
                     categories = "") 
 
+
 @app.route("/Kontakt")
 def contact():
     """
@@ -293,10 +309,12 @@ def contact():
     Returns,
     template: contact
     """
+
     is_logged_in = is_user_logged_in()
     
     return render_template("contact.html",
                            is_logged_in = is_logged_in)
+
 
 @app.route("/Logga_in", methods=['GET', 'POST'])
 def login():
@@ -307,6 +325,7 @@ def login():
     Returns,
     template: login
     '''
+
     is_logged_in = is_user_logged_in()
     
     checked_login_details = ""
@@ -404,7 +423,7 @@ def register():
     Returns,
     template: register
     """
-    
+
     return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
@@ -418,6 +437,16 @@ def register():
 
 @app.route("/Registrering", methods=["POST"])
 def register_user():
+    '''
+    Handles user registration.
+
+    Retrieves user information from a POST request,
+    attempts to register user in PostgreSQL database table 'app_user'.
+    
+    Returns a template with feedback messages and form data to the client,
+    message depends on success of user registration.
+    '''
+
     email = request.form.get("email")
     birthday = request.form.get("birthday")
     pwd = request.form.get("pwd")
@@ -466,8 +495,10 @@ def register_user():
         
     else: 
         age = check_user_age(birthday)
+
         if age:
             checked_pwd = check_password_all(pwd)
+
             if checked_pwd:
                 try:
                     conn = psycopg2.connect(
@@ -506,7 +537,9 @@ def register_user():
                 except psycopg2.Error as error:
                     if conn:
                         conn.rollback()
+
                     return f"Error: unable to insert data\n{error}"
+            
             else:
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
@@ -527,6 +560,16 @@ def register_user():
 
 @app.route("/filter", methods=["GET"])
 def filter_events():
+    '''
+    Retrieves and filters events based on provided parameters.
+
+    Retrieves filtering parameters from a GET request,
+    constructs a SQL query to retrieve events from 
+    PostgreSQL database table 'app_publish' based on the parameters.
+
+    Returns template "Index" as main page.
+    '''
+        
     category = request.args.get("category") 
     city = request.args.get("city")
     zip_code = request.args.get("ZIP-code")
@@ -540,19 +583,24 @@ def filter_events():
     if category:
         query_parts.append("category = %s")
         params.append(category)
+
     if city:
         query_parts.append("city = %s")
         params.append(city)
+
     if zip_code:
         query_parts.append("zip_code = %s")
         params.append(zip_code)
+
     if date:
         query_parts.append("date = %s")
         params.append(date)
 
     query_base = "SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time FROM app_publish"
+    
     if query_parts:
         query_base += " WHERE " + " AND ".join(query_parts)
+
     query_base += " ORDER BY date DESC, time DESC;"
 
     try:
@@ -572,20 +620,24 @@ def filter_events():
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
+
 @app.route("/Händelser_från_polisen")
 def polisen_api():
     is_logged_in = is_user_logged_in()
     return render_template("polisen_api.html",
                            is_logged_in = is_logged_in)
 
+
 @app.route("/Profil")
 def profile():
     return render_template("profile.html")
+
 
 @app.route("/Logga_ut", methods=["GET"])
 def Log_out():
     session['user_id'] = None
     return redirect("/")
+
 
 @app.route("/static/<filename>")
 def static_files(filename):
@@ -594,6 +646,7 @@ def static_files(filename):
     """
     return send_from_directory("static", filename)
 
+
+# Runs the Flask app on the local machine
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080)
-
