@@ -79,10 +79,40 @@ main {
     border-left: 10px solid #000000;
 }
 
-.footer {
+/* Footer */
+footer {
     background-color: #2a2e42 !important;
     height: 200px;
+    color: white;
+    overflow: hidden;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
 }
+
+.fhead {
+    font-weight: bold;
+    margin: 5px;
+    padding-top: 25px;
+    cursor: pointer;
+}
+
+.ftext {
+    margin: 5px;
+    display: flex;
+    cursor: pointer;
+}
+
+hr {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#copy {
+    text-align: center;
+}
+
+/* Footer styling ends here */
 
 
 /* Login page */
