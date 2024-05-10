@@ -166,7 +166,7 @@ main {
 
 /* Footer */
 footer {
-    background-color: #00072a !important;
+    background-color: #00072a;
     height: 200%;
     color: white;
     overflow: hidden;
