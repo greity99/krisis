@@ -82,12 +82,43 @@ main {
 /* Footer */
 footer {
     background-color: #2a2e42 !important;
-    height: 200px;
+    height: 200%;
     color: white;
     overflow: hidden;
     font-size: 10px;
     display: flex;
     justify-content: center;
+}
+
+#logohead {
+    font-size: 75px;
+    float: left;
+    margin-top: 45px;
+    color: rgb(126, 191, 219);
+    font-weight: bold;
+    line-height: 0%;
+}
+
+.logobody {
+    font-size: 34px;
+    margin-bottom: 3px;
+    margin-top: 37px;
+    font-weight: bold;
+    line-height: 0%;
+    color: #7ebfdb;
+}
+
+.logobody2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: -15px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%; 
 }
 
 .fhead {
