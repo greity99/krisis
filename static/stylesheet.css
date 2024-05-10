@@ -13,30 +13,31 @@ main {
     object-fit: cover;
 }
 
-main {
-    background-color: #ffffff;
-}
-
 
 /* Header and nav styling */
+.logo-container {
+    background-color: #00072a;
+}
+
 #firsth1 {
     font-size: 100px;
     float: left;
-    margin-top: 45px;
-    color: #2a2e42;
+    margin-top: 75px;
+    color: #7ebfdb;
     font-weight: bold;
     line-height: 0%;
     text-shadow: 2px 2px 5px  grey;
+    height: 35px;
 }
 
 #secondh1 {
     font-size: 47px;
     margin-bottom: 3px;
-    margin-top: 49px;
+    margin-top: 45px;
     font-weight: bold;
     line-height: 0%;
-    color: #2a2e42;
-    text-shadow: 2px 2px 5px  grey;
+    color: #7ebfdb;
+    text-shadow: 2px 2px 5px grey;
 }
 
 #thirdh1 {
@@ -44,32 +45,67 @@ main {
     font-weight: bold;
     margin-bottom: -15px;
     text-shadow: 2px 2px 5px  grey;
+    color: #fff;
 }
 
 #slogan {
-    background-color: white;
+    color: #ffffff;
     text-align: center;
     font-style: italic;
     font-family:'Times New Roman', Times, serif;
-    margin-top: 10px;
+    background-color: #00072a;
+    height: 35px;
+    margin-bottom: 0px;
 }
 
 .navbar {
-    text-decoration: none;
-    list-style: none;
-    display: inline;
-    background-color: white;
-    color:#2a2e42;
+    background-color: #00072a;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
     width: 100%;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: lighter;
     margin: auto;
+    padding: 30px;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+}
+
+.navbar li {
+    list-style-type: none;
+    display: inline;
+}
+
+#loginbtn {
+    border-radius: 25px;
+    background-color: #7ebfdb;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#loginbtn:hover {
+    background-color: #669bb3;
+}
+
+#regbtn {
+    border-radius: 25px;
+    background-color: #d0d0d0;
+    padding: 5px 15px;
+}
+
+#regbtn:hover {
+    background-color: #b3b3b3;
 }
 /* Header and nav styling ends here */
 
-
-.btn,
-.navbar {
-    background-color: #2a2e42 !important;
-}
 
 .general_light_blue {
     background-color: #8698B3;
@@ -130,7 +166,7 @@ main {
 
 /* Footer */
 footer {
-    background-color: #2a2e42 !important;
+    background-color: #00072a !important;
     height: 200%;
     color: white;
     overflow: hidden;
@@ -143,9 +179,10 @@ footer {
     font-size: 75px;
     float: left;
     margin-top: 45px;
-    color: rgb(126, 191, 219);
+    color: #7ebfdb;
     font-weight: bold;
     line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logobody {
@@ -155,12 +192,14 @@ footer {
     font-weight: bold;
     line-height: 0%;
     color: #7ebfdb;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logobody2 {
     font-size: 34px;
     font-weight: bold;
     margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logo-container {
