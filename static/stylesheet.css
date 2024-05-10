@@ -349,6 +349,29 @@ hr {
 /* Login page styling ends here */
 
 
+/* Registration page styling */
+.leftside {
+    justify-content: left;
+    float: left;
+    width: 50%;
+}
+
+.rightside {
+    justify-content: right;
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#mejlform {
+    justify-content: right;
+    float: right;
+    width: 50%;
+}
+/* Registration page styling ends here*/
+
+
 /* Profile page styling */
 #profilepage {
     overflow: hidden;
@@ -371,7 +394,7 @@ hr {
 }
 
 .form-control{
-    width: 50%;
+    width: 100%;
 }
 
 #savebtn {
