@@ -31,16 +31,8 @@
             <li><a href="/Krishantering">Krishantering</a></li>
             <li><a href="/Kontakt">Kontakta oss</a></li>
             
-            <!--Inloggad användare-->
-            {% if is_logged_in != None %}
-            <li><a href="/Ny">Publicera inlägg</a></li>
-            <li><a href="/Profil" id="profilebtn">Min profil</a></li>
-    
-            <!--Inte inloggad användare-->
-            {% else %}
             <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
             <li><a href="/Registrering" id="regbtn">Gå med</a></li>
-            {% endif %}
         </ul>
     </nav>
 
