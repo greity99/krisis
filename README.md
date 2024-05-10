@@ -1,4 +1,4 @@
-KrisKlar - 
+KrisKoll - 
 To see our website:
 1) Download the entire folder found on GIT.
 2) Install flask. This can be done by typing "pip install Flask" in the terminal
