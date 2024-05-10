@@ -15,52 +15,25 @@
 
 
 <body>
-    <!--BootStrap NavBar-->
-    <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
-        <div class="container d-md-flex justify-content-end">
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/">Hem</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Krishantering">Krishantering</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta
-                            oss</a>
-                    </li>
-
-                    <!--Inloggad användare-->
-                    {% if is_logged_in != None %}
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Ny">Publicera inlägg</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Profil">Min profil</a>
-                    </li>
-
-                    <!--Inte inloggad användare-->
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Logga_in">Logga in/
-                            <br>Registrera dig</a>
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </div>
+    <div class="logo-container">
+        <p id="firsth1">K</p>
+        <div class="logobody-wrapper">
+            <p id="secondh1">RIS</p>
+            <p id="thirdh1">OLL</p>
         </div>
+    </div>
+    <p id="slogan">Ditt bidrag, vår säkerhet</p>
+    
+    <!--NavBar-->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/Krishantering">Krishantering</a></li>
+            <li><a href="/Kontakt">Kontakta oss</a></li>
+            
+            <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+            <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+        </ul>
     </nav>
 
 
@@ -68,20 +41,23 @@
     <div class="container-md">
         <div class="row">
             <main class="col-12 col-md-9 mx-auto">
-                <h1 class="ms-4 mt-4">Registrera dig</h1>
 
                 <div class="px-3 pt-3">
-                    <h4>Som registrerad användare kan du:</h4>
-                    <ul>
-                        <li>Publicera inlägg</li>
-                        <li>Bekräfta andra användares inlägg</li>
-                        <li>Få mejlnotiser vid krissituation i din närhet</li>
-                    </ul>
+                    <div class="leftside">
+                        <h1 class="ms-4 mt-4">Registrera dig</h1>
+                        <h4>Som registrerad användare kan du:</h4>
+                        <br>
+                        <ul>
+                            <li>Publicera inlägg</li>
+                            <li>Bekräfta andra användares inlägg</li>
+                            <li>Få mejlnotiser vid krissituation i din närhet</li>
+                        </ul>
+                        <p>Fyll i dina uppgifter här!</p>
+                    </div>
                 </div>
 
-                <p>Fyll i dina uppgifter nedan!</p>
-                <hr>
-                <!--Alert when registration succeed-->
+                <!-- ÅTERSTÄLL SEN
+                Alert when registration succeed
                 {%if created == True: %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <h4 class="alert-heading">Sådärja!</h4>
@@ -89,40 +65,46 @@
                     <a href="/Logga_in" class="btn btn-dark">Logga in</a>
                 </div>
                 {% endif %}
+                -->
 
                 <!--Form shown when registration is not done-->
                 {%if created == False: %}
+                <div class="rightside">
                 <form action="/Registrering" method="POST" class="pb-5" accept-charset="UTF-8">
                     <label for="email" class="form-label h4">
                         Mejladress
                     </label><br>
 
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-envelope" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                            </svg>
-                        </span>
-
-                        <input class="form-control" type="email" id="email" name="email" placeholder="Din mejladress..."
-                            value={{email}}>
-                    </div>
-
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-envelope" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                                </svg>
+                            </span>
+                            <input class="form-control" type="email" id="email" name="email" placeholder="Din mejladress..."
+                    value={{email}}>
+                        </div>
                     <p class="feedback_message_register"><small>{{no_email_feedback}}</small></p>
+
                     <label for="birthday" class="mt-3 h4">Födelsedatum</label>
                     <input class="form-control" type="date" id="birthday" name="birthday" value={{birthday}}>
                     <p class="feedback_message_register"><small>{{no_birthday_feedback}}</small></p>
                     <p class="feedback_message_register"><small>{{age_feedback}}</small></p>
+
                     <label for="pwd" class="mt-3 h4">Lösenord</label>
                     <input class="form-control" type="password" id="pwd" name="pwd">
                     <p class="feedback_message_register"><small>{{no_pwd_feedback}}</small></p>
                     <p class="feedback_message_register"><small>{{pwd_feedback}}</small></p>
                     <input class="mt-2" type="checkbox" onclick="togglePassword()"> Visa lösenord
                     <br>
-
-                    <input type="submit" value="Registrera mig" class="btn btn-dark mt-4">
+                    <input class="mt-2" type="checkbox"> Jag intygar att jag är över 16 år.
+                    <br>
+                    <br>
+                    <p>Genom att registrera dig bekräftar du att du har läst och accepterar våra <b>användarvillkor</b> och <b>sekretesspolicy</b>, vilket inkluderar användningen av cookies för att förbättra din användarupplevelse.</p> <!--Genererat av AI-->
+                    <input type="submit" value="Registrera mig" class="logoutbtn">
+                    </div>
                 </form>
                 {% endif %}
             </main>
@@ -130,47 +112,44 @@
     </div>
 
 
-    <!--Footer-->
-    <footer class="footer bg-dark p-3" data-bs-theme="dark">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <div class="logo-container">
-                        <p id="logohead">K</p>
-                        <div class="logobody-wrapper">
-                            <p class="logobody">RIS</p>
-                            <p class="logobody2">OLL</p>
-                        </div>
+<!--Footer-->
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="logo-container">
+                    <p id="logohead">K</p>
+                    <div class="logobody-wrapper">
+                        <p class="logobody">RIS</p>
+                        <p class="logobody2">OLL</p>
                     </div>
                 </div>
+            </div>
 
-            <div class="col">
-                    <p class="fhead">Följ oss</p>
-                    <p class="ftext">Facebook</p>
-                    <p class="ftext">Instagram</p>
-                    <p class="ftext">Youtube</p>
-                </div>
-            
-                <div class="col">
-                    <p class="fhead">Juridiskt</p>
-                    <p class="ftext">Integritetspolicy</p>
-                    <p class="ftext">Cookiepolicy</p>
-                    <p class="ftext">Sekretessinställningar</p>
-                </div>
-            
-                <div class="col">
-                    <p class="fhead">Om KrisKoll</p>
-                    <p class="ftext">Om oss</p>
-                    <p class="ftext">Kontakta oss</p>
-                    <p class="ftext">Hållbarhet</p>
-                </div>
-
-        </div>
+        <div class="col">
+                <p class="fhead">Följ oss</p>
+                <p class="ftext">Facebook</p>
+                <p class="ftext">Instagram</p>
+                <p class="ftext">Youtube</p>
+            </div>
         
+            <div class="col">
+                <p class="fhead">Juridiskt</p>
+                <p class="ftext">Integritetspolicy</p>
+                <p class="ftext">Cookiepolicy</p>
+                <p class="ftext">Sekretessinställningar</p>
+            </div>
+        
+            <div class="col">
+                <p class="fhead">Om KrisKoll</p>
+                <p class="ftext">Om oss</p>
+                <p class="ftext">Kontakta oss</p>
+                <p class="ftext">Hållbarhet</p>
+            </div>
+    </div>
         <hr>
-            <p id="copy">© 2024 KrisKoll</p>
-        </div>
-    </footer>
+        <p id="copy">© 2024 KrisKoll</p>
+</footer>
 
 
     <!--BootstrapJS-->

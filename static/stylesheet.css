@@ -1,5 +1,5 @@
 body {
-    background-color: #f4f3f1;
+    background-color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -13,14 +13,110 @@ main {
     object-fit: cover;
 }
 
-main {
-    background-color: #FFDEAD;
+
+/* Header and nav styling */
+.logo-container {
+    background-color: #00072a;
 }
 
-.btn,
-.navbar {
-    background-color: #2a2e42 !important;
+#firsth1 {
+    font-size: 100px;
+    float: left;
+    margin-top: 75px;
+    color: #7ebfdb;
+    font-weight: bold;
+    line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
+    height: 35px;
 }
+
+#secondh1 {
+    font-size: 47px;
+    margin-bottom: 3px;
+    margin-top: 45px;
+    font-weight: bold;
+    line-height: 0%;
+    color: #7ebfdb;
+    text-shadow: 2px 2px 5px grey;
+}
+
+#thirdh1 {
+    font-size: 47px;
+    font-weight: bold;
+    margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
+    color: #fff;
+}
+
+#slogan {
+    color: #ffffff;
+    text-align: center;
+    font-style: italic;
+    font-family:'Times New Roman', Times, serif;
+    background-color: #00072a;
+    height: 35px;
+    margin-bottom: 0px;
+}
+
+.navbar {
+    background-color: #00072a;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: lighter;
+    margin: auto;
+    padding: 30px;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+}
+
+.navbar li {
+    list-style-type: none;
+    display: inline;
+}
+
+#loginbtn {
+    border-radius: 25px;
+    background-color: #7ebfdb;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#loginbtn:hover {
+    background-color: #669bb3;
+}
+
+#regbtn {
+    border-radius: 25px;
+    background-color: #d0d0d0;
+    padding: 5px 15px;
+}
+
+#regbtn:hover {
+    background-color: #b3b3b3;
+}
+
+#profilebtn {
+    border-radius: 25px;
+    background-color: #7ebfdb;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#profilebtn:hover {
+    background-color: #669bb3;
+}
+/* Header and nav styling ends here */
+
 
 .general_light_blue {
     background-color: #8698B3;
@@ -81,7 +177,7 @@ main {
 
 /* Footer */
 footer {
-    background-color: #2a2e42 !important;
+    background-color: #00072a;
     height: 200%;
     color: white;
     overflow: hidden;
@@ -94,9 +190,10 @@ footer {
     font-size: 75px;
     float: left;
     margin-top: 45px;
-    color: rgb(126, 191, 219);
+    color: #7ebfdb;
     font-weight: bold;
     line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logobody {
@@ -106,12 +203,14 @@ footer {
     font-weight: bold;
     line-height: 0%;
     color: #7ebfdb;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logobody2 {
     font-size: 34px;
     font-weight: bold;
     margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
 }
 
 .logo-container {
@@ -151,7 +250,7 @@ hr {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(krilog.png)repeat;
+    background-color: #00072a;
 }
 
 .container-lg {
@@ -250,10 +349,34 @@ hr {
 /* Login page styling ends here */
 
 
+/* Registration page styling */
+.leftside {
+    justify-content: left;
+    float: left;
+    width: 50%;
+}
+
+.rightside {
+    justify-content: right;
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#mejlform {
+    justify-content: right;
+    float: right;
+    width: 50%;
+}
+/* Registration page styling ends here*/
+
+
 /* Profile page styling */
 #profilepage {
     overflow: hidden;
     padding-bottom: 25px;
+    width: 50%;
 }
 
 #phead {
@@ -271,12 +394,12 @@ hr {
 }
 
 .form-control{
-    width: 50%;
+    width: 100%;
 }
 
 #savebtn {
     font-size: 10px;
-    background-color: rgb(159, 183, 220);
+    background-color: #7ebfdb;
     color: white;
     padding: 5px 15px;
     margin-top: 19px;
@@ -286,9 +409,13 @@ hr {
     display: block;
 }
 
+#savebtn:hover {
+    background-color: #669bb3;
+}
+
 #deletebtn {
     font-size: 10px;
-    background-color: rgb(218, 71, 71);
+    background-color: #da4747;
     color: white;
     padding: 5px 15px;
     margin-top: 5px;
@@ -298,8 +425,12 @@ hr {
     display: block;
 }
 
+#deletebtn:hover {
+    background-color: #bb3c3c;
+}
+
 .logoutbtn {
-    background-color: #2a2e42;
+    background-color: #00072a;
     color: white;
     margin-top: 15px;
     margin-right: 5px;
@@ -308,6 +439,10 @@ hr {
     border-radius: 10px;
     border-style: none;
     float: right;
+}
+
+.logoutbtn:hover {
+    background-color: #141f54;
 }
 /* Profile page styling ends here */
 

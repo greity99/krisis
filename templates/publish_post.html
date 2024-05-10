@@ -14,51 +14,33 @@
 
 
 <body>
-    <!--BootStrap NavBar-->
-    <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">
-        <div class="container d-md-flex justify-content-end">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/">Hem</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Krishantering">Krishantering</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Kontakt">Kontakta
-                            oss</a>
-                    </li>
-
-                    <!--Inloggad användare-->
-                    {% if is_logged_in != None %}
-                    <li class="nav-item">
-                        <a class="nav-link active mx-lg-5 p-md-4 mx-sm-3" href="/Ny" aria-current="page">Publicera inlägg</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Profil">Min profil</a>
-                    </li>
-
-                    <!--Inte inloggad användare-->
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-5 p-md-4 mx-sm-3" href="/Logga_in">Logga in/
-                            <br>Registrera dig</a>
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </div>
+    <div class="logo-container">
+        <p id="firsth1">K</p>
+        <div class="logobody-wrapper">
+            <p id="secondh1">RIS</p>
+            <p id="thirdh1">OLL</p>
         </div>
+    </div>
+    <p id="slogan">Ditt bidrag, vår säkerhet</p>
+    
+    <!--NavBar-->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Hem</a></li>
+            <li><a href="/Krishantering">Krishantering</a></li>
+            <li><a href="/Kontakt">Kontakta oss</a></li>
+            
+            <!--Inloggad användare-->
+            {% if is_logged_in != None %}
+            <li><a href="/Ny">Publicera inlägg</a></li>
+            <li><a href="/Profil" id="profilebtn">Min profil</a></li>
+    
+            <!--Inte inloggad användare-->
+            {% else %}
+            <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+            <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+            {% endif %}
+        </ul>
     </nav>
 
 
@@ -137,47 +119,44 @@
     </main>
 
 
-    <!--Footer-->
-    <footer class="footer bg-dark p-3" data-bs-theme="dark">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <div class="logo-container">
-                        <p id="logohead">K</p>
-                        <div class="logobody-wrapper">
-                            <p class="logobody">RIS</p>
-                            <p class="logobody2">OLL</p>
-                        </div>
+<!--Footer-->
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="logo-container">
+                    <p id="logohead">K</p>
+                    <div class="logobody-wrapper">
+                        <p class="logobody">RIS</p>
+                        <p class="logobody2">OLL</p>
                     </div>
                 </div>
+            </div>
 
-            <div class="col">
-                    <p class="fhead">Följ oss</p>
-                    <p class="ftext">Facebook</p>
-                    <p class="ftext">Instagram</p>
-                    <p class="ftext">Youtube</p>
-                </div>
-            
-                <div class="col">
-                    <p class="fhead">Juridiskt</p>
-                    <p class="ftext">Integritetspolicy</p>
-                    <p class="ftext">Cookiepolicy</p>
-                    <p class="ftext">Sekretessinställningar</p>
-                </div>
-            
-                <div class="col">
-                    <p class="fhead">Om KrisKoll</p>
-                    <p class="ftext">Om oss</p>
-                    <p class="ftext">Kontakta oss</p>
-                    <p class="ftext">Hållbarhet</p>
-                </div>
-
-        </div>
+        <div class="col">
+                <p class="fhead">Följ oss</p>
+                <p class="ftext">Facebook</p>
+                <p class="ftext">Instagram</p>
+                <p class="ftext">Youtube</p>
+            </div>
         
+            <div class="col">
+                <p class="fhead">Juridiskt</p>
+                <p class="ftext">Integritetspolicy</p>
+                <p class="ftext">Cookiepolicy</p>
+                <p class="ftext">Sekretessinställningar</p>
+            </div>
+        
+            <div class="col">
+                <p class="fhead">Om KrisKoll</p>
+                <p class="ftext">Om oss</p>
+                <p class="ftext">Kontakta oss</p>
+                <p class="ftext">Hållbarhet</p>
+            </div>
+    </div>
         <hr>
-            <p id="copy">© 2024 KrisKoll</p>
-        </div>
-    </footer>
+        <p id="copy">© 2024 KrisKoll</p>
+</footer>
 
 
     <!--BootstrapJS-->
