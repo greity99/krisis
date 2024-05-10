@@ -104,6 +104,17 @@ main {
 #regbtn:hover {
     background-color: #b3b3b3;
 }
+
+#profilebtn {
+    border-radius: 25px;
+    background-color: #7ebfdb;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#profilebtn:hover {
+    background-color: #669bb3;
+}
 /* Header and nav styling ends here */
 
 
@@ -239,7 +250,7 @@ hr {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(krilog.png)repeat;
+    background-color: #00072a;
 }
 
 .container-lg {
@@ -342,6 +353,7 @@ hr {
 #profilepage {
     overflow: hidden;
     padding-bottom: 25px;
+    width: 50%;
 }
 
 #phead {
@@ -364,7 +376,7 @@ hr {
 
 #savebtn {
     font-size: 10px;
-    background-color: rgb(159, 183, 220);
+    background-color: #7ebfdb;
     color: white;
     padding: 5px 15px;
     margin-top: 19px;
@@ -374,9 +386,13 @@ hr {
     display: block;
 }
 
+#savebtn:hover {
+    background-color: #669bb3;
+}
+
 #deletebtn {
     font-size: 10px;
-    background-color: rgb(218, 71, 71);
+    background-color: #da4747;
     color: white;
     padding: 5px 15px;
     margin-top: 5px;
@@ -386,8 +402,12 @@ hr {
     display: block;
 }
 
+#deletebtn:hover {
+    background-color: #bb3c3c;
+}
+
 .logoutbtn {
-    background-color: #2a2e42;
+    background-color: #00072a;
     color: white;
     margin-top: 15px;
     margin-right: 5px;
@@ -396,6 +416,10 @@ hr {
     border-radius: 10px;
     border-style: none;
     float: right;
+}
+
+.logoutbtn:hover {
+    background-color: #141f54;
 }
 /* Profile page styling ends here */
 
