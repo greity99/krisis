@@ -156,6 +156,13 @@ main {
 
 }
 
+.card {
+    border: 2px solid #00072a;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+}
+
 
 /*publish_post.html*/
 .bg-img {
