@@ -118,30 +118,6 @@ main {
 /* Header and nav styling ends here */
 
 
-.general_light_blue {
-    background-color: #8698B3;
-}
-
-.feedback_message_register {
-    color: red;
-}
-
-.icon_confirm_post:hover {
-    fill: #2a2e42;
-}
-
-.icon_confirm_post {
-    background-color: transparent;
-    border: none;
-    margin: 0;
-    padding: 0;
-    text-align: inherit;
-    font: inherit;
-    border-radius: 0;
-    appearance: none;
-}
-
-
 /*Index.html*/
 .widht-select {
     width: 15vw;
@@ -155,6 +131,7 @@ main {
     background-color: #a0afc6;
 
 }
+/* Ends here */
 
 
 /*publish_post.html*/
@@ -174,74 +151,7 @@ main {
     box-shadow: 6px 6px 0 0 rgba(33, 54, 90, .11) !important;
     border-left: 10px solid #000000;
 }
-
-/* Footer */
-footer {
-    background-color: #00072a;
-    height: 200%;
-    color: white;
-    overflow: hidden;
-    font-size: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-#logohead {
-    font-size: 75px;
-    float: left;
-    margin-top: 45px;
-    color: #7ebfdb;
-    font-weight: bold;
-    line-height: 0%;
-    text-shadow: 2px 2px 5px  grey;
-}
-
-.logobody {
-    font-size: 34px;
-    margin-bottom: 3px;
-    margin-top: 37px;
-    font-weight: bold;
-    line-height: 0%;
-    color: #7ebfdb;
-    text-shadow: 2px 2px 5px  grey;
-}
-
-.logobody2 {
-    font-size: 34px;
-    font-weight: bold;
-    margin-bottom: -15px;
-    text-shadow: 2px 2px 5px  grey;
-}
-
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    height: 100%; 
-}
-
-.fhead {
-    font-weight: bold;
-    margin: 5px;
-    padding-top: 25px;
-}
-
-.ftext {
-    margin: 5px;
-    display: flex;
-    cursor: pointer;
-}
-
-hr {
-    margin-left: 40px;
-    margin-right: 40px;
-}
-
-#copy {
-    text-align: center;
-}
-
-/* Footer styling ends here */
+/* Ends here */
 
 
 /* Login page */
@@ -250,7 +160,7 @@ hr {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #00072a;
+    background-color: #ffffff;
 }
 
 .container-lg {
@@ -354,6 +264,8 @@ hr {
     justify-content: left;
     float: left;
     width: 50%;
+    margin-top: 120px;
+    padding-right: 15px;
 }
 
 .rightside {
@@ -404,7 +316,7 @@ hr {
     padding: 5px 15px;
     margin-top: 19px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 25px;
     border-style: none;
     display: block;
 }
@@ -420,7 +332,7 @@ hr {
     padding: 5px 15px;
     margin-top: 5px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 25px;
     border-style: none;
     display: block;
 }
@@ -436,7 +348,7 @@ hr {
     margin-right: 5px;
     padding: 5px 15px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 25px;
     border-style: none;
     float: right;
 }
@@ -446,6 +358,97 @@ hr {
 }
 /* Profile page styling ends here */
 
+
+/* Footer */
+footer {
+    background-color: #00072a;
+    height: 200%;
+    color: white;
+    overflow: hidden;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#logohead {
+    font-size: 75px;
+    float: left;
+    margin-top: 45px;
+    color: #7ebfdb;
+    font-weight: bold;
+    line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logobody {
+    font-size: 34px;
+    margin-bottom: 3px;
+    margin-top: 37px;
+    font-weight: bold;
+    line-height: 0%;
+    color: #7ebfdb;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logobody2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%; 
+}
+
+.fhead {
+    font-weight: bold;
+    margin: 5px;
+    padding-top: 25px;
+}
+
+.ftext {
+    margin: 5px;
+    display: flex;
+    cursor: pointer;
+}
+
+hr {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#copy {
+    text-align: center;
+}
+
+/* Footer styling ends here */
+
+.general_light_blue {
+    background-color: #8698B3;
+}
+
+.feedback_message_register {
+    color: red;
+}
+
+.icon_confirm_post:hover {
+    fill: #2a2e42;
+}
+
+.icon_confirm_post {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+}
 
 .BGLIGHT {
     background-image: url(krilog.png);
