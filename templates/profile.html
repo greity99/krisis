@@ -69,7 +69,7 @@
 
             <h2 id="phead" class="mt-4">Mina inlägg</h2>
             <ul class="profilefont">
-                
+
                 {%for information in user_information%}
                     {% if information[1] != None and information[2] != None and information[3] != None %}
                     <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
@@ -78,16 +78,35 @@
             </ul>
 
             <button type="button" id="savebtn">Spara</button>
-
-            <form action="/index.html" method="POST">
-                <input type="hidden" name="delete" value="true">
-                <button type="submit" class="deletebtn">Radera konto</button>
-            </form>
+            <button type="button" onclick="openDeleteModal()" class="deletebtn">Radera konto</button>
 
             <form action="/Logga_ut" method="GET">
                 <input type="submit" class="logoutbtn" value="Logga ut">
             </form>
         </div>
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+                <p>Är du säker på att du vill radera ditt konto? Detta kan inte ångras.</p>
+                <form id="deleteForm" action="/index.html" method="POST">
+                    <input type="hidden" name="delete" value="true">
+                    <button type="submit" class="deletebtn">Ja, radera mitt konto</button>
+                    <button type="button" onclick="closeDeleteModal()" class="cancelbtn">Avbryt</button>
+                </form>
+            </div>
+        </div>
+        
+        <script>
+            function openDeleteModal() {
+                var modal = document.getElementById("deleteModal");
+                modal.style.display = "block";
+            }
+        
+            function closeDeleteModal() {
+                var modal = document.getElementById("deleteModal");
+                modal.style.display = "none";
+            }
+        </script>
     </main>
 
 
