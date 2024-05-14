@@ -561,7 +561,7 @@ def register_user():
                     created = created)
     
 
-@app.route("/filter", methods=["GET"])
+@app.route("/filter_kriskoll", methods=['GET'])
 def filter_events():
     '''
     Retrieves and filters events based on provided parameters.
