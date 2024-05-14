@@ -60,6 +60,11 @@ main {
 
 nav ul li #dropmenu {
     display: none;
+    color: #00072a;
+}
+
+.fa {
+    display: none;
 }
 
 .navbar {

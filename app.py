@@ -673,6 +673,32 @@ def profile():
                            user_information = user_information)
 
 
+@app.route("/index.html", methods=['POST'])
+def delete_user():
+    if request.method == 'POST':
+        try:
+            conn = psycopg2.connect(
+                host = host,
+                dbname = dbname,
+                user = user,
+                password = password
+            )
+            
+            cur = conn.cursor()
+            logged_in_user = is_user_logged_in()
+            cur.execute("DELETE FROM app_publish WHERE user_id = %s", (logged_in_user,))
+            cur.execute("DELETE FROM app_user WHERE user_id = %s", (logged_in_user,))
+            conn.commit()
+            cur.close()
+            conn.close()
+            
+        except psycopg2.Error as error:
+            if conn:
+                conn.rollback()
+            return f"Error: unable to insert data\n{error}"
+        return redirect("/")
+
+
 @app.route("/Logga_ut", methods=["GET"])
 def Log_out():
     session['user_id'] = None

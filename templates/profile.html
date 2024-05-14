@@ -78,7 +78,11 @@
             </ul>
 
             <button type="button" id="savebtn">Spara</button>
-            <button type="button" id="deletebtn">Radera konto</button>
+
+            <form action="/index.html" method="POST">
+                <input type="hidden" name="delete" value="true">
+                <button type="submit" class="deletebtn">Radera konto</button>
+            </form>
 
             <form action="/Logga_ut" method="GET">
                 <input type="submit" class="logoutbtn" value="Logga ut">
