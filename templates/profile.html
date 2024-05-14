@@ -49,7 +49,7 @@
             <h2 id="phead">Min profil</h2>
 
             <label for="email" class="formhead">E-post</label>
-            <input disabled class="form-control" type="email" id="email" name="Email" value="{{user_email[0]}}">
+            <input disabled class="form-control" type="email" id="email" name="Email" value="{{user_information[0]}}">
 
             <label for="postnummer" class="formhead">Postnummer</label>
             <input class="form-control" type="text" id="zipcode" name="Postnummer">
@@ -59,10 +59,11 @@
             <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
             <label for="epost-notis">Jag vill få notiser på e-post när något händer i mitt område</label><br>
 
-            <p class="profilefont">Mina inlägg</p>
+            <h2 id="phead" class="mt-4">Mina inlägg</h2>
             <ul class="profilefont">
-                <li>Skottlossning</li>
-                <li>Brand</li>
+                {%for information in user_information%}
+                <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
+                {%endfor%}
             </ul>
 
             <button type="button" id="savebtn">Spara</button>

@@ -650,13 +650,15 @@ def profile():
 
         cur.execute(
             '''
-            SELECT user_mail
-            FROM app_user
-            WHERE user_id = %s
+            SELECT au.user_mail, ap.category, ap.city, ap.date
+            FROM app_user AS au
+            JOIN app_publish as ap
+            ON au.user_id = ap.user_id
+            WHERE au.user_id = %s;
             ''', (logged_in_user,)
         )
         
-        user_email = cur.fetchone() 
+        user_information = cur.fetchall() 
         
         cur.close()
         conn.close()
@@ -668,7 +670,7 @@ def profile():
         return f"Error: unable to insert data\n{error}"
     
     return render_template("profile.html",
-                           user_email = user_email)
+                           user_information = user_information)
 
 
 @app.route("/Logga_ut", methods=["GET"])
