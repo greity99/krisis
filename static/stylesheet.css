@@ -23,7 +23,7 @@ main {
     font-size: 100px;
     float: left;
     margin-top: 75px;
-    color: #7ebfdb;
+    color: #6188C2;
     font-weight: bold;
     line-height: 0%;
     text-shadow: 2px 2px 5px  grey;
@@ -36,7 +36,7 @@ main {
     margin-top: 45px;
     font-weight: bold;
     line-height: 0%;
-    color: #7ebfdb;
+    color: #6188C2;
     text-shadow: 2px 2px 5px grey;
 }
 
@@ -86,7 +86,7 @@ main {
 
 #loginbtn {
     border-radius: 25px;
-    background-color: #7ebfdb;
+    background-color: #6188C2;
     padding: 5px 15px;
     margin: 35px;
 }
@@ -107,7 +107,7 @@ main {
 
 #profilebtn {
     border-radius: 25px;
-    background-color: #7ebfdb;
+    background-color: #6188C2;
     padding: 5px 15px;
     margin: 35px;
 }
@@ -317,7 +317,7 @@ main {
 
 #savebtn {
     font-size: 10px;
-    background-color: #7ebfdb;
+    background-color: #6188C2;
     color: white;
     padding: 5px 15px;
     margin-top: 19px;
@@ -380,7 +380,7 @@ footer {
     font-size: 75px;
     float: left;
     margin-top: 45px;
-    color: #7ebfdb;
+    color: #6188C2;
     font-weight: bold;
     line-height: 0%;
     text-shadow: 2px 2px 5px  grey;
@@ -392,7 +392,7 @@ footer {
     margin-top: 37px;
     font-weight: bold;
     line-height: 0%;
-    color: #7ebfdb;
+    color: #6188C2;
     text-shadow: 2px 2px 5px  grey;
 }
 
