@@ -524,7 +524,7 @@ def register_user():
                     birthday = birthday)
     
 
-@app.route("/filter", methods=['GET'])
+@app.route("/filter_kriskoll", methods=['GET'])
 def filter_events():
     category = request.query.category
     city = request.query.city
