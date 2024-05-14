@@ -270,12 +270,13 @@ def publish_post():
             )
 
             cur = conn.cursor()
+            is_logged_in = is_user_logged_in()
 
             cur.execute(
                 '''
                 INSERT INTO app_publish
-                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
-                ''', (category, city, zip_code,)
+                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME, %s)
+                ''', (category, city, zip_code, is_logged_in)
             )
             
             conn.commit()
