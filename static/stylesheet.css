@@ -334,7 +334,8 @@ nav ul li #dropmenu {
 }
 
 #savebtn:hover {
-    background-color: #669bb3;
+    background-color: #5475a6;
+    color: white;
 }
 
 #deletebtn {
