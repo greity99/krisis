@@ -475,6 +475,20 @@ hr {
         width: 50vw;
     }
 
+    .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: lighter;
+        margin: auto;
+    }
+    
+    .navbar li {
+        list-style-type: none;
+        display: block;
+        margin: 10px;
+        text-align: center;
+    }
+
 }
 
 @media screen and (max-width: 768px) and (min-width: 576px) {
@@ -482,4 +496,17 @@ hr {
         width: 30vw;
     }
 
+    .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: lighter;
+        margin: auto;
+    }
+    
+    .navbar li {
+        list-style-type: none;
+        display: block;
+        margin: 10px;
+        text-align: center;
+    }
 }
