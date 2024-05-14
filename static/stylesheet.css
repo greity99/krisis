@@ -1,5 +1,5 @@
 body {
-    background-color: #f4f3f1;
+    background-color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -13,14 +13,431 @@ main {
     object-fit: cover;
 }
 
-main {
-    background-color: #FFDEAD;
+
+/* Header and nav styling */
+.logo-container {
+    background-color: #00072a;
 }
 
-.btn,
-.navbar {
-    background-color: #2a2e42 !important;
+#firsth1 {
+    font-size: 100px;
+    float: left;
+    margin-top: 75px;
+    color: #6188C2;
+    font-weight: bold;
+    line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
+    height: 35px;
 }
+
+#secondh1 {
+    font-size: 47px;
+    margin-bottom: 3px;
+    margin-top: 45px;
+    font-weight: bold;
+    line-height: 0%;
+    color: #6188C2;
+    text-shadow: 2px 2px 5px grey;
+}
+
+#thirdh1 {
+    font-size: 47px;
+    font-weight: bold;
+    margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
+    color: #fff;
+}
+
+#slogan {
+    color: #ffffff;
+    text-align: center;
+    font-style: italic;
+    font-family:'Times New Roman', Times, serif;
+    background-color: #00072a;
+    height: 35px;
+    margin-bottom: 0px;
+}
+
+nav ul li #dropmenu {
+    display: none;
+}
+
+.navbar {
+    background-color: #00072a;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: lighter;
+    margin: auto;
+    padding: 30px;
+}
+
+.navbar a:hover {
+    color: #d0d0d0;
+}
+
+.navbar li {
+    list-style-type: none;
+    display: inline;
+}
+
+#loginbtn {
+    border-radius: 25px;
+    background-color: #6188C2;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#loginbtn:hover {
+    background-color: #5475a6;
+    color: white;
+}
+
+#regbtn {
+    border-radius: 25px;
+    background-color: #d0d0d0;
+    padding: 5px 15px;
+}
+
+#regbtn:hover {
+    background-color: #b3b3b3;
+    color: white;
+}
+
+#profilebtn {
+    border-radius: 25px;
+    background-color: #6188C2;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#profilebtn:hover {
+    background-color: #669bb3;
+}
+/* Header and nav styling ends here */
+
+
+/*Index.html*/
+.widht-select {
+    width: 15vw;
+}
+
+.logo_home {
+    width: 55vh;
+}
+
+.hover_collapse:hover {
+    background-color: #a0afc6;
+
+}
+/* Ends here */
+
+.card {
+      border-radius: 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+}
+
+
+/*publish_post.html*/
+.bg-img {
+    background-image: url(copcar.jpg);
+    height: 80vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.card-img-sizing {
+    height: 20vh;
+    object-fit: cover;
+}
+
+.chrisis_tips_card {
+    box-shadow: 6px 6px 0 0 rgba(33, 54, 90, .11) !important;
+    border-left: 10px solid #000000;
+}
+/* Ends here */
+
+
+/* Login page */
+.container-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+.container-lg {
+    width: 420px;
+    background: white;
+    border: 2px solid rgba(255, 255, 255, 2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: black;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.container-lg h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.container-lg .Input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.Input-box input {
+    width: 100%;
+    height: 100%;
+    background: #2a2e42;
+    border: none;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 40px;
+    font-size: 16px;
+    padding: 20px 45px 20px 20px;
+    color: white;
+}
+
+.Input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+} 
+
+.container-lg .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: black;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.container-lg .butn {
+    width: 100%;
+    height: 45px;
+    background: #2a2e42;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+
+}
+
+.container-lg .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+.register-link p a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+/* Login page styling ends here */
+
+
+/* Registration page styling */
+.leftside {
+    justify-content: left;
+    float: left;
+    width: 50%;
+    margin-top: 120px;
+    padding-right: 15px;
+}
+
+.rightside {
+    justify-content: right;
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#mejlform {
+    justify-content: right;
+    float: right;
+    width: 50%;
+}
+/* Registration page styling ends here*/
+
+
+/* Profile page styling */
+#profilepage {
+    overflow: hidden;
+    padding-bottom: 25px;
+    width: 50%;
+}
+
+#phead {
+    margin-top: 10px;
+}
+
+.profilefont {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.formhead {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.form-control{
+    width: 100%;
+}
+
+#savebtn {
+    font-size: 10px;
+    background-color: #6188C2;
+    color: white;
+    padding: 5px 15px;
+    margin-top: 19px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: none;
+    display: block;
+}
+
+#savebtn:hover {
+    background-color: #669bb3;
+}
+
+#deletebtn {
+    font-size: 10px;
+    background-color: #da4747;
+    color: white;
+    padding: 5px 15px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: none;
+    display: block;
+}
+
+#deletebtn:hover {
+    background-color: #bb3c3c;
+}
+
+.logoutbtn {
+    background-color: #00072a;
+    color: white;
+    margin-top: 15px;
+    margin-right: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: none;
+    float: right;
+}
+
+.logoutbtn:hover {
+    background-color: #141f54;
+}
+/* Profile page styling ends here */
+
+
+/* Footer */
+footer {
+    background-color: #00072a;
+    height: 200%;
+    color: white;
+    overflow: hidden;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#logohead {
+    font-size: 75px;
+    float: left;
+    margin-top: 45px;
+    color: #6188C2;
+    font-weight: bold;
+    line-height: 0%;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logobody {
+    font-size: 34px;
+    margin-bottom: 3px;
+    margin-top: 37px;
+    font-weight: bold;
+    line-height: 0%;
+    color: #6188C2;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logobody2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: -15px;
+    text-shadow: 2px 2px 5px  grey;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%; 
+}
+
+.fhead {
+    font-weight: bold;
+    margin: 5px;
+    padding-top: 25px;
+}
+
+.ftext {
+    margin: 5px;
+    display: flex;
+    cursor: pointer;
+}
+
+hr {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#copy {
+    text-align: center;
+}
+
+/* Footer styling ends here */
 
 .general_light_blue {
     background-color: #8698B3;
@@ -45,149 +462,6 @@ main {
     appearance: none;
 }
 
-
-/*Index.html*/
-.widht-select {
-    width: 15vw;
-}
-
-.logo_home {
-    width: 55vh;
-}
-
-.hover_collapse:hover {
-    background-color: #a0afc6;
-
-}
-
-/*publish_post.html*/
-.bg-img {
-    background-image: url(copcar.jpg);
-    height: 80vh;
-    background-position: center;
-    background-size: cover;
-}
-
-.card-img-sizing {
-    height: 20vh;
-    object-fit: cover;
-}
-
-.chrisis_tips_card {
-    box-shadow: 6px 6px 0 0 rgba(33, 54, 90, .11) !important;
-    border-left: 10px solid #000000;
-}
-
-.footer {
-    background-color: #2a2e42 !important;
-
-}
-
-/* Login sidan */
-.container-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: url(krilog.png)repeat;
-}
-
-.container-lg {
-    width: 420px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #fff;
-    border-radius: 10px;
-    padding: 30px 40px;
-}
-
-.container-lg h1 {
-    font-size: 36px;
-    text-align: center;
-}
-
-.container-lg .Input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
-}
-
-.Input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid rgba(255, 255, 255, 2);
-    border-radius: 40px;
-    font-size: 16px;
-    padding: 20px 45px 20px 20px;
-}
-
-.Input-box i {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-}
-
-.container-lg .remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.remember-forgot label input {
-    margin-right: 3px;
-}
-
-.remember-forgot a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover {
-    text-decoration: underline;
-}
-
-.container-lg .butn {
-    width: 100%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-
-}
-
-.container-lg .register-link {
-    font-size: 14.5px;
-    text-align: center;
-    margin: 20px 0 15px;
-}
-
-.register-link p a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.register-link p a:hover {
-    text-decoration: underline;
-}
-
-/* Här slutar login styling */
-
 .BGLIGHT {
     background-image: url(krilog.png);
 }
@@ -197,11 +471,50 @@ main {
     text-align: center;
 }
 
+.form-check-label{
+    padding: 2px;
+}
 
-
+/* Styling for screens with a maximum width of 576px */
 @media screen and (max-width: 576px) {
     .widht-select {
         width: 50vw;
+    }
+
+    .fa {
+        font-size: 24px;
+        color: #ffffff;
+        display: inline-block;
+        padding-left: 5px;
+    }
+
+    #dropmenu {
+        color: white;
+        cursor: pointer;
+    }
+
+    #dropmenu:hover .dropdown-content {
+        display: block;
+        color: grey;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: relative;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: lighter;
+        padding: 1px;
+    }
+    
+    .navbar li {
+        list-style-type: none;
+        display: block;
+        text-align: center;
+        padding: 5px;
     }
 
 }
@@ -209,6 +522,42 @@ main {
 @media screen and (max-width: 768px) and (min-width: 576px) {
     .widht-select {
         width: 30vw;
+    }
+
+    .fa {
+        font-size: 24px;
+        color: #ffffff;
+        padding-left: 5px;
+    }
+
+    #dropmenu {
+        color: white;
+        cursor: pointer;
+    }
+
+    #dropmenu:hover .dropdown-content {
+        display: block;
+        color: grey;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: relative;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: white;
+        font-weight: lighter;
+        margin: 15px;
+        padding: 1px;
+    }
+    
+    .navbar li {
+        list-style-type: none;
+        display: block;
+        text-align: center;
+        padding: 5px;
     }
 
 }

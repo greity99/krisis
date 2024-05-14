@@ -1,23 +1,29 @@
+# Standard modules
 import os
+from datetime import datetime
 
-#import modules
+# Imported third-party modules
 from flask import Flask, render_template, request, redirect, session, send_from_directory
 import psycopg2
-from datetime import datetime
 from dotenv import load_dotenv
 
+# Load environment variables from the .env file
 load_dotenv()
 
+# Database connection details retrieved from environment variables
 host = os.getenv("host")
 dbname = os.getenv("dbname")
 user = os.getenv("user")
 password = os.getenv("password")
 port = os.getenv("port")
 
+# Flask application setup
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
 
-#General functions
+# If no secret key is found in environment variables, default key is used
+app.secret_key = os.getenv("SECRET_KEY") or "HEJEHEJEHEJJEEh12345"
+
+# General functions
 def check_user_age(date_str):
     '''
     Function which takes a date as an argument and returns True if the user is 16 or older and False if the user is younger than 16.
@@ -33,83 +39,35 @@ def check_user_age(date_str):
     else:
         return True
     
+
 #Check password
 def check_password_uppercase(pwd):
     '''
     Function that ensures that the password contains at least one uppercase letter.
     '''
-    uppercase = False   
-      
-    for i in pwd:
-        if i.isupper():
-            uppercase = True
-            break
-            
-        else: 
-            uppercase = False
-            
-    if uppercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.isupper() for char in pwd)
         
         
 def check_password_lowercase(pwd):
     '''
     Function that ensures that the password contains at least one lowercase letter.
     '''
-    lowercase = False   
-      
-    for i in pwd:
-        if i.islower():
-            lowercase = True
-            break
-            
-        else: 
-            lowercase = False
-            
-    if lowercase == False:
-        return False
-    
-    else: 
-        return True
+    return any(char.islower() for char in pwd)
     
 def check_password_lenght(pwd):
     '''
     Function that ensures that the password is atleast 8 characters long.
     '''
+    return len(pwd) >= 8
     
-    length = len(pwd)
-    
-    if length < 8:
-        return False
-    
-    else:
-        return True
-    
-    
+
 def check_password_digit(pwd):
     '''
     Function that ensures that the password contains at least one digit.
     '''
-    digit = False   
-      
-    for i in pwd:
-        if i.isdigit():
-            digit = True
-            break
-            
-        else: 
-            digit = False
-            
-    if digit == False:
-        return False
-    
-    else: 
-        return True       
-        
-        
+    return any(char.isdigit() for char in pwd)
+
+
 def check_password_all(pwd):
     '''
     Function which includes the following functions:
@@ -130,7 +88,40 @@ def check_password_all(pwd):
     
     else:
         return False
+    
 
+def is_user_logged_in():
+    user_id = session.get('user_id')
+    return user_id
+
+
+def get_categories():
+    try:
+            conn = psycopg2.connect(
+                host = host,
+                dbname = dbname,
+                user = user,
+                password = password
+            )
+
+            cur = conn.cursor()
+
+            cur.execute(
+                '''
+                SELECT category
+                FROM app_category
+                '''
+            )
+            
+            categories = cur.fetchall() 
+            conn.close()
+            return categories
+            
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+            return f"Error: unable to insert data\n{error}"
+    
 
 @app.route("/")
 def index():
@@ -140,6 +131,7 @@ def index():
     Returns,
     template: index
     """
+    categories = get_categories()
     
     try:
         conn = psycopg2.connect(
@@ -153,21 +145,28 @@ def index():
 
         cur.execute(
             '''
-            SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time 
-            FROM app_publish
+            SELECT ap.category, ap.city, ap.zip_code, ap.date, TO_CHAR(ap.time, 'HH24:MI') AS formatted_time, ac.pic_text, ac.pic_url 
+            FROM app_publish AS ap
+            JOIN app_category AS ac
+            ON ap.category = ac.category
             ORDER BY date DESC, time DESC;
             '''
         )
         
         articles = cur.fetchall()        
         conn.close()
+        
+        is_logged_in = is_user_logged_in()
 
-        return render_template("index.html", articles = articles)
+        return render_template("index.html", 
+                               articles = articles, 
+                               is_logged_in = is_logged_in,
+                               categories = categories)
         
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
-        return f"Error: unable to insert data\n{error}"
+            return f"Error: unable to insert data\n{error}"
 
 @app.route("/Krishantering")
 def chrisis_tips():
@@ -177,7 +176,11 @@ def chrisis_tips():
     Returns,
     template: chrisis_tips
     """
-    return render_template("chrisis_tips.html")
+    
+    is_logged_in = is_user_logged_in()
+    
+    return render_template("chrisis_tips.html", 
+                           is_logged_in = is_logged_in)
 
 
 @app.route("/Ny")
@@ -188,14 +191,23 @@ def create_post():
     Returns,
     template: publish_post
     """
-    return render_template("publish_post.html",
-                    no_category="",
-                    no_zip="",
-                    no_city="",
-                    category="",
-                    city="",
-                    zip_code="")
+
+    if not is_user_logged_in():
+        return redirect("/Logga_in")
+     
+    else:        
+        categories = get_categories()
+
+        return render_template("publish_post.html",
+                               no_category="",
+                               no_zip="",
+                               no_city="",
+                               category="",
+                               city="",
+                               zip_code="",
+                               categories = categories)
     
+
 @app.route("/Ny", methods=["POST"])
 def publish_post():
     '''
@@ -206,9 +218,10 @@ def publish_post():
     template: publish_post (if the information is not filled out correctly).
     else it redirects the user to the main page. 
     '''
-    category = request.form.category
-    city = request.form.city
-    zip_code = request.form.ZIP
+
+    category = request.form.get("category")
+    city = request.form.get("city")
+    zip_code = request.form.get("ZIP")
     
     no_category = ""
     no_zip = ""
@@ -259,12 +272,13 @@ def publish_post():
             )
 
             cur = conn.cursor()
+            is_logged_in = is_user_logged_in()
 
             cur.execute(
                 '''
                 INSERT INTO app_publish
-                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME)
-                ''', (category, city, zip_code,)
+                VALUES (%s, %s, %s, CURRENT_DATE, CURRENT_TIME, %s)
+                ''', (category, city, zip_code, is_logged_in)
             )
             
             conn.commit()
@@ -272,11 +286,12 @@ def publish_post():
             cur.close()
             conn.close()
 
-            redirect("/")  
+            return redirect("/")
             
         except psycopg2.Error as error:
             if conn:
                 conn.rollback()
+
             return f"Error: unable to insert data\n{error}"
         
     return render_template ("publish_post.html",
@@ -285,7 +300,9 @@ def publish_post():
                     no_city = no_city,
                     category = category,
                     city = city,
-                    zip_code = zip_code) 
+                    zip_code = zip_code,
+                    categories = "") 
+
 
 @app.route("/Kontakt")
 def contact():
@@ -295,30 +312,15 @@ def contact():
     Returns,
     template: contact
     """
-    return render_template("contact.html")
 
-@app.route("/Logga_in")
-def login():
-    """
-    Returns page for login.
-
-    Returns,
-    template: login
-    """
-    checked_login_details = ""
-    email = ""
-    no_email = ""
-    no_pwd = ""
+    is_logged_in = is_user_logged_in()
     
-    return render_template("login.html", 
-                    checked_login_details = checked_login_details, 
-                    email = email, 
-                    no_email = no_email,
-                    no_pwd = no_pwd)
+    return render_template("contact.html",
+                           is_logged_in = is_logged_in)
 
 
 @app.route("/Logga_in", methods=['GET', 'POST'])
-def login_user():
+def login():
     '''
     Returns page for login with error message if login does not exist,
     Redirects to home page if login is correct.
@@ -326,6 +328,8 @@ def login_user():
     Returns,
     template: login
     '''
+
+    is_logged_in = is_user_logged_in()
     
     checked_login_details = ""
     email = ""
@@ -334,9 +338,9 @@ def login_user():
     
     empty_field = "Fältet får inte lämnas tomt"
     
-    if request.method == 'POST':
-        email = request.forms.get("email")
-        pwd = request.forms.get("password")
+    if request.method == "POST":
+        email = request.form.get("email")
+        pwd = request.form.get("password")
         
         if email == "" and pwd != "":
             no_email = empty_field
@@ -370,16 +374,19 @@ def login_user():
                 logged_in_user = cur.fetchone()
 
                 if logged_in_user:
-                    redirect("/")
+                    # Set user_id in session
+                    
+                    session['user_id'] = logged_in_user
+                    return redirect("/")
                     
                 else:
-                    user_name = email
                     checked_login_details = "wrong"
                     return render_template("login.html", 
                                     checked_login_details = checked_login_details, 
                                     email = email, 
                                     no_email = no_email,
-                                    no_pwd = no_pwd)
+                                    no_pwd = no_pwd, 
+                                    is_logged_in = is_logged_in)
             
             except psycopg2.Error as e:
                 return render_template("login.html", 
@@ -387,7 +394,8 @@ def login_user():
                                 checked_login_details = checked_login_details, 
                                 email = email, 
                                 no_email = no_email,
-                                no_pwd = no_pwd)
+                                no_pwd = no_pwd, 
+                                is_logged_in = is_logged_in)
 
             finally:
                 if conn:
@@ -398,14 +406,16 @@ def login_user():
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
-                    no_pwd = no_pwd)            
+                    no_pwd = no_pwd, 
+                    is_logged_in = is_logged_in)            
         
     else:
         return render_template("login.html", 
                     checked_login_details = checked_login_details, 
                     email = email, 
                     no_email = no_email,
-                    no_pwd = no_pwd)
+                    no_pwd = no_pwd, 
+                    is_logged_in = is_logged_in)
 
 
 @app.route("/Registrering")
@@ -416,7 +426,7 @@ def register():
     Returns,
     template: register
     """
-    
+
     return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
@@ -424,14 +434,25 @@ def register():
                     no_pwd_feedback="", 
                     pwd_feedback="", 
                     email="",
-                    birthday="")
+                    birthday="",
+                    created = False)
 
 
 @app.route("/Registrering", methods=["POST"])
 def register_user():
-    email = request.forms.get("email")
-    birthday = request.forms.get("birthday")
-    pwd = request.forms.get("pwd")
+    '''
+    Handles user registration.
+
+    Retrieves user information from a POST request,
+    attempts to register user in PostgreSQL database table 'app_user'.
+    
+    Returns a template with feedback messages and form data to the client,
+    message depends on success of user registration.
+    '''
+
+    email = request.form.get("email")
+    birthday = request.form.get("birthday")
+    pwd = request.form.get("pwd")
 
     no_email_feedback = ""
     no_birthday_feedback = ""
@@ -439,45 +460,48 @@ def register_user():
     no_pwd_feedback = ""
     pwd_feedback = ""
     
+    created = False    
     empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
-    if email == "" and birthday == "" and password == "":
+    if email == "" and birthday == "" and pwd == "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #email-field empty
-    elif email == "" and birthday != "" and password != "":
+    elif email == "" and birthday != "" and pwd != "":
         no_email_feedback = empty_field
     
     #birthday-field empty
-    elif email != "" and birthday == "" and password != "":
+    elif email != "" and birthday == "" and pwd != "":
         no_birthday_feedback = empty_field
     
     #password-field empty
-    elif email != "" and birthday != "" and password == "":
+    elif email != "" and birthday != "" and pwd == "":
         no_pwd_feedback = empty_field
         
     #email-field and birthday-field empty
-    elif email == "" and birthday == "" and password != "":
+    elif email == "" and birthday == "" and pwd != "":
         no_email_feedback = empty_field
         no_birthday_feedback = empty_field
     
     #email-field and password-field empty
-    elif email == "" and birthday != "" and password == "":
+    elif email == "" and birthday != "" and pwd == "":
         no_email_feedback = empty_field
         no_pwd_feedback = empty_field
     
     #birthday-field and password-field empty
-    elif email != "" and birthday == "" and password == "":
+    elif email != "" and birthday == "" and pwd == "":
         no_birthday_feedback = empty_field
         no_pwd_feedback = empty_field
         
     else: 
         age = check_user_age(birthday)
+
         if age:
             checked_pwd = check_password_all(pwd)
+
             if checked_pwd:
                 try:
                     conn = psycopg2.connect(
@@ -500,19 +524,31 @@ def register_user():
                     
                     cur.close()
                     conn.close()
-
-                    redirect('/')  
+                    
+                    created = True
+                    
+                    return render_template("register.html", 
+                                no_email_feedback = no_email_feedback, 
+                                no_birthday_feedback = no_birthday_feedback, 
+                                age_feedback = age_feedback, 
+                                no_pwd_feedback = no_pwd_feedback, 
+                                pwd_feedback = pwd_feedback, 
+                                email = "",
+                                birthday = "",
+                                created = created)
                     
                 except psycopg2.Error as error:
                     if conn:
                         conn.rollback()
+
                     return f"Error: unable to insert data\n{error}"
+            
             else:
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
         else:
-            redirect("/")
             age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
+            return redirect("/")
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
@@ -521,15 +557,28 @@ def register_user():
                     no_pwd_feedback = no_pwd_feedback, 
                     pwd_feedback = pwd_feedback, 
                     email = email,
-                    birthday = birthday)
+                    birthday = birthday,
+                    created = created)
     
 
 @app.route("/filter_kriskoll", methods=['GET'])
 def filter_events():
-    category = request.query.category
-    city = request.query.city
-    zip_code = request.query.zip_code
-    date = request.query.date
+    '''
+    Retrieves and filters events based on provided parameters.
+
+    Retrieves filtering parameters from a GET request,
+    constructs a SQL query to retrieve events from 
+    PostgreSQL database table 'app_publish' based on the parameters.
+
+    Returns template "Index" as main page.
+    '''
+        
+    category = request.args.get("category") 
+    city = request.args.get("city")
+    zip_code = request.args.get("ZIP-code")
+    date = request.args.get("date")
+    
+    categories = get_categories()
 
     query_parts = []
     params = []
@@ -537,36 +586,98 @@ def filter_events():
     if category:
         query_parts.append("category = %s")
         params.append(category)
+
     if city:
         query_parts.append("city = %s")
         params.append(city)
+
     if zip_code:
         query_parts.append("zip_code = %s")
         params.append(zip_code)
+
     if date:
         query_parts.append("date = %s")
         params.append(date)
 
     query_base = "SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time FROM app_publish"
+    
     if query_parts:
         query_base += " WHERE " + " AND ".join(query_parts)
+
     query_base += " ORDER BY date DESC, time DESC;"
 
     try:
         conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
         cur = conn.cursor()
         cur.execute(query_base, params)
+        
         articles = cur.fetchall()
+        
         cur.close()
         conn.close()
-        return render_template("index.html", articles=articles)
+    
+        is_logged_in = is_user_logged_in()
+        
+        return render_template("index.html", 
+                               articles=articles, 
+                               categories = categories,
+                               is_logged_in = is_logged_in)
     
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"
 
-@app.route("/polisen_api.html")
+
+@app.route("/Händelser_från_polisen")
 def polisen_api():
-    return render_template("polisen_api.html")
+    is_logged_in = is_user_logged_in()
+    return render_template("polisen_api.html",
+                           is_logged_in = is_logged_in)
+
+
+@app.route("/Profil")
+def profile():
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )
+        
+        cur = conn.cursor()
+        logged_in_user = is_user_logged_in()
+
+        cur.execute(
+            '''
+            SELECT au.user_mail, ap.category, ap.city, ap.date
+            FROM app_user AS au
+            LEFT JOIN app_publish as ap
+            ON au.user_id = ap.user_id
+            WHERE au.user_id = %s;
+            ''', (logged_in_user,)
+        )
+        
+        user_information = cur.fetchall() 
+        
+        cur.close()
+        conn.close()
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+
+        return f"Error: unable to insert data\n{error}"
+    
+    return render_template("profile.html",
+                           user_information = user_information)
+
+
+@app.route("/Logga_ut", methods=["GET"])
+def Log_out():
+    session['user_id'] = None
+    return redirect("/")
+
 
 @app.route("/static/<filename>")
 def static_files(filename):
@@ -575,6 +686,7 @@ def static_files(filename):
     """
     return send_from_directory("static", filename)
 
-if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080)
 
+# Runs the Flask app on the local machine
+if __name__ == '__main__':
+    app.run(host="127.0.0.1", port=8085)

@@ -5,13 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logga in</title>
+    <title>Profil</title>
     <!--BootstrapCSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/stylesheet.css">
-    <!--BootsratpIcons-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!--Font Awesome pil-ikon för dropdown menu-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -47,52 +45,40 @@
         </ul>
     </nav>
 
+    <!--Profile page-->
+    <main class="container-md">
+        <div id="profilepage">
+            <h2 id="phead">Min profil</h2>
 
-    <main>
-        <div class="container-login">
-            <div class="container-lg">
-                <form action="/Logga_in" method="POST" accept-charset="UTF-8">
+            <label for="email" class="formhead">E-post</label>
+            {%for information in user_information%}
+            <input disabled class="form-control" type="email" id="email" name="Email" value="{{information[0]}}">
+            {%endfor%}
 
-                    <h1>Login</h1>
-                    <div class="Input-box">
-                        <input type="text" name="email" placeholder="Användarnamn" value="{{email}}">
-                        <i class='bx bx-user'></i>
-                    </div>
-                    <p class="feedback_message_register"><small>{{no_email}}</small></p>
+            <label for="postnummer" class="formhead">Postnummer</label>
+            <input class="form-control" type="text" id="zipcode" name="Postnummer">
+            <br>
 
-                    <div class="Input-box">
-                        <input type="password" name="password" placeholder="Lösenord">
-                        <i class='bx bxs-lock'></i>
-                    </div>
-                    <p class="feedback_message_register"><small>{{no_pwd}}</small></p>
+            <p class="profilefont">Notifikationer</p>
+            <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
+            <label for="epost-notis">Jag vill få notiser på e-post när något händer i mitt område</label><br>
 
-                    <div class="remember-forgot">
-                        <label><input type="checkbox"> Kom ihåg mig!</label>
-                        <a href="#">Glömt lösenord?</a>
-                    </div>
+            <h2 id="phead" class="mt-4">Mina inlägg</h2>
+            <ul class="profilefont">
+                
+                {%for information in user_information%}
+                    {% if information[1] != None and information[2] != None and information[3] != None %}
+                    <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
+                    {%endif%}
+                {%endfor%}
+            </ul>
 
-                    <button type="submit" class="butn">Logga in</button>
-                    {%if checked_login_details == "wrong": %}
-                    <div class="alert alert-danger mt-3" role="alert">
-                        <p class="text-center mb-0 mt-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-                                <path
-                                    d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
-                                <path
-                                    d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                            </svg>
-                            Fel användarnamn eller lösenord!
-                        </p>
-                    </div>
+            <button type="button" id="savebtn">Spara</button>
+            <button type="button" id="deletebtn">Radera konto</button>
 
-                    {% endif %}
-                    <div class="register-link">
-                        <p>Har du inget konto? <a href="/Registrering">Registrera dig här!</a></p>
-                    </div>
-
-                </form>
-            </div>
+            <form action="/Logga_ut" method="GET">
+                <input type="submit" class="logoutbtn" value="Logga ut">
+            </form>
         </div>
     </main>
 
