@@ -652,7 +652,7 @@ def profile():
             '''
             SELECT au.user_mail, ap.category, ap.city, ap.date
             FROM app_user AS au
-            JOIN app_publish as ap
+            LEFT JOIN app_publish as ap
             ON au.user_id = ap.user_id
             WHERE au.user_id = %s;
             ''', (logged_in_user,)
