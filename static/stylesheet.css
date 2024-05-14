@@ -58,6 +58,10 @@ main {
     margin-bottom: 0px;
 }
 
+nav ul li #dropmenu {
+    display: none;
+}
+
 .navbar {
     background-color: #00072a;
     margin: 0px;
@@ -76,7 +80,7 @@ main {
 }
 
 .navbar a:hover {
-    color: #ffffff;
+    color: #d0d0d0;
 }
 
 .navbar li {
@@ -92,7 +96,8 @@ main {
 }
 
 #loginbtn:hover {
-    background-color: #669bb3;
+    background-color: #5475a6;
+    color: white;
 }
 
 #regbtn {
@@ -103,6 +108,7 @@ main {
 
 #regbtn:hover {
     background-color: #b3b3b3;
+    color: white;
 }
 
 #profilebtn {
@@ -475,18 +481,40 @@ hr {
         width: 50vw;
     }
 
+    .fa {
+        font-size: 24px;
+        color: #ffffff;
+        display: inline-block;
+        padding-left: 5px;
+    }
+
+    #dropmenu {
+        color: white;
+        cursor: pointer;
+    }
+
+    #dropmenu:hover .dropdown-content {
+        display: block;
+        color: grey;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: relative;
+    }
+
     .navbar a {
         text-decoration: none;
         color: white;
         font-weight: lighter;
-        margin: auto;
+        padding: 1px;
     }
     
     .navbar li {
         list-style-type: none;
         display: block;
-        margin: 10px;
         text-align: center;
+        padding: 5px;
     }
 
 }
@@ -496,17 +524,40 @@ hr {
         width: 30vw;
     }
 
+    .fa {
+        font-size: 24px;
+        color: #ffffff;
+        padding-left: 5px;
+    }
+
+    #dropmenu {
+        color: white;
+        cursor: pointer;
+    }
+
+    #dropmenu:hover .dropdown-content {
+        display: block;
+        color: grey;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: relative;
+    }
+
     .navbar a {
         text-decoration: none;
         color: white;
         font-weight: lighter;
-        margin: auto;
+        margin: 15px;
+        padding: 1px;
     }
     
     .navbar li {
         list-style-type: none;
         display: block;
-        margin: 10px;
         text-align: center;
+        padding: 5px;
     }
+
 }

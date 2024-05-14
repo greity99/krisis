@@ -11,6 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/stylesheet.css">
     <script src="../static/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 
@@ -27,12 +28,15 @@
     <!--NavBar-->
     <nav class="navbar">
         <ul>
-            <li><a href="/">Hem</a></li>
-            <li><a href="/Krishantering">Krishantering</a></li>
-            <li><a href="/Kontakt">Kontakta oss</a></li>
-
-            <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
-            <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+            <li id="dropmenu">Meny<i class="fa fa-caret-down"></i>
+                <ul class="dropdown-content">
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="/Krishantering">Krishantering</a></li>
+                    <li><a href="/Kontakt">Kontakta oss</a></li>
+                    <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+                    <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
