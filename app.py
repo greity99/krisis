@@ -145,8 +145,10 @@ def index():
 
         cur.execute(
             '''
-            SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time 
-            FROM app_publish
+            SELECT ap.category, ap.city, ap.zip_code, ap.date, TO_CHAR(ap.time, 'HH24:MI') AS formatted_time, ac.pic_text, ac.pic_url 
+            FROM app_publish AS ap
+            JOIN app_category AS ac
+            ON ap.category = ac.category
             ORDER BY date DESC, time DESC;
             '''
         )
