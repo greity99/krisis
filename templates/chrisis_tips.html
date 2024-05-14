@@ -3,153 +3,157 @@
 
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishantering</title>
-    <!--BootstrapCSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/stylesheet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krishantering</title>
+  <!--BootstrapCSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/stylesheet.css">
 </head>
 
 
 <body>
-    <div class="logo-container">
-        <p id="firsth1">K</p>
-        <div class="logobody-wrapper">
-            <p id="secondh1">RIS</p>
-            <p id="thirdh1">OLL</p>
+  <div class="logo-container">
+    <p id="firsth1">K</p>
+    <div class="logobody-wrapper">
+      <p id="secondh1">RIS</p>
+      <p id="thirdh1">OLL</p>
+    </div>
+  </div>
+  <p id="slogan">Ditt bidrag, vår säkerhet</p>
+
+  <!--NavBar-->
+  <nav class="navbar">
+    <ul>
+      <li><a href="/">Hem</a></li>
+      <li><a href="/Krishantering">Krishantering</a></li>
+      <li><a href="/Kontakt">Kontakta oss</a></li>
+
+      <!--Inloggad användare-->
+      {% if is_logged_in != None %}
+      <li><a href="/Ny">Publicera inlägg</a></li>
+      <li><a href="/Profil" id="profilebtn">Min profil</a></li>
+
+      <!--Inte inloggad användare-->
+      {% else %}
+      <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+      <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2>MSB</h2>
+            <p>Myndigheten för samhällsskydd och beredskap är en svensk statlig
+              förvaltningsmyndighet, som sorterar under försvarsdepartementet och tillhör ministern för
+              civilt försvars ansvarsområde.<br>
+              <span style="color: red;">Vid en större olycka eller en kris behöver du få veta vad som
+                händer, hur du själv ska agera och vad ansvariga myndigheter gör. Du kan också behöva
+                komma i kontakt med dina anhöriga.</span>
+              <a href="https://www.msb.se" class="btn btn-dark">Läs mer</a>
+            </p>
+            <img src="static/msb.webp" class="img-fluid" alt="Placeholder Image">
+          </div>
         </div>
-    </div>
-    <p id="slogan">Ditt bidrag, vår säkerhet</p>
-    
-    <!--NavBar-->
-    <nav class="navbar">
-        <ul>
-            <li><a href="/">Hem</a></li>
-            <li><a href="/Krishantering">Krishantering</a></li>
-            <li><a href="/Kontakt">Kontakta oss</a></li>
-            
-            <!--Inloggad användare-->
-            {% if is_logged_in != None %}
-            <li><a href="/Ny">Publicera inlägg</a></li>
-            <li><a href="/Profil" id="profilebtn">Min profil</a></li>
-    
-            <!--Inte inloggad användare-->
-            {% else %}
-            <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
-            <li><a href="/Registrering" id="regbtn">Gå med</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2>SOS</h2>
+            <p> SOS Alarm Sverige AB är ett svenskt offentligägt företag, som driver nödnumret 112 i Sverige. Bolaget
+              ägs till lika delar av staten och Sveriges Kommuner och Regione och används i hela landet. <br>
+              <br>
+              Ring alltid <span style="color: red;">112</span> om du befinner dig i en akut nödsituation. <br>
+              Ring <span style="color: red;">113 13</span> för information om olyckor och kriser. <br>
+              Ring <span style="color: red;">114 14</span> för icke akuta polisärenden. <br>
+              Ring <span style="color: red;">1177</span> för sjukvårdsrådgivning.
+              <a href="https://www.sosalarm.se" class="btn btn-dark">Läs mer</a> <br>
+              <img src="static/zoz.png" class="img-fluid" alt="Placeholder Image">
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2> Folkhälsomyndigheten</h2>
+            <p>Folkhälsomyndigheten är en svensk statlig myndighet som har ett nationellt ansvar för folkhälsofrågor.
+              Myndigheten verkar för en god folkhälsa och arbetar för att befolkningen ska ha ett skydd mot smittsamma
+              sjukdomar och andra hälsohot.
+              <span style="color: red;">Telefon till växeln: 010-205 20 00 </span><br>
+              <a href="https://www.folkhalsomyndigheten.se" class="btn btn-dark">Läs mer</a>
+              <img src="static/folkmy.png" class="img-fluid" alt="Placeholder Image">
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2> Kommun</h2>
+            <p> Kontakta din lokala kommun för inofrmation angående händelser och event som ska ske i staden. Detta kan
+              påverka
+              vägar och andra typer av begränsningar och risker för dig. För information angående Malmö Stad så kan du
+              läsa mer här! För andra kommuner rekomenderas de officella kommunernas webbsidor.
+              <a href="https://www.malmo.se" class="btn btn-dark">Läs mer</a>
+              <img src="static/kommun.png" class="img-fluid" alt="Placeholder Image">
+            </p>
+          </div>
+        </div>
+      </div>
 
 
-        <div class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h2>MSB</h2>
-                    <p>Myndigheten för samhällsskydd och beredskap är en svensk statlig
-                        förvaltningsmyndighet, som sorterar under försvarsdepartementet och tillhör ministern för
-                        civilt försvars ansvarsområde.<br>
-                        <span style="color: red;">Vid en större olycka eller en kris behöver du få veta vad som
-                            händer, hur du själv ska agera och vad ansvariga myndigheter gör. Du kan också behöva
-                            komma i kontakt med dina anhöriga.</span>
-                            <a href="https://www.msb.se" class="btn btn-dark">Läs mer</a>
-                        </p>
-                        <img src="static/msb.webp" class="img-fluid" alt="Placeholder Image">
-                  </div>
+      </main>
+      <!--Footer-->
+      <footer>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="logo-container">
+                <p id="logohead">K</p>
+                <div class="logobody-wrapper">
+                  <p class="logobody">RIS</p>
+                  <p class="logobody2">OLL</p>
                 </div>
               </div>
+            </div>
 
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h2>SOS</h2>
-                    <p>   SOS Alarm Sverige AB är ett svenskt offentligägt företag, som driver nödnumret 112 i Sverige. Bolaget ägs till lika delar av staten och Sveriges Kommuner och Regione och används i hela landet. <br>
-                        <br>
-                          Ring alltid <span style="color: red;">112</span> om du befinner dig i en akut nödsituation. <br>
-                        Ring <span style="color: red;">113 13</span> för information om olyckor och kriser. <br>
-                        Ring <span style="color: red;">114 14</span> för icke akuta polisärenden. <br>
-                        Ring <span style="color: red;">1177</span> för sjukvårdsrådgivning.
-                        <a href="https://www.sosalarm.se" class="btn btn-dark">Läs mer</a> <br>
-                        <img src="static/zoz.png" class="img-fluid" alt="Placeholder Image">
-                    </p>
-                  </div>
-                </div>
-              </div>
-                
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h2> Folkhälsomyndigheten</h2>
-                    <p>Folkhälsomyndigheten är en svensk statlig myndighet som har ett nationellt ansvar för folkhälsofrågor. 
-                        Myndigheten verkar för en god folkhälsa och arbetar för att befolkningen ska ha ett skydd mot smittsamma sjukdomar och andra hälsohot.
-                        <span style="color: red;">Telefon till växeln: 010-205 20 00 </span><br>
-                        <a href="https://www.folkhalsomyndigheten.se" class="btn btn-dark">Läs mer</a>
-                        <img src="static/folkmy.png" class="img-fluid" alt="Placeholder Image">
-                    </p>
-                  </div>
-               </div>
-             </div>
-
-              <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h2> Kommun</h2>
-                    <p> Kontakta din lokala kommun för inofrmation angående händelser och event som ska ske i staden. Detta kan påverka
-                        vägar och andra typer av begränsningar och risker för dig. För information angående Malmö Stad så kan du läsa mer här! För andra kommuner rekomenderas de officella kommunernas webbsidor.
-                        <a href="https://www.malmo.se" class="btn btn-dark">Läs mer</a>
-                        <img src="static/kommun.png" class="img-fluid" alt="Placeholder Image">
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-
-        </main>
-<!--Footer-->
-<footer>
-    <div class="container-fluid">
-        <div class="row">
             <div class="col">
-                <div class="logo-container">
-                    <p id="logohead">K</p>
-                    <div class="logobody-wrapper">
-                        <p class="logobody">RIS</p>
-                        <p class="logobody2">OLL</p>
-                    </div>
-                </div>
+              <p class="fhead">Följ oss</p>
+              <p class="ftext">Facebook</p>
+              <p class="ftext">Instagram</p>
+              <p class="ftext">Youtube</p>
             </div>
 
-        <div class="col">
-                <p class="fhead">Följ oss</p>
-                <p class="ftext">Facebook</p>
-                <p class="ftext">Instagram</p>
-                <p class="ftext">Youtube</p>
-            </div>
-        
             <div class="col">
-                <p class="fhead">Juridiskt</p>
-                <p class="ftext">Integritetspolicy</p>
-                <p class="ftext">Cookiepolicy</p>
-                <p class="ftext">Sekretessinställningar</p>
+              <p class="fhead">Juridiskt</p>
+              <p class="ftext">Integritetspolicy</p>
+              <p class="ftext">Cookiepolicy</p>
+              <p class="ftext">Sekretessinställningar</p>
             </div>
-        
-            <div class="col">
-                <p class="fhead">Om KrisKoll</p>
-                <p class="ftext">Om oss</p>
-                <p class="ftext">Kontakta oss</p>
-                <p class="ftext">Hållbarhet</p>
-            </div>
-    </div>
-        <hr>
-        <p id="copy">© 2024 KrisKoll</p>
-</footer>
 
-    <!--BootstrapJS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            <div class="col">
+              <p class="fhead">Om KrisKoll</p>
+              <p class="ftext">Om oss</p>
+              <p class="ftext">Kontakta oss</p>
+              <p class="ftext">Hållbarhet</p>
+            </div>
+          </div>
+          <hr>
+          <p id="copy">© 2024 KrisKoll</p>
+      </footer>
+
+      <!--BootstrapJS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </body>

@@ -612,10 +612,13 @@ def filter_events():
         
         cur.close()
         conn.close()
+    
+        is_logged_in = is_user_logged_in()
         
         return render_template("index.html", 
                                articles=articles, 
-                               categories = categories)
+                               categories = categories,
+                               is_logged_in = is_logged_in)
     
     except psycopg2.Error as error:
         return f"Error: unable to retrieve data\n{error}"

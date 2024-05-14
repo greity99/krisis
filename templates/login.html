@@ -24,19 +24,19 @@
         </div>
     </div>
     <p id="slogan">Ditt bidrag, vår säkerhet</p>
-    
+
     <!--NavBar-->
     <nav class="navbar">
         <ul>
             <li><a href="/">Hem</a></li>
             <li><a href="/Krishantering">Krishantering</a></li>
             <li><a href="/Kontakt">Kontakta oss</a></li>
-            
+
             <!--Inloggad användare-->
             {% if is_logged_in != None %}
             <li><a href="/Ny">Publicera inlägg</a></li>
             <li><a href="/Profil" id="profilebtn">Min profil</a></li>
-    
+
             <!--Inte inloggad användare-->
             {% else %}
             <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
@@ -95,8 +95,8 @@
     </main>
 
 
-<!--Footer-->
-<footer>
+    <!--Footer-->
+    <footer>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
@@ -109,30 +109,30 @@
                     </div>
                 </div>
 
-            <div class="col">
+                <div class="col">
                     <p class="fhead">Följ oss</p>
                     <p class="ftext">Facebook</p>
                     <p class="ftext">Instagram</p>
                     <p class="ftext">Youtube</p>
                 </div>
-            
+
                 <div class="col">
                     <p class="fhead">Juridiskt</p>
                     <p class="ftext">Integritetspolicy</p>
                     <p class="ftext">Cookiepolicy</p>
                     <p class="ftext">Sekretessinställningar</p>
                 </div>
-            
+
                 <div class="col">
                     <p class="fhead">Om KrisKoll</p>
                     <p class="ftext">Om oss</p>
                     <p class="ftext">Kontakta oss</p>
                     <p class="ftext">Hållbarhet</p>
                 </div>
-        </div>
+            </div>
             <hr>
             <p id="copy">© 2024 KrisKoll</p>
-</footer>
+    </footer>
 
 
     <!--BootstrapJS-->
