@@ -636,7 +636,39 @@ def polisen_api():
 
 @app.route("/Profil")
 def profile():
-    return render_template("profile.html")
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )
+        
+        cur = conn.cursor()
+        logged_in_user = is_user_logged_in()
+
+        cur.execute(
+            '''
+            SELECT user_mail
+            FROM app_user
+            WHERE user_id = %s
+            ''', (logged_in_user,)
+        )
+        
+        user_email = cur.fetchone() 
+        
+        cur.close()
+        conn.close()
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+
+        return f"Error: unable to insert data\n{error}"
+    
+    return render_template("profile.html",
+                           user_email = user_email)
 
 
 @app.route("/Logga_ut", methods=["GET"])
