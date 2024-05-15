@@ -663,6 +663,10 @@ def profile():
         cur.close()
         conn.close()
         
+        for information in user_information:
+            user_email = information[0]
+            break
+        
     except psycopg2.Error as error:
         if conn:
             conn.rollback()
@@ -670,7 +674,8 @@ def profile():
         return f"Error: unable to insert data\n{error}"
     
     return render_template("profile.html",
-                           user_information = user_information)
+                           user_information = user_information,
+                           user_email = user_email)
 
 
 @app.route("/index.html", methods=['POST'])

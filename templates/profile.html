@@ -55,30 +55,31 @@
             <h2 id="phead">Min profil</h2>
 
             <label for="email" class="formhead">E-post</label>
-            {%for information in user_information%}
-            <input disabled class="form-control" type="email" id="email" name="Email" value="{{information[0]}}">
-            {%endfor%}
+            <input disabled class="form-control" type="email" id="email" name="Email" value="{{user_email}}">
+            <button type="button" class="mt-3">Uppdatera</button>
 
+            <h4 class ="mt-5">Notifikationer</h4>
             <label for="postnummer" class="formhead">Postnummer</label>
             <input class="form-control" type="text" id="zipcode" name="Postnummer">
             <br>
 
-            <p class="profilefont">Notifikationer</p>
+            <h3 class="profilefont">Notifikationer</h3>
             <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
             <label for="epost-notis">Jag vill få notiser på e-post när något händer i mitt område</label><br>
+            <button type="button" id="savebtn" class="mt-2">Spara</button>
 
-            <h2 id="phead" class="mt-4">Mina inlägg</h2>
+            <h3 id="phead" class="mt-4">Mina inlägg</h3>
             <ul class="profilefont">
 
                 {%for information in user_information%}
-                    {% if information[1] != None and information[2] != None and information[3] != None %}
-                    <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
-                    {%endif%}
+                {% if information[1] != None and information[2] != None and information[3] != None %}
+                <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
+                {%endif%}
                 {%endfor%}
             </ul>
 
-            <button type="button" id="savebtn">Spara</button>
-            <button type="button" onclick="openDeleteModal()" class="deletebtn">Radera konto</button>
+
+            <button type="button" onclick="openDeleteModal()" class="mt-4 deletebtn">Radera konto</button>
 
             <form action="/Logga_ut" method="GET">
                 <input type="submit" class="logoutbtn" value="Logga ut">
@@ -95,13 +96,13 @@
                 </form>
             </div>
         </div>
-        
+
         <script>
             function openDeleteModal() {
                 var modal = document.getElementById("deleteModal");
                 modal.style.display = "block";
             }
-        
+
             function closeDeleteModal() {
                 var modal = document.getElementById("deleteModal");
                 modal.style.display = "none";
