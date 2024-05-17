@@ -275,33 +275,6 @@ nav ul li #dropmenu {
 }
 /* Login page styling ends here */
 
-
-/* Registration page styling 
-.leftside {
-    justify-content: left;
-    float: left;
-    width: 50%;
-    margin-top: 120px;
-    padding-right: 15px;
-}
-
-.rightside {
-    justify-content: right;
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#mejlform {
-    justify-content: right;
-    float: right;
-    width: 50%;
-}
-*/
-/* Registration page styling ends here*/
-
-
 /* Profile page styling */
 #profilepage {
     overflow: hidden;

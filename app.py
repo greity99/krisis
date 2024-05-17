@@ -633,7 +633,6 @@ def polisen_api():
     return render_template("polisen_api.html",
                            is_logged_in = is_logged_in)
 
-
 @app.route("/Profil")
 def profile():
     
