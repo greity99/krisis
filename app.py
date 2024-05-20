@@ -672,6 +672,41 @@ def profile():
     return render_template("profile.html",
                            user_information = user_information,
                            user_email = user_email)
+    
+    
+@app.route("/Uppdatera-email", methods = ['POST'])
+def update_user_email ():
+    new_email = request.form.get("Email")
+    user_id = is_user_logged_in()
+    print(new_email)
+    print(user_id)
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )
+        
+        cur = conn.cursor()
+        cur.execute('''
+                    UPDATE app_user
+                    SET user_mail = %s
+                    WHERE user_id = %s
+                    ''', (new_email, user_id,)
+        )
+        
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+        return something here
+        
+    except psycopg2.Error as error:
+            if conn:
+                conn.rollback()
+            return f"Error: unable to insert data\n{error}"
 
 
 @app.route("/index.html", methods=['POST'])
