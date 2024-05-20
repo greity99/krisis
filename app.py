@@ -430,7 +430,6 @@ def register():
     template: register
     """
     underaged = is_user_of_age()
-    print(underaged)
     
     return render_template("register.html", 
                     no_email_feedback="", 
