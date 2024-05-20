@@ -94,6 +94,10 @@ def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
 
+def is_user_of_age():
+    underaged = session.get('of_age')
+    return underaged
+
 
 def get_categories():
     try:
@@ -417,7 +421,6 @@ def login():
                     no_pwd = no_pwd, 
                     is_logged_in = is_logged_in)
 
-
 @app.route("/Registrering")
 def register():
     """
@@ -426,7 +429,9 @@ def register():
     Returns,
     template: register
     """
-
+    underaged = is_user_of_age()
+    print(underaged)
+    
     return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
@@ -435,7 +440,8 @@ def register():
                     pwd_feedback="", 
                     email="",
                     birthday="",
-                    created = False)
+                    created = False,
+                    underaged = underaged)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -460,7 +466,8 @@ def register_user():
     no_pwd_feedback = ""
     pwd_feedback = ""
     
-    created = False    
+    created = False  
+    underaged = False  
     empty_field = "Fältet får inte lämnas tomt"
     
     # All fields empty
@@ -527,16 +534,6 @@ def register_user():
                     
                     created = True
                     
-                    return render_template("register.html", 
-                                no_email_feedback = no_email_feedback, 
-                                no_birthday_feedback = no_birthday_feedback, 
-                                age_feedback = age_feedback, 
-                                no_pwd_feedback = no_pwd_feedback, 
-                                pwd_feedback = pwd_feedback, 
-                                email = "",
-                                birthday = "",
-                                created = created)
-                    
                 except psycopg2.Error as error:
                     if conn:
                         conn.rollback()
@@ -547,8 +544,8 @@ def register_user():
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
         else:
-            age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
-            return redirect("/")
+            underaged = True
+            session['of_age'] = underaged
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
@@ -558,7 +555,8 @@ def register_user():
                     pwd_feedback = pwd_feedback, 
                     email = email,
                     birthday = birthday,
-                    created = created)
+                    created = created,
+                    underaged = underaged)
     
 
 @app.route("/filter_kriskoll", methods=['GET'])
