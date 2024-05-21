@@ -364,6 +364,8 @@ def login():
             no_pwd = empty_field
                 
         else:
+            email = email.lower()
+
             try:
                 conn = psycopg2.connect(
                     host = host,
@@ -516,6 +518,7 @@ def register_user():
             checked_pwd = check_password_all(pwd)
 
             if checked_pwd:
+                email = email.lower()
                 try:
                     conn = psycopg2.connect(
                         host = host,
@@ -700,6 +703,7 @@ def update_user_email ():
     
     if new_email != "":
         if new_email != user_email:
+            new_email = new_email.lower()
         
             try:
                 conn = psycopg2.connect(
