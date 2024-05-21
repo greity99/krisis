@@ -702,6 +702,7 @@ def update_user_email ():
     updated_email = ""
     
     if new_email != "":
+        new_email = new_email.lower()
         if new_email != user_email:
             new_email = new_email.lower()
         
