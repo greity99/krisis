@@ -18,7 +18,7 @@ function undisable_emailfield() {
 
   if (!isEmailFieldEnabled) {
     emailField.removeAttribute("disabled");
-    btnToggle.value = "Uppdatera";
+    btnToggle.value = "Spara";
     isEmailFieldEnabled = true;
   } else {
     btnToggle.type = "submit";

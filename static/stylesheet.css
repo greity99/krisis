@@ -427,6 +427,10 @@ hr {
     color: red;
 }
 
+.feedback_message_success {
+    color: green;
+}
+
 .icon_confirm_post:hover {
     fill: #2a2e42;
 }

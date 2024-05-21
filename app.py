@@ -98,6 +98,13 @@ def is_user_of_age():
     underaged = session.get('of_age')
     return underaged
 
+def get_user_email():
+    user_email = session.get('user_email')
+    return user_email
+
+def get_user_information():
+    user_information = session.get('user_information')
+    return user_information
 
 def get_categories():
     try:
@@ -632,6 +639,8 @@ def polisen_api():
 
 @app.route("/Profil")
 def profile():
+    empty_field = ""
+    no_new_email = ""
     
     try:
         conn = psycopg2.connect(
@@ -655,12 +664,14 @@ def profile():
         )
         
         user_information = cur.fetchall() 
+        session['user_information'] = user_information
         
         cur.close()
         conn.close()
         
         for information in user_information:
             user_email = information[0]
+            session['user_email'] = user_email
             break
         
     except psycopg2.Error as error:
@@ -671,42 +682,71 @@ def profile():
     
     return render_template("profile.html",
                            user_information = user_information,
-                           user_email = user_email)
+                           user_email = user_email,
+                           no_new_email = no_new_email,
+                           empty_field = empty_field)
     
     
 @app.route("/Uppdatera-email", methods = ['POST'])
 def update_user_email ():
     new_email = request.form.get("Email")
     user_id = is_user_logged_in()
-    print(new_email)
-    print(user_id)
+    user_email = get_user_email()
+    user_information = get_user_information()
     
-    try:
-        conn = psycopg2.connect(
-            host = host,
-            dbname = dbname,
-            user = user,
-            password = password
-        )
+    no_new_email = ""
+    empty_field = ""
+    updated_email = ""
+    
+    if new_email != "":
+        if new_email != user_email:
         
-        cur = conn.cursor()
-        cur.execute('''
-                    UPDATE app_user
-                    SET user_mail = %s
-                    WHERE user_id = %s
-                    ''', (new_email, user_id,)
-        )
+            try:
+                conn = psycopg2.connect(
+                    host = host,
+                    dbname = dbname,
+                    user = user,
+                    password = password
+                )
+                
+                cur = conn.cursor()
+                cur.execute('''
+                            UPDATE app_user
+                            SET user_mail = %s
+                            WHERE user_id = %s
+                            ''', (new_email, user_id,)
+                )
+                
+                conn.commit()
+                session['user_email'] = new_email
+                user_email = get_user_email()
+                updated_email = "Mejladressen är nu uppdaterad!"
+                
+                cur.close()
+                conn.close()
+                
         
-        conn.commit()
+            except psycopg2.Error as error:
+                    if conn:
+                        conn.rollback()
+                    return f"Error: unable to insert data\n{error}"
+                
+        else: 
+            no_new_email = "Mejladressen du uppgav är samma som den tidigare."
+    
+    else: 
+        empty_field = "Mejladressen uppdaterades inte. Fältet får inte lämnas tomt"
         
-        cur.close()
-        conn.close()
-        return something here
+    return render_template("profile.html",
+                           user_information = user_information,
+                           user_email = user_email,
+                           no_new_email = no_new_email,
+                           empty_field = empty_field,
+                           updated_email = updated_email)
+    
         
-    except psycopg2.Error as error:
-            if conn:
-                conn.rollback()
-            return f"Error: unable to insert data\n{error}"
+        
+        
 
 
 @app.route("/index.html", methods=['POST'])
