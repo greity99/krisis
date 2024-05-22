@@ -754,11 +754,7 @@ def update_user_email ():
                            empty_field = empty_field,
                            updated_email = updated_email)
     
-        
-        
-        
-
-
+               
 @app.route("/index.html", methods=['POST'])
 def delete_user():
     if request.method == 'POST':
