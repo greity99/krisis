@@ -70,7 +70,7 @@
                         <label for="category" class="form-label ms-4 mt-3 h4">Kriskategori<span
                                 class="text-danger">*</span>
                         </label>
-                        <select class="form-control ms-4" name="category" id="category" value={{category}}>
+                        <select class="form-control ms-4" name="category" required id="category" value={{category}}>
                             <option hidden value="">Välj...</option>
                             {% for category in categories %}
                             {% for i in category %}
@@ -171,20 +171,21 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelector('.form_publish_post').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    // Visa popup-meddelande
+                    alert('Ditt inlägg har publicerats!');
+                    // Skicka formuläret manuellt
+                    this.submit();
+                    // Redirecta till startsidan
+                    window.location.href = "/";
+                });
+            });
+        </script>
+        
 
-    <!-- JavaScript for Pop-up Message - Fucks upp sparandet av någon anledning-->
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-
-            alert("Bra jobbat! Din händelse är nu publicerad!");
-
-            window.location.href = "/";
-        }
-
-        document.getElementById("myForm").addEventListener("submit", handleSubmit);
-
-    </script>
 </body>
 
 </html>
