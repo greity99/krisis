@@ -591,27 +591,32 @@ def filter_events():
     params = []
 
     if category:
-        query_parts.append("category = %s")
+        query_parts.append("ap.category = %s")
         params.append(category)
 
     if city:
-        query_parts.append("city = %s")
+        query_parts.append("ap.city = %s")
         params.append(city)
 
     if zip_code:
-        query_parts.append("zip_code = %s")
+        query_parts.append("ap.zip_code = %s")
         params.append(zip_code)
 
     if date:
-        query_parts.append("date = %s")
+        query_parts.append("ap.date = %s")
         params.append(date)
 
-    query_base = "SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time FROM app_publish"
+    query_base ='''
+                SELECT ap.category, ap.city, ap.zip_code, ap.date, TO_CHAR(ap.time, 'HH24:MI') AS formatted_time, ac.pic_text, ac.pic_url 
+                FROM app_publish AS ap 
+                JOIN app_category AS ac 
+                ON ap.category = ac.category
+                '''
     
     if query_parts:
         query_base += " WHERE " + " AND ".join(query_parts)
 
-    query_base += " ORDER BY date DESC, time DESC;"
+    query_base += " ORDER BY ap.date DESC, ap.time DESC;"
 
     try:
         conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
