@@ -755,33 +755,44 @@ def update_user_email ():
                            no_new_email = no_new_email,
                            empty_field = empty_field,
                            updated_email = updated_email)
-    
                
 @app.route("/index.html", methods=['POST'])
 def delete_user():
-    if request.method == 'POST':
-        try:
-            conn = psycopg2.connect(
-                host = host,
-                dbname = dbname,
-                user = user,
-                password = password
-            )
-            
-            cur = conn.cursor()
-            logged_in_user = is_user_logged_in()
-            cur.execute("DELETE FROM app_publish WHERE user_id = %s", (logged_in_user,))
-            cur.execute("DELETE FROM app_user WHERE user_id = %s", (logged_in_user,))
-            conn.commit()
-            cur.close()
-            conn.close()
-            
-        except psycopg2.Error as error:
-            if conn:
-                conn.rollback()
-            return f"Error: unable to insert data\n{error}"
+    logged_in_user = is_user_logged_in()
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )        
+    
+        cur = conn.cursor()
+        
+        cur.execute('''
+                    DELETE FROM app_publish 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        cur.execute('''
+                    DELETE FROM app_user 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        conn.commit()
+        session['user_id'] = None
+        
+        cur.close()
+        conn.close()
         return redirect("/")
-
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+        return f"Error: unable to insert data\n{error}"
 
 @app.route("/Logga_ut", methods=["GET"])
 def Log_out():
