@@ -171,30 +171,26 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelector('.form_publish_post').addEventListener('submit', function (e) {
-                    const category = document.getElementById('category').value;
-                    const city = document.getElementById('city').value;
-                    const zip = document.getElementById('ZIP').value;
-                    const confirmation = document.getElementById('confirmation').checked;
-        
-                    if (!category || !city || !zip || !confirmation) {
-                        alert('Vänligen fyll i alla obligatoriska fält.');
-                        return;
-                    }
-        
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.form_publish_post').addEventListener('submit', function (e) {
+                const category = document.getElementById('category').value;
+                const city = document.getElementById('city').value;
+                const zip = document.getElementById('ZIP').value;
+                const confirmation = document.getElementById('confirmation').checked;
+
+                if (category || city || zip || confirmation) {
                     e.preventDefault();
                     // Visa popup-meddelande
                     alert('Ditt inlägg har publicerats!');
                     // Skicka formuläret manuellt
                     this.submit();
                     // Redirecta till startsidan
-                    window.location.href = "/";
-                });
+                }
             });
-        </script>
-        
+        });
+    </script>
+
 
 </body>
 
