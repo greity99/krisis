@@ -234,6 +234,8 @@ def publish_post():
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
     
+    categories = get_categories()
+    
     no_category = ""
     no_zip = ""
     no_city = ""
@@ -312,7 +314,7 @@ def publish_post():
                     category = category,
                     city = city,
                     zip_code = zip_code,
-                    categories = "") 
+                    categories = categories) 
 
 
 @app.route("/Kontakt")
