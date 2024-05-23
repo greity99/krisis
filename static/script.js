@@ -24,3 +24,14 @@ function undisable_emailfield() {
     btnToggle.type = "submit";
   }
 }
+
+//Function which is used on the profile page to open a modal
+function openDeleteModal() {
+                    var modal = document.getElementById("deleteModal");
+                    modal.style.display = "block";
+                }
+
+                function closeDeleteModal() {
+                    var modal = document.getElementById("deleteModal");
+                    modal.style.display = "none";
+                }
