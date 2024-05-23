@@ -297,11 +297,6 @@ nav ul li #dropmenu {
 
 .formhead {
     font-size: 16px;
-    margin-top: 20px;
-}
-
-.form-control {
-    width: 100%;
 }
 
 #savebtn {
@@ -313,7 +308,6 @@ nav ul li #dropmenu {
     cursor: pointer;
     border-radius: 25px;
     border-style: none;
-    display: block;
 }
 
 #savebtn:hover {
