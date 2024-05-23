@@ -179,7 +179,7 @@
                 const zip = document.getElementById('ZIP').value;
                 const confirmation = document.getElementById('confirmation').checked;
 
-                if (category || city || zip || confirmation) {
+                if (category && city && zip && confirmation) {
                     e.preventDefault();
                     // Visa popup-meddelande
                     alert('Ditt inlägg har publicerats!');
