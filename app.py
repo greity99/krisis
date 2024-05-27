@@ -88,15 +88,10 @@ def check_password_all(pwd):
     
     else:
         return False
-    
 
 def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
-
-def is_user_of_age():
-    underaged = session.get('of_age')
-    return underaged
 
 def get_user_email():
     user_email = session.get('user_email')
@@ -425,7 +420,6 @@ def register():
     Returns,
     template: register
     """
-    underaged = is_user_of_age()
     
     return render_template("register.html", 
                     no_email_feedback="", 
@@ -436,7 +430,7 @@ def register():
                     email="",
                     birthday="",
                     created = False,
-                    underaged = underaged)
+                    underaged = False)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -465,40 +459,16 @@ def register_user():
     underaged = False  
     empty_field = "Fältet får inte lämnas tomt"
     
-    # All fields empty
-    if email == "" and birthday == "" and pwd == "":
+    if email == "":
         no_email_feedback = empty_field
-        no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #email-field empty
-    elif email == "" and birthday != "" and pwd != "":
-        no_email_feedback = empty_field
-    
-    #birthday-field empty
-    elif email != "" and birthday == "" and pwd != "":
-        no_birthday_feedback = empty_field
-    
-    #password-field empty
-    elif email != "" and birthday != "" and pwd == "":
-        no_pwd_feedback = empty_field
         
-    #email-field and birthday-field empty
-    elif email == "" and birthday == "" and pwd != "":
-        no_email_feedback = empty_field
+    if birthday == "":
         no_birthday_feedback = empty_field
-    
-    #email-field and password-field empty
-    elif email == "" and birthday != "" and pwd == "":
-        no_email_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #birthday-field and password-field empty
-    elif email != "" and birthday == "" and pwd == "":
-        no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
         
-    else: 
+    if pwd == "":
+        no_pwd_feedback = empty_field
+               
+    if email != "" and birthday != "" and pwd != "": 
         age = check_user_age(birthday)
 
         if age:
@@ -541,7 +511,6 @@ def register_user():
                 
         else:
             underaged = True
-            session['of_age'] = underaged
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
