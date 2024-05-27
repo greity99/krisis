@@ -127,6 +127,18 @@ nav ul li #dropmenu {
     background-color: #669bb3;
 }
 
+#logoutbtn {
+    border-radius: 25px;
+    background-color: red;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#logoutbtn:hover {
+    background-color: rgb(188, 7, 7);
+    color: white;
+}
+
 /* Header and nav styling ends here */
 
 
