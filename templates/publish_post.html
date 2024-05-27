@@ -57,13 +57,14 @@
                         om?</b><br>Fyll i nedan formulär så ser vi till att folk får reda på händelsen</p>
 
                 <!--Form-->
-                <form action="/Ny" method="POST" class="form_publish_post mt-3 p-3" accept-charset="UTF-8" id="postForm">
+                <form action="/Ny" method="POST" class="form_publish_post mt-3 p-3" accept-charset="UTF-8"
+                    id="postForm">
                     <div class="col-10 col-sm-9 col-md-5">
                         <label for="category" class="form-label ms-4 mt-3 h4">Kriskategori<span
                                 class="text-danger">*</span>
                         </label>
-                        <select class="form-control ms-4" name="category" id="category" value={{category}}>
-                            <option hidden value="">Välj...</option>
+                        <select class="form-control ms-4" name="category" id="category">
+                            <option hidden>{{category}}</option>
                             {% for category in categories %}
                             {% for i in category %}
                             <option class="p-2">{{i}}</option>
@@ -78,8 +79,7 @@
                             <label for="city" class="form-label ms-4 mt-2 h4">
                                 Stad<span class="text-danger">*</span>
                             </label>
-                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" required
-                                placeholder="Sök..." value={{city}}>
+                            <input class="form-control ms-4" list="cityOptions" id="city" name="city" placeholder="Sök..." value={{city}}>
                             <datalist id="cityOptions">
                                 <option value="Malmö">
                                 <option value="Lund">
@@ -92,8 +92,7 @@
                             <label for="ZIP-code" class="form-label ms-4 mt-2 h4">
                                 Postnummer<span class="text-danger">*</span>
                             </label>
-                            <input class="form-control ms-4" list="zipOptions" id="ZIP" name="ZIP" placeholder="Sök..."
-                                required value={{zip_code}}>
+                            <input class="form-control ms-4" list="zipOptions" id="ZIP" name="ZIP" placeholder="Sök..." value={{zip_code}}>
                             <datalist id="zipOptions">
                                 <option value="21110">
                                 <option value="21111">
@@ -104,10 +103,11 @@
                     </div>
 
                     <div class="form-check ms-4 mt-2">
-                        <input class="form-check-input" type="checkbox" value="" id="confirmation" required>
+                        <input class="form-check-input" type="checkbox" value="checked" name="confirmation" id="confirmation">
                         <label class="form-check-label" for="confirmation">
-                            Den information som jag har uppgett är sanningsenlig
+                            Den information som jag har uppgett är sanningsenlig<span class="text-danger">*</span>
                         </label>
+                        <p class="feedback_message_register"><small>{{no_check}}</small></p>
                     </div>
 
                     <input type="submit" class="btn btn-dark ms-4 mt-4 mb-4" data-dismiss="alert"
