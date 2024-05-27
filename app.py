@@ -654,13 +654,14 @@ def profile():
             FROM app_user AS au
             LEFT JOIN app_publish as ap
             ON au.user_id = ap.user_id
-            WHERE au.user_id = %s;
+            WHERE au.user_id = %s
+            ORDER BY ap.date DESC;
             ''', (logged_in_user,)
         )
         
         user_information = cur.fetchall() 
         session['user_information'] = user_information
-        
+               
         cur.close()
         conn.close()
         
