@@ -213,6 +213,7 @@ def create_post():
                                no_category="",
                                no_zip="",
                                no_city="",
+                               no_check = "",
                                category="",
                                city="",
                                zip_code="",
@@ -233,49 +234,31 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
+    confirmation_of_truth = request.form.getlist("confirmation") 
     
     categories = get_categories()
     
     no_category = ""
     no_zip = ""
     no_city = ""
+    no_check = ""
     
     empty_field = "Fältet får inte lämnas tomt"
+    checkbox_required = "Inlägget kan inte publiceras om informationen inte stämmer"
     
-    #All fields empty
-    if category == "" and city == "" and zip_code == "":
-        no_category = empty_field
-        no_zip = empty_field
-        no_city = empty_field
-    
-    #category-field empty
-    elif category == "" and city != "" and zip_code != "":
+    if category == "":
         no_category = empty_field
     
-    #zip-field empty
-    elif category != "" and city != "" and zip_code == "":
-        no_zip = empty_field
-        
-    #city-field empty
-    elif category != "" and city == "" and zip_code != "":
-       no_city = empty_field
-       
-    #city-field and zip_code-field empty
-    elif category != "" and city == "" and zip_code == "":
-        no_zip=empty_field
-        no_city=empty_field
-    
-    #city-field and category-field empty    
-    elif category == "" and city == "" and zip_code != "":
-        no_category = empty_field
+    if city == "":
         no_city = empty_field
         
-    #zip_code-field and category-field empty    
-    elif category == "" and city != "" and zip_code == "":
-        no_category = empty_field
+    if zip_code == "":
         no_zip = empty_field
         
-    else:   
+    if confirmation_of_truth == []:
+        no_check = checkbox_required
+        
+    if category != "" and city != "" and zip_code != "" and confirmation_of_truth != []:   
         try:
             conn = psycopg2.connect(
                 host = host,
@@ -311,10 +294,12 @@ def publish_post():
                     no_category = no_category,
                     no_zip = no_zip,
                     no_city = no_city,
+                    no_check = no_check,
                     category = category,
                     city = city,
                     zip_code = zip_code,
-                    categories = categories) 
+                    categories = categories,
+                    ) 
 
 
 @app.route("/Kontakt")
