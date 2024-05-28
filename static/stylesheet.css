@@ -504,7 +504,7 @@ hr {
 }
 
 .deletebtn {
-    background-color: #f44336;
+    background-color: red;
     color: white;
     border: none;
     padding: 10px 20px;
