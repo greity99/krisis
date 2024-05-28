@@ -123,8 +123,9 @@ nav ul li #dropmenu {
     margin: 35px;
 }
 
-#profilebtn:hover {
-    background-color: #669bb3;
+#profilebtn:hover, .cancelbtn:hover{
+    background-color: #5578ab;
+    color: white;
 }
 
 #logoutbtn {
@@ -513,7 +514,7 @@ hr {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
 }
 
 .deletebtn:hover {
@@ -521,7 +522,17 @@ hr {
 }
 
 .cancelbtn {
-    background-color: #2ffe00;
+    background-color: #6188C2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
 }
 
 #savebtn {

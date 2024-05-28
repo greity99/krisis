@@ -36,12 +36,12 @@
                     <li><a href="/Krishantering">Krishantering</a></li>
                     <li><a href="/Kontakt">Kontakta oss</a></li>
 
-                    <!--Inloggad användare-->
-                {% if is_logged_in != None %}
-                <li><a href="/Ny">Publicera inlägg</a></li>
-                <li><a href="/Profil" id="profilebtn">Min profil</a></li>
-                <li><a href="#" onclick="openLogoutModal()" id="logoutbtn" class="mt-4 mb-5" > Logga ut </a></li>
-
+                        <!--Inloggad användare-->
+                    {% if is_logged_in != None %}
+                    <li><a href="/Ny">Publicera inlägg</a></li>
+                    <li><a href="/Profil" id="profilebtn">Min profil</a></li>
+                    <li><a href="#" onclick="openLogoutModal()" id="logoutbtn" class="mt-4 mb-5" > Logga ut </a></li>
+                
                 <div id="logouteModal" class="modal">
                     <div class="modal-content">
                         <span class="close" onclick="closeLogoutModal()">&times;</span>
