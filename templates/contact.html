@@ -29,40 +29,40 @@
   <!--NavBar-->
   <nav class="navbar">
     <ul>
-        <li id="dropmenu">
-            <div class="meny">Meny</div> <i class="fa fa-caret-down"></i>
-            <ul class="dropdown-content">
-                <li><a href="/">Hem</a></li>
-                <li><a href="/Krishantering">Krishantering</a></li>
-                <li><a href="/Kontakt">Kontakta oss</a></li>
+      <li id="dropmenu">
+        <div class="meny">Meny</div> <i class="fa fa-caret-down"></i>
+        <ul class="dropdown-content">
+          <li><a href="/">Hem</a></li>
+          <li><a href="/Krishantering">Krishantering</a></li>
+          <li><a href="/Kontakt">Kontakta oss</a></li>
 
-                <!--Inloggad användare-->
-                {% if is_logged_in != None %}
-                <li><a href="/Ny">Publicera inlägg</a></li>
-                <li><a href="/Profil" id="profilebtn">Min profil</a></li>
-                <li><a href="#" onclick="openLogoutModal()" id="logoutbtn" class="mt-4 mb-5" > Logga ut </a></li>
+          <!--Inloggad användare-->
+          {% if is_logged_in != None %}
+          <li><a href="/Ny">Publicera inlägg</a></li>
+          <li><a href="/Profil" id="profilebtn">Min profil</a></li>
+          <li><a href="#" onclick="openLogoutModal()" id="logoutbtn" class="mt-4 mb-5"> Logga ut </a></li>
 
-                <div id="logouteModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeLogoutModal()">&times;</span>
-                        <p>Är du säker på att du vill logga ut?.</p>
-                        <form id="logoutForm" action="/Logga_ut" method="POST">
-                            <input type="hidden" name="logout" value="true">
-                            <button type="submit" class="deletebtn">Ja, logga ut.</button>
-                            <button type="button" onclick="closeLogoutModal()" class="cancelbtn">Avbryt</button>
-                        </form>
-                    </div>
-                </div>
-                
-                <!--Inte inloggad användare-->
-                {% else %}
-                <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
-                <li><a href="/Registrering" id="regbtn">Gå med</a></li>
-                {% endif %}
-            </ul>
-        </li>
+          <div id="logouteModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeLogoutModal()">&times;</span>
+              <p>Är du säker på att du vill logga ut?.</p>
+              <form id="logoutForm" action="/Logga_ut" method="POST">
+                <input type="hidden" name="logout" value="true">
+                <button type="submit" class="deletebtn">Ja, logga ut.</button>
+                <button type="button" onclick="closeLogoutModal()" class="cancelbtn">Avbryt</button>
+              </form>
+            </div>
+          </div>
+
+          <!--Inte inloggad användare-->
+          {% else %}
+          <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+          <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+          {% endif %}
+        </ul>
+      </li>
     </ul>
-</nav>
+  </nav>
 
 
 
@@ -75,14 +75,20 @@
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> Fråga1
+                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> Vad är
+                Kriskoll?
               </button>
             </h2>
 
             <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion
-                body.</div>
+              <div class="accordion-body">Kriskoll.se är en innovativ webbplattform som syftar till att förbättra
+                säkerheten och samhällsskyddet. Detta genom att tillhandahålla ett effektivt sätt för användare att
+                rapportera om faror som de observerar i sin omgivning och på så sätt varna sina medmänniskor
+                <br>
+                <br>
+                Genom webbsidan kan individer snabbt och enkelt publicera inlägg om nödsituationer som har inträffat i
+                närområdet, så som bränder, rån och bombhot.
+              </div>
             </div>
           </div>
 
@@ -96,7 +102,7 @@
 
             <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion
+                demonstrate the class. This is the second item's accordion
                 body. Let's imagine this being filled with some actual content.</div>
             </div>
           </div>
