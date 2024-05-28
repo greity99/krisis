@@ -4,11 +4,13 @@ const filterParams = {
   datetime: 2024,
 };
 
+
 // Konvertera filterparametrar till en del av URL:en
 const url = new URL(baseUrl);
 Object.keys(filterParams).forEach((key) =>
   url.searchParams.append(key, filterParams[key])
 );
+
 
 // Använd Fetch API för att skicka GET-förfrågan för API-anropet
 fetch(url)

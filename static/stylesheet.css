@@ -123,8 +123,9 @@ nav ul li #dropmenu {
     margin: 35px;
 }
 
-#profilebtn:hover {
-    background-color: #669bb3;
+#profilebtn:hover, .cancelbtn:hover{
+    background-color: #5578ab;
+    color: white;
 }
 
 #logoutbtn {
@@ -138,7 +139,6 @@ nav ul li #dropmenu {
     background-color: rgb(188, 7, 7);
     color: white;
 }
-
 /* Header and nav styling ends here */
 
 
@@ -155,7 +155,6 @@ nav ul li #dropmenu {
     background-color: #a0afc6;
 
 }
-
 /* Ends here */
 
 .card {
@@ -182,7 +181,6 @@ nav ul li #dropmenu {
     box-shadow: 6px 6px 0 0 rgba(33, 54, 90, .11) !important;
     border-left: 10px solid #000000;
 }
-
 /* Ends here */
 
 
@@ -289,8 +287,8 @@ nav ul li #dropmenu {
 .register-link p a:hover {
     text-decoration: underline;
 }
-
 /* Login page styling ends here */
+
 
 /* Profile page styling */
 #profilepage {
@@ -357,7 +355,6 @@ nav ul li #dropmenu {
 .logoutbtn:hover {
     background-color: #141f54;
 }
-
 /* Profile page styling ends here */
 
 
@@ -426,7 +423,6 @@ hr {
 #copy {
     text-align: center;
 }
-
 /* Footer styling ends here */
 
 .general_light_blue {
@@ -469,7 +465,7 @@ hr {
     padding: 2px;
 }
 
-/* Pop up styling vid radering och spara  konto */
+/* Pop up styling when deleting and saving account*/
 .modal {
     display: none;
     position: fixed;
@@ -518,7 +514,7 @@ hr {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
 }
 
 .deletebtn:hover {
@@ -526,7 +522,17 @@ hr {
 }
 
 .cancelbtn {
-    background-color: #2ffe00;
+    background-color: #6188C2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
 }
 
 #savebtn {
@@ -542,6 +548,7 @@ hr {
     cursor: pointer;
     border-radius: 5px;
 }
+/* Pop up styling ends here */
 
 .meny {
     display: none;
@@ -605,6 +612,8 @@ hr {
 
 }
 
+
+/* Styling for screens with a min width of 576px and max width of 768px */
 @media screen and (max-width: 768px) and (min-width: 576px) {
     .widht-select {
         width: 30vw;

@@ -54,7 +54,7 @@ def check_password_lowercase(pwd):
     '''
     return any(char.islower() for char in pwd)
     
-def check_password_lenght(pwd):
+def check_password_length(pwd):
     '''
     Function that ensures that the password is atleast 8 characters long.
     '''
@@ -74,14 +74,14 @@ def check_password_all(pwd):
     - check_password_uppercase(pwd)
     - check_password_lowercase(pwd)
     - check_password_digit(pwd)
-    - check_password_lenght(pwd)
+    - check_password_length(pwd)
     
     and returns True if all password requirements are met. 
     '''
     uppercase = check_password_uppercase(pwd)
     lowercase = check_password_lowercase(pwd)
     digit = check_password_digit(pwd)
-    length = check_password_lenght(pwd)
+    length = check_password_length(pwd)
     
     if uppercase == True and lowercase == True and length == True and digit == True:
         return True
@@ -89,17 +89,21 @@ def check_password_all(pwd):
     else:
         return False
 
+
 def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
+
 
 def get_user_email():
     user_email = session.get('user_email')
     return user_email
 
+
 def get_user_information():
     user_information = session.get('user_information')
     return user_information
+
 
 def get_categories():
     try:
@@ -173,6 +177,7 @@ def index():
         if conn:
             conn.rollback()
             return f"Error: unable to insert data\n{error}"
+
 
 @app.route("/Krishantering")
 def chrisis_tips():
@@ -412,6 +417,7 @@ def login():
                     no_pwd = no_pwd, 
                     is_logged_in = is_logged_in)
 
+
 @app.route("/Registrering")
 def register():
     """
@@ -601,6 +607,7 @@ def polisen_api():
     return render_template("polisen_api.html",
                            is_logged_in = is_logged_in)
 
+
 @app.route("/Profil")
 def profile():
     empty_field = ""
@@ -710,6 +717,7 @@ def update_user_email ():
                            no_new_email = no_new_email,
                            empty_field = empty_field,
                            updated_email = updated_email)
+               
                
 @app.route("/delete_account", methods=['POST'])
 def delete_user():

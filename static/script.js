@@ -28,6 +28,7 @@ function undisable_emailfield() {
   }
 }
 
+
 //Function which is used on the profile page to open a modal
 function openDeleteModal() {
   var modal = document.getElementById("deleteModal");
