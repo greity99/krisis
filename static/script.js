@@ -35,3 +35,15 @@ function openDeleteModal() {
                     var modal = document.getElementById("deleteModal");
                     modal.style.display = "none";
                 }
+
+
+//Function which is used on the profile page to open a modal
+function openLogoutModal() {
+  var modal = document.getElementById("logouteModal");
+  modal.style.display = "block";
+}
+
+function closeLogoutModal() {
+  var modal = document.getElementById("logouteModal");
+  modal.style.display = "none";
+}

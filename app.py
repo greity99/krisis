@@ -756,7 +756,7 @@ def update_user_email ():
                            empty_field = empty_field,
                            updated_email = updated_email)
                
-@app.route("/index.html", methods=['POST'])
+@app.route("/delete_account", methods=['POST'])
 def delete_user():
     logged_in_user = is_user_logged_in()
     
@@ -794,7 +794,7 @@ def delete_user():
             conn.rollback()
         return f"Error: unable to insert data\n{error}"
 
-@app.route("/Logga_ut", methods=["GET"])
+@app.route("/Logga_ut", methods=["POST"])
 def Log_out():
     session['user_id'] = None
     return redirect("/")
