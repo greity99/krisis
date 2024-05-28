@@ -1,10 +1,13 @@
 //Function which allow user to toggle between text and password on register.html
 function togglePassword() {
-  var x = document.getElementById("pwd");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
+  var x = document.getElementById("pwd1") 
+  var y = document.getElementById("confirm_pwd");
+  if (x.type === "password" && y.type === "password") {
+    x.type = "text"
+    y.type = "text";
+  } else { 
+    x.type = "password"
+    y.type = "password";
   }
 }
 
@@ -33,7 +36,6 @@ function undisable_emailfield() {
   }
 }
 
-
 //Function which is used on the profile page to open a modal
 function openDeleteModal() {
   var modal = document.getElementById("deleteModal");
@@ -44,7 +46,6 @@ function closeDeleteModal() {
   var modal = document.getElementById("deleteModal");
   modal.style.display = "none";
 }
-
 
 //Function which is used on the logout-button to open a modal
 function openLogoutModal() {
