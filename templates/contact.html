@@ -53,23 +53,6 @@
               </form>
             </div>
           </div>
-
-      <!--Inte inloggad användare-->
-      {% else %}
-      <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
-      <li><a href="/Registrering" id="regbtn">Gå med</a></li>
-      {% endif %}
-                <div id="logoutModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeLogoutModal()">&times;</span>
-                        <p>Är du säker på att du vill logga ut?</p>
-                        <form id="logoutForm" action="/Logga_ut" method="POST">
-                            <input type="hidden" name="logout" value="true">
-                            <button type="submit" class="deletebtn">Ja, logga ut.</button>
-                            <button type="button" onclick="closeLogoutModal()" class="cancelbtn">Avbryt</button>
-                        </form>
-                    </div>
-                </div>
                 
                 <!--Inte inloggad användare-->
                 {% else %}

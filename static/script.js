@@ -6,9 +6,6 @@ function togglePassword() {
   } else {
     x.type = "password";
   }
-<<<<<<< Updated upstream
-}
-=======
 }
 
 
@@ -63,4 +60,3 @@ function closeSettingsModal() {
   modal.style.display = "none";
 }
 
->>>>>>> Stashed changes
