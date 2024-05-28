@@ -85,18 +85,6 @@
                         {% endif %}
                         <input type="button" onclick="undisable_emailfield()" value="Ändra"
                             class="mt-3 btn btn-dark btn-sm" id="btn_toggle"></input>
-                        
-                            <div id="saveSettingsModal" class="modal">
-                            <div class="modal-content">
-                                <span class="close" onclick="closeSettingsModal()">&times;</span>
-                                <p>Är du säker på att du vill ändra email?</p>
-                                <form id="logoutForm" action="/Uppdatera-email" method="POST">
-                                    <input type="hidden" name="logout" value="true">
-                                    <button type="submit" class="deletebtn">Ja, ändra email.</button>
-                                    <button type="button" onclick="closeSettingsModal()" class="cancelbtn">Avbryt</button>
-                                </form>
-                            </div>
-                        </div>
                     </form>
                 </div>
                 <h4 class="mt-4 text-center">Notifikationer</h4>
@@ -113,30 +101,55 @@
                     </form>
                 </div>
 
-<label for="email" class="formhead">E-post</label>
-            {%for information in user_information%}
-            <input disabled class="form-control" type="email" id="email" name="Email" value="{{information[0]}}">
-            {%endfor%}
+                <!--Buttons to delete account and log out-->
+                <div class="d-flex justify-content-center">
+                    <button type="button" onclick="openDeleteModal()" class="mt-2 mt-md-5 deletebtn">Radera kontot</button>
+                </div>
 
-            <label for="postnummer" class="formhead">Postnummer</label>
-            <input class="form-control" type="text" id="zipcode" name="Postnummer">
-            <br>
+                <!--Modal-->
+                <div id="deleteModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeDeleteModal()">&times;</span>
+                        <p>Är du säker på att du vill radera ditt konto? Detta kan inte ångras.</p>
+                        <form id="deleteForm" action="/index.html" method="POST">
+                            <input type="hidden" name="delete" value="true">
+                            <button type="submit" class="deletebtn">Ja, radera mitt konto</button>
+                            <button type="button" onclick="closeDeleteModal()" class="cancelbtn">Avbryt</button>
+                        </form>
+                    </div>
+                </div>
 
-            <p class="profilefont">Notifikationer</p>
-            <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
-            <label for="epost-notis">Jag vill få notiser på e-post när något händer i mitt område</label><br>
+            </aside>
 
+<!--Main content-->
+<main id="profilepage" class="col-12 col-md-7 col-lg-8">
+    <h3 id="phead" class="mt-4 text-center">Mina inlägg</h3>
 
-            <button type="button" id="savebtn">Spara</button>
-            <button type="button" id="deletebtn">Radera konto</button>
-
-            <form action="/Logga_ut" method="GET">
-                <input type="submit" class="logoutbtn" value="Logga ut">
-            </form>
-        </div>
+    <!--History of published posts-->
+    <div class="p-1 p-lg-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kriskategori</th>
+                    <th>Plats</th>
+                    <th>Datum</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for information in user_information%}
+                {% if information[1] != None and information[2] != None and information[3] != None %}
+                <tr>
+                    <td class="p-2">{{information[1]}}</td>
+                    <td class="p-2">{{information[2]}}</td>
+                    <td class="p-2">{{information[3]}}</td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+            </tbody>
+            <tfoot></tfoot>
+        </table>
     </div>
-
-
+</main>
 
     <!--Footer-->
     <footer>
