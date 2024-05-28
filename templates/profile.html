@@ -37,18 +37,93 @@
             <li><a href="/Ny">Publicera inlägg</a></li>
             <li><a href="/Profil" id="profilebtn">Min profil</a></li>
 
+<<<<<<< Updated upstream
             <!--Inte inloggad användare-->
             {% else %}
             <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
             <li><a href="/Registrering" id="regbtn">Gå med</a></li>
             {% endif %}
+=======
+                <div id="logoutModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeLogoutModal()">&times;</span>
+                        <p>Är du säker på att du vill logga ut?</p>
+                        <form id="logoutForm" action="/Logga_ut" method="POST">
+                            <input type="hidden" name="logout" value="true">
+                            <button type="submit" class="deletebtn">Ja, logga ut.</button>
+                            <button type="button" onclick="closeLogoutModal()" class="cancelbtn">Avbryt</button>
+                        </form>
+                    </div>
+                </div>
+                    
+                    <!--Inte inloggad användare-->
+                    {% else %}
+                    <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+                    <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+>>>>>>> Stashed changes
         </ul>
     </nav>
 
     <!--Profile page-->
+<<<<<<< Updated upstream
     <main class="container-md">
         <div id="profilepage">
             <h2 id="phead">Min profil</h2>
+=======
+    <div class="container-md">
+        <div class="row">
+            <!--Aside content-->
+            <aside class="col-12 col-md-5 col-lg-4 p-4 general_light_blue">
+                <div class="d-flex justify-content-center">
+                    <img src="static\Profile.jpg" alt="Ikon, profilbild" id="profile_pic"
+                        class="rounded-circle col-2 border border-white border-3 mt-2">
+                </div>
+                <h2 id="phead" class="text-center mt-2">Min profil</h2>
+                <div class="d-flex justify-content-center">
+                    <form action="/Uppdatera-email" method="POST" class="col-11 col-lg-9">
+                        <label for="email_field" class="formhead">E-post</label>
+                        <input disabled class="form-control mb-0" type="email" id="email_field" name="Email"
+                            value="{{user_email}}">
+                        {% if empty_field != "" %}
+                        <p class="feedback_message_register mb-0"><small>{{empty_field}}</small></p>
+                        {% elif no_new_email != "" %}
+                        <p class="feedback_message_register mb-0"><small>{{no_new_email}}</small></p>
+                        {% elif updated_email != "" %}
+                        <p class="feedback_message_success mb-0"><small>{{updated_email}}</small></p>
+                        {% endif %}
+                        <input type="button" onclick="undisable_emailfield()" value="Ändra"
+                            class="mt-3 btn btn-dark btn-sm" id="btn_toggle"></input>
+                        
+                            <div id="saveSettingsModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeSettingsModal()">&times;</span>
+                                <p>Är du säker på att du vill ändra email?</p>
+                                <form id="logoutForm" action="/Uppdatera-email" method="POST">
+                                    <input type="hidden" name="logout" value="true">
+                                    <button type="submit" class="deletebtn">Ja, ändra email.</button>
+                                    <button type="button" onclick="closeSettingsModal()" class="cancelbtn">Avbryt</button>
+                                </form>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="mt-4 text-center">Notifikationer</h4>
+                <div class="d-flex justify-content-center">
+                    <form action="" method="" class="col-11 col-lg-9">
+                        <label for="postnummer" class="formhead">Postnummer</label>
+                        <input type="text" id="zipcode" name="Postnummer" class="form-control">
+                        <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
+                        <label for="epost-notis">
+                            <small>Jag vill få notiser på e-post när något händer i mitt område</small>
+                        </label>
+                        <br>
+                        <button type="button" class="mt-3 btn btn-dark btn-sm">Spara</button>
+                    </form>
+                </div>
+>>>>>>> Stashed changes
 
             <label for="email" class="formhead">E-post</label>
             {%for information in user_information%}
