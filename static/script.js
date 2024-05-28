@@ -8,6 +8,14 @@ function togglePassword() {
   }
 }
 
+document.querySelector('form').addEventListener('submit', function (e) {
+  var pwd = document.getElementById("pwd").value;
+  var confirm_pwd = document.getElementById("confirm_pwd").value;
+  if (pwd !== confirm_pwd) {
+    e.preventDefault();
+    alert("Lösenorden matchar inte.");
+  }
+});
 
 //Function which makes the input field for updating the email-address on the profile page available and changes the name and type of the button when clicked.
 //Keeps track of the buttons state
