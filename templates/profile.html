@@ -126,15 +126,6 @@
             <input type="checkbox" id="epost-notis" name="epost-notis" value="1">
             <label for="epost-notis">Jag vill få notiser på e-post när något händer i mitt område</label><br>
 
-            <h2 id="phead" class="mt-4">Mina inlägg</h2>
-            <ul class="profilefont">
-                
-                {%for information in user_information%}
-                    {% if information[1] != None and information[2] != None and information[3] != None %}
-                    <li>{{information[1]}} - {{information[2]}} - {{information[3]}}</li>
-                    {%endif%}
-                {%endfor%}
-            </ul>
 
             <button type="button" id="savebtn">Spara</button>
             <button type="button" id="deletebtn">Radera konto</button>

@@ -340,6 +340,21 @@ nav ul li #dropmenu {
 #deletebtn:hover {
     background-color: #bb3c3c;
 }
+
+.logoutbtn {
+    background-color: #00072a;
+    color: white;
+    margin-top: 15px;
+    margin-right: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: none;
+}
+
+.logoutbtn:hover {
+    background-color: #141f54;
+}
 /* Profile page styling ends here */
 
 
