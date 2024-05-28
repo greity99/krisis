@@ -88,12 +88,18 @@ def check_password_all(pwd):
     
     else:
         return False
-    
 
 def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
 
+def get_user_email():
+    user_email = session.get('user_email')
+    return user_email
+
+def get_user_information():
+    user_information = session.get('user_information')
+    return user_information
 
 def get_categories():
     try:
@@ -202,6 +208,7 @@ def create_post():
                                no_category="",
                                no_zip="",
                                no_city="",
+                               no_check = "",
                                category="",
                                city="",
                                zip_code="",
@@ -222,47 +229,31 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
+    confirmation_of_truth = request.form.getlist("confirmation") 
+    
+    categories = get_categories()
     
     no_category = ""
     no_zip = ""
     no_city = ""
+    no_check = ""
     
     empty_field = "Fältet får inte lämnas tomt"
+    checkbox_required = "Inlägget kan inte publiceras om informationen inte stämmer"
     
-    #All fields empty
-    if category == "" and city == "" and zip_code == "":
-        no_category = empty_field
-        no_zip = empty_field
-        no_city = empty_field
-    
-    #category-field empty
-    elif category == "" and city != "" and zip_code != "":
+    if category == "":
         no_category = empty_field
     
-    #zip-field empty
-    elif category != "" and city != "" and zip_code == "":
-        no_zip = empty_field
-        
-    #city-field empty
-    elif category != "" and city == "" and zip_code != "":
-       no_city = empty_field
-       
-    #city-field and zip_code-field empty
-    elif category != "" and city == "" and zip_code == "":
-        no_zip=empty_field
-        no_city=empty_field
-    
-    #city-field and category-field empty    
-    elif category == "" and city == "" and zip_code != "":
-        no_category = empty_field
+    if city == "":
         no_city = empty_field
         
-    #zip_code-field and category-field empty    
-    elif category == "" and city != "" and zip_code == "":
-        no_category = empty_field
+    if zip_code == "":
         no_zip = empty_field
         
-    else:   
+    if confirmation_of_truth == []:
+        no_check = checkbox_required
+        
+    if category != "" and city != "" and zip_code != "" and confirmation_of_truth != []:   
         try:
             conn = psycopg2.connect(
                 host = host,
@@ -298,10 +289,12 @@ def publish_post():
                     no_category = no_category,
                     no_zip = no_zip,
                     no_city = no_city,
+                    no_check = no_check,
                     category = category,
                     city = city,
                     zip_code = zip_code,
-                    categories = "") 
+                    categories = categories,
+                    ) 
 
 
 @app.route("/Kontakt")
@@ -353,6 +346,8 @@ def login():
             no_pwd = empty_field
                 
         else:
+            email = email.lower()
+
             try:
                 conn = psycopg2.connect(
                     host = host,
@@ -417,7 +412,6 @@ def login():
                     no_pwd = no_pwd, 
                     is_logged_in = is_logged_in)
 
-
 @app.route("/Registrering")
 def register():
     """
@@ -426,7 +420,7 @@ def register():
     Returns,
     template: register
     """
-
+    
     return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
@@ -435,7 +429,8 @@ def register():
                     pwd_feedback="", 
                     email="",
                     birthday="",
-                    created = False)
+                    created = False,
+                    underaged = False)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -460,49 +455,27 @@ def register_user():
     no_pwd_feedback = ""
     pwd_feedback = ""
     
-    created = False    
+    created = False  
+    underaged = False  
     empty_field = "Fältet får inte lämnas tomt"
     
-    # All fields empty
-    if email == "" and birthday == "" and pwd == "":
+    if email == "":
         no_email_feedback = empty_field
-        no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #email-field empty
-    elif email == "" and birthday != "" and pwd != "":
-        no_email_feedback = empty_field
-    
-    #birthday-field empty
-    elif email != "" and birthday == "" and pwd != "":
-        no_birthday_feedback = empty_field
-    
-    #password-field empty
-    elif email != "" and birthday != "" and pwd == "":
-        no_pwd_feedback = empty_field
         
-    #email-field and birthday-field empty
-    elif email == "" and birthday == "" and pwd != "":
-        no_email_feedback = empty_field
+    if birthday == "":
         no_birthday_feedback = empty_field
-    
-    #email-field and password-field empty
-    elif email == "" and birthday != "" and pwd == "":
-        no_email_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #birthday-field and password-field empty
-    elif email != "" and birthday == "" and pwd == "":
-        no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
         
-    else: 
+    if pwd == "":
+        no_pwd_feedback = empty_field
+               
+    if email != "" and birthday != "" and pwd != "": 
         age = check_user_age(birthday)
 
         if age:
             checked_pwd = check_password_all(pwd)
 
             if checked_pwd:
+                email = email.lower()
                 try:
                     conn = psycopg2.connect(
                         host = host,
@@ -527,16 +500,6 @@ def register_user():
                     
                     created = True
                     
-                    return render_template("register.html", 
-                                no_email_feedback = no_email_feedback, 
-                                no_birthday_feedback = no_birthday_feedback, 
-                                age_feedback = age_feedback, 
-                                no_pwd_feedback = no_pwd_feedback, 
-                                pwd_feedback = pwd_feedback, 
-                                email = "",
-                                birthday = "",
-                                created = created)
-                    
                 except psycopg2.Error as error:
                     if conn:
                         conn.rollback()
@@ -547,8 +510,7 @@ def register_user():
                 pwd_feedback = "Lösenordet uppfyller inte kraven: minst en gemen, minst en versal, minst en siffra och minst 8 tecken."
                 
         else:
-            age_feedback = "Tyvärr uppfyller du inte ålderskraven för att registrera dig hos oss."
-            return redirect("/")
+            underaged = True
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
@@ -558,7 +520,8 @@ def register_user():
                     pwd_feedback = pwd_feedback, 
                     email = email,
                     birthday = birthday,
-                    created = created)
+                    created = created,
+                    underaged = underaged)
     
 
 @app.route("/filter_kriskoll", methods=['GET'])
@@ -584,27 +547,32 @@ def filter_events():
     params = []
 
     if category:
-        query_parts.append("category = %s")
+        query_parts.append("ap.category = %s")
         params.append(category)
 
     if city:
-        query_parts.append("city = %s")
+        query_parts.append("ap.city = %s")
         params.append(city)
 
     if zip_code:
-        query_parts.append("zip_code = %s")
+        query_parts.append("ap.zip_code = %s")
         params.append(zip_code)
 
     if date:
-        query_parts.append("date = %s")
+        query_parts.append("ap.date = %s")
         params.append(date)
 
-    query_base = "SELECT category, city, zip_code, date, TO_CHAR(time, 'HH24:MI') AS formatted_time FROM app_publish"
+    query_base ='''
+                SELECT ap.category, ap.city, ap.zip_code, ap.date, TO_CHAR(ap.time, 'HH24:MI') AS formatted_time, ac.pic_text, ac.pic_url 
+                FROM app_publish AS ap 
+                JOIN app_category AS ac 
+                ON ap.category = ac.category
+                '''
     
     if query_parts:
         query_base += " WHERE " + " AND ".join(query_parts)
 
-    query_base += " ORDER BY date DESC, time DESC;"
+    query_base += " ORDER BY ap.date DESC, ap.time DESC;"
 
     try:
         conn = psycopg2.connect(host=host, dbname=dbname, user=user, password=password)
@@ -633,9 +601,10 @@ def polisen_api():
     return render_template("polisen_api.html",
                            is_logged_in = is_logged_in)
 
-
 @app.route("/Profil")
 def profile():
+    empty_field = ""
+    no_new_email = ""
     
     try:
         conn = psycopg2.connect(
@@ -654,14 +623,21 @@ def profile():
             FROM app_user AS au
             LEFT JOIN app_publish as ap
             ON au.user_id = ap.user_id
-            WHERE au.user_id = %s;
+            WHERE au.user_id = %s
+            ORDER BY ap.date DESC;
             ''', (logged_in_user,)
         )
         
         user_information = cur.fetchall() 
-        
+        session['user_information'] = user_information
+               
         cur.close()
         conn.close()
+        
+        for information in user_information:
+            user_email = information[0]
+            session['user_email'] = user_email
+            break
         
     except psycopg2.Error as error:
         if conn:
@@ -670,10 +646,110 @@ def profile():
         return f"Error: unable to insert data\n{error}"
     
     return render_template("profile.html",
-                           user_information = user_information)
+                           user_information = user_information,
+                           user_email = user_email,
+                           no_new_email = no_new_email,
+                           empty_field = empty_field)
+    
+    
+@app.route("/Uppdatera-email", methods = ['POST'])
+def update_user_email ():
+    new_email = request.form.get("Email")
+    user_id = is_user_logged_in()
+    user_email = get_user_email()
+    user_information = get_user_information()
+    
+    no_new_email = ""
+    empty_field = ""
+    updated_email = ""
+    
+    if new_email != "":
+        new_email = new_email.lower()
+        if new_email != user_email:
+            new_email = new_email.lower()
+        
+            try:
+                conn = psycopg2.connect(
+                    host = host,
+                    dbname = dbname,
+                    user = user,
+                    password = password
+                )
+                
+                cur = conn.cursor()
+                cur.execute('''
+                            UPDATE app_user
+                            SET user_mail = %s
+                            WHERE user_id = %s
+                            ''', (new_email, user_id,)
+                )
+                
+                conn.commit()
+                session['user_email'] = new_email
+                user_email = get_user_email()
+                updated_email = "Mejladressen är nu uppdaterad!"
+                
+                cur.close()
+                conn.close()
+                
+        
+            except psycopg2.Error as error:
+                    if conn:
+                        conn.rollback()
+                    return f"Error: unable to insert data\n{error}"
+                
+        else: 
+            no_new_email = "Mejladressen du uppgav är samma som den tidigare."
+    
+    else: 
+        empty_field = "Mejladressen uppdaterades inte. Fältet får inte lämnas tomt"
+        
+    return render_template("profile.html",
+                           user_information = user_information,
+                           user_email = user_email,
+                           no_new_email = no_new_email,
+                           empty_field = empty_field,
+                           updated_email = updated_email)
+               
+@app.route("/delete_account", methods=['POST'])
+def delete_user():
+    logged_in_user = is_user_logged_in()
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )        
+    
+        cur = conn.cursor()
+        
+        cur.execute('''
+                    DELETE FROM app_publish 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        cur.execute('''
+                    DELETE FROM app_user 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        conn.commit()
+        session['user_id'] = None
+        
+        cur.close()
+        conn.close()
+        return redirect("/")
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+        return f"Error: unable to insert data\n{error}"
 
-
-@app.route("/Logga_ut", methods=["GET"])
+@app.route("/Logga_ut", methods=["POST"])
 def Log_out():
     session['user_id'] = None
     return redirect("/")

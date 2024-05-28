@@ -26,14 +26,16 @@
     </div>
     <p id="slogan">Ditt bidrag, vår säkerhet</p>
 
-    <!--NavBar-->
     <nav class="navbar">
         <ul>
-            <li id="dropmenu">Meny<i class="fa fa-caret-down"></i>
+            <li id="dropmenu">
+                <div class="meny">Meny</div> <i class="fa fa-caret-down"></i>
                 <ul class="dropdown-content">
                     <li><a href="/">Hem</a></li>
                     <li><a href="/Krishantering">Krishantering</a></li>
                     <li><a href="/Kontakt">Kontakta oss</a></li>
+
+                    <!--Inte inloggad användare-->
                     <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
                     <li><a href="/Registrering" id="regbtn">Gå med</a></li>
                 </ul>
@@ -43,82 +45,80 @@
 
 
     <!--Wrapper-->
-    <div class="container-md">
+    <main class="container-md">
         <div class="row">
-            <main class="col-12 col-md-9 mx-auto">
-                <div class="leftside">
-                    <h3 class="">Registrera dig här!</h1>
-                        <p>Som registrerad användare kan du:</p>
-                        <ul>
-                            <li>Publicera inlägg</li>
-                            <li>Bekräfta andra användares inlägg</li>
-                            <li>Få mejlnotiser vid krissituation i ditt område</li>
-                        </ul>
+            <div class="col-12 col-md-6 d-md-flex justify-content-md-center mb-2 mb-md-5 ">
+                <div>
+                    <h2 class="mt-4 text-md-center">Registrera dig här!</h2>
+                    <h5 class="mt-3 mt-md-4 text-md-center">Som registrerad användare kan du</h5>
+                    <ul>
+                        <li>Publicera inlägg</li>
+                        <li>Bekräfta andra användares inlägg</li>
+                        <li>Få mejlnotiser vid krissituation i ditt område</li>
+                    </ul>
                 </div>
+            </div>
 
-                <!--Alert when registration succeed-->
-                {%if created == True: %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h4 class="alert-heading">Sådärja!</h4>
-                    <p>Nu är ditt konto skapat</p>
-                    <a href="/Logga_in" class="btn btn-dark">Logga in</a>
-                </div>
-                {% endif %}
+            <!--Alert when registration succeed-->
+            {%if created == True: %}
+            <div class="my-md-auto ms-4 mb-5 mt-3 col-9 col-md-4 alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Sådärja!</h4>
+                <p>Ditt konto är nu skapat</p>
+                <a href="/Logga_in" class="btn btn-dark">Logga in</a>
+            </div>
 
-                <!--Form shown when registration is not done-->
-                {%if created == False: %}
-                <div class="rightside">
-                    <form action="/Registrering" method="POST" class="pb-5" accept-charset="UTF-8">
-                        <label for="email" class="form-label h7">
-                            Mejladress
-                        </label><br>
+            {%elif underaged == True: %}
+            <div class="my-md-auto ms-4 mb-5 mt-3 col-9 col-md-4 alert alert-warning alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">Tyvärr</h4>
+                <p>Du uppfyller inte ålderskraven för att kunna registrera dig på denna hemsida</p>
+                <a href="/" class="btn btn-dark">Tillbaka till startsidan</a>
+            </div>
 
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-envelope" viewBox="0 0 16 16">
-                                    <path
-                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                                </svg>
-                            </span>
-                            <input class="form-control" type="email" id="email" name="email"
-                                placeholder="Din mejladress..." value={{email}}>
-                        </div>
-                        <p class="feedback_message_register"><small>{{no_email_feedback}}</small></p>
+            <!--Form shown when registration is not done-->
+            {%else: %}
+            <div class="mt-4 col-12 col-md-6">
+                <form action="/Registrering" method="POST" class="pb-5" accept-charset="UTF-8">
+                    <label for="email" class="form-label mt-3 h6">
+                        Mejladress
+                    </label><br>
 
-                        <label for="birthday" class="mt-3 h6">Födelsedatum</label>
-                        <input class="form-control" type="date" id="birthday" name="birthday" value={{birthday}}>
-                        <p class="feedback_message_register"><small>{{no_birthday_feedback}}</small></p>
-                        <p class="feedback_message_register"><small>{{age_feedback}}</small></p>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                            </svg>
+                        </span>
+                        <input class="form-control" type="email" id="email" name="email" placeholder="Din mejladress..."
+                            value={{email}}>
+                    </div>
+                    <p class="feedback_message_register"><small>{{no_email_feedback}}</small></p>
 
-                        <label for="postnummer" class="mt-3 h6">Postnummer</label>
-                        <input class="form-control" type="text" id="postnummer" name="postnummer"
-                            placeholder="Behöver ej uppges">
+                    <label for="birthday" class="form-label mt-3 h6">Födelsedatum</label>
+                    <input class="form-control" type="date" id="birthday" name="birthday" value={{birthday}}>
+                    <p class="feedback_message_register"><small>{{no_birthday_feedback}}</small></p>
+                    <p class="feedback_message_register"><small>{{age_feedback}}</small></p>
 
-                        <label for="pwd" class="mt-3 h6">Lösenord</label>
-                        <input class="form-control" type="password" id="pwd" name="pwd">
-                        <p class="feedback_message_register"><small>{{no_pwd_feedback}}</small></p>
-                        <p class="feedback_message_register"><small>{{pwd_feedback}}</small></p>
-                        <input class="mt-2" type="checkbox" onclick="togglePassword()"> Visa lösenord
-                        <br>
-                        <input class="mt-2" type="checkbox"> Jag intygar att jag är över 16 år.
-                        <br>
-                        <br>
-                        <p>Genom att registrera dig bekräftar du att du har läst och accepterar våra
+                    <label for="pwd" class="form-label mt-3 h6">Lösenord</label>
+                    <input class="form-control" type="password" id="pwd" name="pwd">
+                    <p class="feedback_message_register"><small>{{no_pwd_feedback}}</small></p>
+                    <p class="feedback_message_register"><small>{{pwd_feedback}}</small></p>
+                    <input class="mt-2" type="checkbox" onclick="togglePassword()"> Visa lösenord
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-dark mt-4 mb-4">Registrera mig</button>
+                    <p>
+                        <small> Genom att registrera dig bekräftar du att du har läst och accepterar våra
                             <b>användarvillkor</b> och <b>sekretesspolicy</b>, vilket inkluderar användningen av cookies
-                            för att förbättra din användarupplevelse.</p> <!--Genererat av AI-->
-
-                        <div>
-                            <button type="submit" id="regButton" class="logoutbtn">Registrera mig</button>
-                        </div>
-
-                </div>
+                            för att förbättra din användarupplevelse.
+                        </small>
+                    </p> <!--Genererat av AI-->
                 </form>
                 {% endif %}
-            </main>
+            </div>
         </div>
-    </div>
-
+    </main>
 
     <!--Footer-->
     <footer>

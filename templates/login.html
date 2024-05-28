@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/stylesheet.css">
+    <script src="../static/script.js"></script>
     <!--BootsratpIcons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!--Font Awesome pil-ikon för dropdown menu-->
@@ -27,23 +28,28 @@
     </div>
     <p id="slogan">Ditt bidrag, vår säkerhet</p>
 
-    <!--NavBar-->
-    <nav class="navbar">
+     <!--NavBar-->
+     <nav class="navbar">
         <ul>
-            <li><a href="/">Hem</a></li>
-            <li><a href="/Krishantering">Krishantering</a></li>
-            <li><a href="/Kontakt">Kontakta oss</a></li>
+            <li id="dropmenu">
+                <div class="meny">Meny</div> <i class="fa fa-caret-down"></i>
+                <ul class="dropdown-content">
+                    <li><a href="/">Hem</a></li>
+                    <li><a href="/Krishantering">Krishantering</a></li>
+                    <li><a href="/Kontakt">Kontakta oss</a></li>
 
-            <!--Inloggad användare-->
-            {% if is_logged_in != None %}
-            <li><a href="/Ny">Publicera inlägg</a></li>
-            <li><a href="/Profil" id="profilebtn">Min profil</a></li>
+                    <!--Inloggad användare-->
+                    {% if is_logged_in != None %}
+                    <li><a href="/Ny">Publicera inlägg</a></li>
+                    <li><a href="/Profil" id="profilebtn">Min profil</a></li>
 
-            <!--Inte inloggad användare-->
-            {% else %}
-            <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
-            <li><a href="/Registrering" id="regbtn">Gå med</a></li>
-            {% endif %}
+                    <!--Inte inloggad användare-->
+                    {% else %}
+                    <li><a href="/Logga_in" id="loginbtn">Logga in</a></li>
+                    <li><a href="/Registrering" id="regbtn">Gå med</a></li>
+                    {% endif %}
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -61,16 +67,21 @@
                     <p class="feedback_message_register"><small>{{no_email}}</small></p>
 
                     <div class="Input-box">
-                        <input type="password" name="password" placeholder="Lösenord">
+                        <input type="password" name="password" id="pwd" placeholder="Lösenord">
                         <i class='bx bxs-lock'></i>
                     </div>
                     <p class="feedback_message_register"><small>{{no_pwd}}</small></p>
 
                     <div class="remember-forgot">
-                        <label><input type="checkbox"> Kom ihåg mig!</label>
-                        <a href="#">Glömt lösenord?</a>
+                        <label>
+                            <input type="checkbox"> Kom ihåg mig!
+                        </label>
+                        <div class="form-check form-switch lign-items-center">
+                            <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                            <label class="form-check-label" for="showPassword">Visa lösenord</label>
+                        </div>
                     </div>
-
+                    
                     <button type="submit" class="butn">Logga in</button>
                     {%if checked_login_details == "wrong": %}
                     <div class="alert alert-danger mt-3" role="alert">
