@@ -432,6 +432,7 @@ def register():
                     no_birthday_feedback="", 
                     age_feedback="", 
                     no_pwd_feedback="", 
+                    no_confirm_pwd_feedback = "",
                     pwd_feedback="", 
                     email="",
                     birthday="",
@@ -454,11 +455,13 @@ def register_user():
     email = request.form.get("email")
     birthday = request.form.get("birthday")
     pwd = request.form.get("pwd")
+    confirm_pwd = request.form.get("confirm_pwd")
 
     no_email_feedback = ""
     no_birthday_feedback = ""
     age_feedback = ""
     no_pwd_feedback = ""
+    no_confirm_pwd_feedback = ""
     pwd_feedback = ""
     
     created = False  
@@ -473,8 +476,11 @@ def register_user():
         
     if pwd == "":
         no_pwd_feedback = empty_field
+        
+    if confirm_pwd == "":
+        no_confirm_pwd_feedback = empty_field
                
-    if email != "" and birthday != "" and pwd != "": 
+    if email != "" and birthday != "" and pwd != "" and confirm_pwd !="": 
         age = check_user_age(birthday)
 
         if age:
@@ -523,6 +529,7 @@ def register_user():
                     no_birthday_feedback = no_birthday_feedback, 
                     age_feedback = age_feedback, 
                     no_pwd_feedback = no_pwd_feedback, 
+                    no_confirm_pwd_feedback = no_confirm_pwd_feedback,
                     pwd_feedback = pwd_feedback, 
                     email = email,
                     birthday = birthday,
