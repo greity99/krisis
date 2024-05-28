@@ -1,20 +1,28 @@
 //Function which allow user to toggle between text and password on register.html
 function togglePassword() {
-  var x = document.getElementById("pwd");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
+  var x = document.getElementById("pwd") 
+  var y = document.getElementById("confirm_pwd");
+  if (x.type === "password" && y.type === "password") {
+    x.type = "text"
+    y.type = "text";
+  } else { 
+    x.type = "password"
+    y.type = "password";
   }
 }
 
+//Function which checks so that the password field and the confirm password field match when all the fields are filled in.
 document.querySelector('form').addEventListener('submit', function (e) {
+  var email = document.getElementById("email").value;
+  var birthday = document.getElementById("birthday").value; 
   var pwd = document.getElementById("pwd").value;
   var confirm_pwd = document.getElementById("confirm_pwd").value;
-  if (pwd !== confirm_pwd) {
-    e.preventDefault();
-    alert("Lösenorden matchar inte.");
-  }
+
+  if (email !== "" && birthday !== "" && pwd !== "" && confirm_pwd !== "") {
+    if (pwd !== confirm_pwd) {
+      e.preventDefault();
+      alert("Lösenorden matchar inte!");
+      }}
 });
 
 //Function which makes the input field for updating the email-address on the profile page available and changes the name and type of the button when clicked.
@@ -33,7 +41,6 @@ function undisable_emailfield() {
   }
 }
 
-
 //Function which is used on the profile page to open a modal
 function openDeleteModal() {
   var modal = document.getElementById("deleteModal");
@@ -44,7 +51,6 @@ function closeDeleteModal() {
   var modal = document.getElementById("deleteModal");
   modal.style.display = "none";
 }
-
 
 //Function which is used on the logout-button to open a modal
 function openLogoutModal() {
