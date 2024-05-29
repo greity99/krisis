@@ -54,7 +54,7 @@ def check_password_lowercase(pwd):
     '''
     return any(char.islower() for char in pwd)
     
-def check_password_lenght(pwd):
+def check_password_length(pwd):
     '''
     Function that ensures that the password is atleast 8 characters long.
     '''
@@ -74,37 +74,36 @@ def check_password_all(pwd):
     - check_password_uppercase(pwd)
     - check_password_lowercase(pwd)
     - check_password_digit(pwd)
-    - check_password_lenght(pwd)
+    - check_password_length(pwd)
     
     and returns True if all password requirements are met. 
     '''
     uppercase = check_password_uppercase(pwd)
     lowercase = check_password_lowercase(pwd)
     digit = check_password_digit(pwd)
-    length = check_password_lenght(pwd)
+    length = check_password_length(pwd)
     
     if uppercase == True and lowercase == True and length == True and digit == True:
         return True
     
     else:
         return False
-    
+
 
 def is_user_logged_in():
     user_id = session.get('user_id')
     return user_id
 
-def is_user_of_age():
-    underaged = session.get('of_age')
-    return underaged
 
 def get_user_email():
     user_email = session.get('user_email')
     return user_email
 
+
 def get_user_information():
     user_information = session.get('user_information')
     return user_information
+
 
 def get_categories():
     try:
@@ -179,6 +178,7 @@ def index():
             conn.rollback()
             return f"Error: unable to insert data\n{error}"
 
+
 @app.route("/Krishantering")
 def chrisis_tips():
     """
@@ -213,6 +213,7 @@ def create_post():
                                no_category="",
                                no_zip="",
                                no_city="",
+                               no_check = "",
                                category="",
                                city="",
                                zip_code="",
@@ -233,49 +234,31 @@ def publish_post():
     category = request.form.get("category")
     city = request.form.get("city")
     zip_code = request.form.get("ZIP")
+    confirmation_of_truth = request.form.getlist("confirmation") 
     
     categories = get_categories()
     
     no_category = ""
     no_zip = ""
     no_city = ""
+    no_check = ""
     
     empty_field = "Fältet får inte lämnas tomt"
+    checkbox_required = "Inlägget kan inte publiceras om informationen inte stämmer"
     
-    #All fields empty
-    if category == "" and city == "" and zip_code == "":
-        no_category = empty_field
-        no_zip = empty_field
-        no_city = empty_field
-    
-    #category-field empty
-    elif category == "" and city != "" and zip_code != "":
+    if category == "":
         no_category = empty_field
     
-    #zip-field empty
-    elif category != "" and city != "" and zip_code == "":
-        no_zip = empty_field
-        
-    #city-field empty
-    elif category != "" and city == "" and zip_code != "":
-       no_city = empty_field
-       
-    #city-field and zip_code-field empty
-    elif category != "" and city == "" and zip_code == "":
-        no_zip=empty_field
-        no_city=empty_field
-    
-    #city-field and category-field empty    
-    elif category == "" and city == "" and zip_code != "":
-        no_category = empty_field
+    if city == "":
         no_city = empty_field
         
-    #zip_code-field and category-field empty    
-    elif category == "" and city != "" and zip_code == "":
-        no_category = empty_field
+    if zip_code == "":
         no_zip = empty_field
         
-    else:   
+    if confirmation_of_truth == []:
+        no_check = checkbox_required
+        
+    if category != "" and city != "" and zip_code != "" and confirmation_of_truth != []:   
         try:
             conn = psycopg2.connect(
                 host = host,
@@ -311,10 +294,12 @@ def publish_post():
                     no_category = no_category,
                     no_zip = no_zip,
                     no_city = no_city,
+                    no_check = no_check,
                     category = category,
                     city = city,
                     zip_code = zip_code,
-                    categories = categories) 
+                    categories = categories,
+                    ) 
 
 
 @app.route("/Kontakt")
@@ -432,6 +417,7 @@ def login():
                     no_pwd = no_pwd, 
                     is_logged_in = is_logged_in)
 
+
 @app.route("/Registrering")
 def register():
     """
@@ -440,18 +426,18 @@ def register():
     Returns,
     template: register
     """
-    underaged = is_user_of_age()
     
     return render_template("register.html", 
                     no_email_feedback="", 
                     no_birthday_feedback="", 
                     age_feedback="", 
                     no_pwd_feedback="", 
+                    no_confirm_pwd_feedback = "",
                     pwd_feedback="", 
                     email="",
                     birthday="",
                     created = False,
-                    underaged = underaged)
+                    underaged = False)
 
 
 @app.route("/Registrering", methods=["POST"])
@@ -469,51 +455,32 @@ def register_user():
     email = request.form.get("email")
     birthday = request.form.get("birthday")
     pwd = request.form.get("pwd")
+    confirm_pwd = request.form.get("confirm_pwd")
 
     no_email_feedback = ""
     no_birthday_feedback = ""
     age_feedback = ""
     no_pwd_feedback = ""
+    no_confirm_pwd_feedback = ""
     pwd_feedback = ""
     
     created = False  
     underaged = False  
     empty_field = "Fältet får inte lämnas tomt"
     
-    # All fields empty
-    if email == "" and birthday == "" and pwd == "":
+    if email == "":
         no_email_feedback = empty_field
+        
+    if birthday == "":
         no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #email-field empty
-    elif email == "" and birthday != "" and pwd != "":
-        no_email_feedback = empty_field
-    
-    #birthday-field empty
-    elif email != "" and birthday == "" and pwd != "":
-        no_birthday_feedback = empty_field
-    
-    #password-field empty
-    elif email != "" and birthday != "" and pwd == "":
+        
+    if pwd == "":
         no_pwd_feedback = empty_field
         
-    #email-field and birthday-field empty
-    elif email == "" and birthday == "" and pwd != "":
-        no_email_feedback = empty_field
-        no_birthday_feedback = empty_field
-    
-    #email-field and password-field empty
-    elif email == "" and birthday != "" and pwd == "":
-        no_email_feedback = empty_field
-        no_pwd_feedback = empty_field
-    
-    #birthday-field and password-field empty
-    elif email != "" and birthday == "" and pwd == "":
-        no_birthday_feedback = empty_field
-        no_pwd_feedback = empty_field
-        
-    else: 
+    if confirm_pwd == "":
+        no_confirm_pwd_feedback = empty_field
+               
+    if email != "" and birthday != "" and pwd != "" and confirm_pwd !="": 
         age = check_user_age(birthday)
 
         if age:
@@ -556,13 +523,13 @@ def register_user():
                 
         else:
             underaged = True
-            session['of_age'] = underaged
         
     return render_template("register.html", 
                     no_email_feedback = no_email_feedback, 
                     no_birthday_feedback = no_birthday_feedback, 
                     age_feedback = age_feedback, 
                     no_pwd_feedback = no_pwd_feedback, 
+                    no_confirm_pwd_feedback = no_confirm_pwd_feedback,
                     pwd_feedback = pwd_feedback, 
                     email = email,
                     birthday = birthday,
@@ -647,6 +614,7 @@ def polisen_api():
     return render_template("polisen_api.html",
                            is_logged_in = is_logged_in)
 
+
 @app.route("/Profil")
 def profile():
     empty_field = ""
@@ -669,13 +637,14 @@ def profile():
             FROM app_user AS au
             LEFT JOIN app_publish as ap
             ON au.user_id = ap.user_id
-            WHERE au.user_id = %s;
+            WHERE au.user_id = %s
+            ORDER BY ap.date DESC;
             ''', (logged_in_user,)
         )
         
         user_information = cur.fetchall() 
         session['user_information'] = user_information
-        
+               
         cur.close()
         conn.close()
         
@@ -755,35 +724,47 @@ def update_user_email ():
                            no_new_email = no_new_email,
                            empty_field = empty_field,
                            updated_email = updated_email)
-    
                
-@app.route("/index.html", methods=['POST'])
+               
+@app.route("/delete_account", methods=['POST'])
 def delete_user():
-    if request.method == 'POST':
-        try:
-            conn = psycopg2.connect(
-                host = host,
-                dbname = dbname,
-                user = user,
-                password = password
-            )
-            
-            cur = conn.cursor()
-            logged_in_user = is_user_logged_in()
-            cur.execute("DELETE FROM app_publish WHERE user_id = %s", (logged_in_user,))
-            cur.execute("DELETE FROM app_user WHERE user_id = %s", (logged_in_user,))
-            conn.commit()
-            cur.close()
-            conn.close()
-            
-        except psycopg2.Error as error:
-            if conn:
-                conn.rollback()
-            return f"Error: unable to insert data\n{error}"
+    logged_in_user = is_user_logged_in()
+    
+    try:
+        conn = psycopg2.connect(
+            host = host,
+            dbname = dbname,
+            user = user,
+            password = password
+        )        
+    
+        cur = conn.cursor()
+        
+        cur.execute('''
+                    DELETE FROM app_publish 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        cur.execute('''
+                    DELETE FROM app_user 
+                    WHERE user_id = %s
+                    ''', (logged_in_user,)
+                    )
+        
+        conn.commit()
+        session['user_id'] = None
+        
+        cur.close()
+        conn.close()
         return redirect("/")
+        
+    except psycopg2.Error as error:
+        if conn:
+            conn.rollback()
+        return f"Error: unable to insert data\n{error}"
 
-
-@app.route("/Logga_ut", methods=["GET"])
+@app.route("/Logga_ut", methods=["POST"])
 def Log_out():
     session['user_id'] = None
     return redirect("/")

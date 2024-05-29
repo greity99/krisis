@@ -33,7 +33,7 @@ main {
     color: #6188C2;
     font-weight: bold;
     line-height: 0%;
-    text-shadow: 2px 2px 5px  grey;
+    text-shadow: 2px 2px 5px grey;
     height: 35px;
 }
 
@@ -51,7 +51,7 @@ main {
     font-size: 47px;
     font-weight: bold;
     margin-bottom: -15px;
-    text-shadow: 2px 2px 5px  grey;
+    text-shadow: 2px 2px 5px grey;
     color: #fff;
 }
 
@@ -59,7 +59,7 @@ main {
     color: #ffffff;
     text-align: center;
     font-style: italic;
-    font-family:'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     background-color: #00072a;
     height: 35px;
     margin-bottom: 0px;
@@ -130,8 +130,21 @@ nav ul li #dropmenu {
     margin: 35px;
 }
 
-#profilebtn:hover {
-    background-color: #669bb3;
+#profilebtn:hover, .cancelbtn:hover{
+    background-color: #5578ab;
+    color: white;
+}
+
+#logoutbtn {
+    border-radius: 25px;
+    background-color: red;
+    padding: 5px 15px;
+    margin: 35px;
+}
+
+#logoutbtn:hover {
+    background-color: rgb(188, 7, 7);
+    color: white;
 }
 /* Header and nav styling ends here */
 
@@ -152,9 +165,9 @@ nav ul li #dropmenu {
 /* Ends here */
 
 .card {
-      border-radius: 10px;
-      margin-bottom: 20px;
-      margin-top: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 
@@ -229,7 +242,7 @@ nav ul li #dropmenu {
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-} 
+}
 
 .container-lg .remember-forgot {
     display: flex;
@@ -271,6 +284,7 @@ nav ul li #dropmenu {
     text-align: center;
     margin: 20px 0 15px;
 }
+
 .register-link p a {
     color: black;
     text-decoration: none;
@@ -282,11 +296,11 @@ nav ul li #dropmenu {
 }
 /* Login page styling ends here */
 
+
 /* Profile page styling */
 #profilepage {
     overflow: hidden;
     padding-bottom: 25px;
-    width: 50%;
 }
 
 #phead {
@@ -300,11 +314,6 @@ nav ul li #dropmenu {
 
 .formhead {
     font-size: 16px;
-    margin-top: 20px;
-}
-
-.form-control{
-    width: 100%;
 }
 
 #savebtn {
@@ -316,7 +325,6 @@ nav ul li #dropmenu {
     cursor: pointer;
     border-radius: 25px;
     border-style: none;
-    display: block;
 }
 
 #savebtn:hover {
@@ -349,7 +357,6 @@ nav ul li #dropmenu {
     cursor: pointer;
     border-radius: 25px;
     border-style: none;
-    float: right;
 }
 
 .logoutbtn:hover {
@@ -376,7 +383,7 @@ footer {
     color: #6188C2;
     font-weight: bold;
     line-height: 0%;
-    text-shadow: 2px 2px 5px  grey;
+    text-shadow: 2px 2px 5px grey;
 }
 
 .logobody {
@@ -386,21 +393,21 @@ footer {
     font-weight: bold;
     line-height: 0%;
     color: #6188C2;
-    text-shadow: 2px 2px 5px  grey;
+    text-shadow: 2px 2px 5px grey;
 }
 
 .logobody2 {
     font-size: 34px;
     font-weight: bold;
     margin-bottom: -15px;
-    text-shadow: 2px 2px 5px  grey;
+    text-shadow: 2px 2px 5px grey;
 }
 
 .logo-container {
     display: flex;
     justify-content: center;
-    align-items: center; 
-    height: 100%; 
+    align-items: center;
+    height: 100%;
 }
 
 .fhead {
@@ -423,7 +430,6 @@ hr {
 #copy {
     text-align: center;
 }
-
 /* Footer styling ends here */
 
 .general_light_blue {
@@ -462,11 +468,11 @@ hr {
     text-align: center;
 }
 
-.form-check-label{
+.form-check-label {
     padding: 2px;
 }
 
-/* Pop up styling vid radering och spara  konto */
+/* Pop up styling when deleting and saving account*/
 .modal {
     display: none;
     position: fixed;
@@ -515,7 +521,7 @@ hr {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
 }
 
 .deletebtn:hover {
@@ -523,7 +529,17 @@ hr {
 }
 
 .cancelbtn {
-    background-color: #2ffe00;
+    background-color: #6188C2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
 }
 
 #savebtn {
@@ -539,12 +555,13 @@ hr {
     cursor: pointer;
     border-radius: 5px;
 }
+/* Pop up styling ends here */
 
-.meny{
+.meny {
     display: none;
 }
 
-.fa-caret-down{
+.fa-caret-down {
     display: none !important;
 }
 
@@ -563,7 +580,7 @@ hr {
         left: 11px;
     }
 
-    .meny{
+    .meny {
         color: white;
         display: block;
         position: relative;
@@ -592,7 +609,7 @@ hr {
         font-weight: lighter;
         padding: 1px;
     }
-    
+
     .navbar li {
         list-style-type: none;
         display: block;
@@ -602,6 +619,8 @@ hr {
 
 }
 
+
+/* Styling for screens with a min width of 576px and max width of 768px */
 @media screen and (max-width: 768px) and (min-width: 576px) {
     .widht-select {
         width: 30vw;
@@ -621,7 +640,8 @@ hr {
         color: #ffffff;
         padding-left: 5px;
     }
-    .meny{
+
+    .meny {
         color: white;
         display: block;
         position: relative;
@@ -651,7 +671,7 @@ hr {
         margin: 15px;
         padding: 1px;
     }
-    
+
     .navbar li {
         list-style-type: none;
         display: block;
